@@ -1,0 +1,213 @@
+---
+import { getCollection } from 'astro:content';
+import { preview, type GetStaticPaths, type InferGetStaticPropsType } from 'astro';
+
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import Header from '../../../components/Header.astro';
+import { POST_TAGS_ENUM, POST_TAGS_WITH_EMPTY_TAG, SITE_DESCRIPTION, SITE_LANG, SITE_TITLE } from '../../../consts';
+import { url } from 'astro:schema';
+
+
+// export const getStaticPaths = (async ({ paginate }) => {
+//   const posts = await getCollection('blog');
+//   const postsSortedByPubDate = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+
+// //   return POST_TAGS_WITH_EMPTY_TAG.map(tag => {
+// //     const currentPosts = !tag ? postsSortedByPubDate : postsSortedByPubDate.filter(post => post.data.tags.includes(tag))
+// //     return {
+// //     params: { slug: tag },
+// //     props: { posts: currentPosts }
+// //   }})
+// // }) satisfies GetStaticPaths
+
+// return POST_TAGS_WITH_EMPTY_TAG.map(tag => {
+//     const currentPosts = !tag ? postsSortedByPubDate : postsSortedByPubDate.filter(post => post.data.tags.includes(tag))
+//     return paginate(currentPosts, { pageSize: 10})
+//     return {
+//     params: { slug: tag },
+//     props: { posts: currentPosts }
+//   }})
+// }) satisfies GetStaticPaths
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getCollection('blog', );
+
+  const postsSorted = posts.sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  );
+
+  return POST_TAGS_WITH_EMPTY_TAG.flatMap((tag) => {
+    const filteredPosts = !tag
+      ? postsSorted
+      : postsSorted.filter((post) =>
+          post.data.tags.includes(tag)
+        );
+
+    return paginate(filteredPosts, {
+      pageSize: 1,
+      params: { slug: tag || undefined }, // ⚠️ important
+    });
+  });
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+const { posts, page } = Astro.props;
+console.log("🚀 ~ page:", page)
+console.log("🚀 ~ posts:", posts)
+---
+
+<!doctype html>
+<html lang={SITE_LANG}>
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+	</head>
+	<body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container">
+		<Header />
+		<main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+    <!-- Hero Section -->
+    <header class="mb-20 text-left max-w-4xl">
+      <span class="font-label text-xs uppercase tracking-[0.2em] text-primary opacity-80 mb-4 block">Insights &amp; Analyses</span>
+      <h1 class="font-headline text-5xl md:text-7xl font-extrabold text-primary tracking-tight leading-[1.1] mb-8">
+        Le courant des <span class="editorial-underline">idées numériques</span>.
+      </h1>
+      <p class="font-body text-lg text-on-surface-variant leading-relaxed max-w-2xl">
+        Explorez nos réflexions sur l'architecture logicielle, les stratégies business et les courants technologiques qui façonnent l'avenir des PME.
+      </p>
+    </header>
+    <!-- Filter Bar -->
+    <div class="flex flex-wrap items-center gap-3 mb-16">
+      <a
+        class={Astro.url.pathname === "/blog" ? "bg-primary text-on-primary px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:scale-105" : "bg-surface-container text-on-secondary-container px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:bg-surface-container-high hover:scale-105"}
+        href="/blog"
+      >
+        Tous les articles
+      </a>
+      <a
+        class={Astro.url.pathname.split('/').includes('intelligence-artificielle') ? "bg-primary text-on-primary px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:scale-105" : "bg-surface-container text-on-secondary-container px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:bg-surface-container-high hover:scale-105"}
+        href="/blog/intelligence-artificielle"
+      >
+        Intelligence Artificielle
+      </a>
+      <a
+        class={Astro.url.pathname.split('/').includes('tendances-tech') ? "bg-primary text-on-primary px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:scale-105" : "bg-surface-container text-on-secondary-container px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:bg-surface-container-high hover:scale-105"}
+        href="/blog/tendances-tech"
+      >
+        Tendances Tech
+      </a>
+      <a
+        class={Astro.url.pathname.split('/').includes('developpement-web') ? "bg-primary text-on-primary px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:scale-105" : "bg-surface-container text-on-secondary-container px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:bg-surface-container-high hover:scale-105"}
+        href="/blog/developpement-web"
+      >
+        Développement Web
+      </a>
+      <a
+        class={Astro.url.pathname.split('/').includes('design-ui-ux') ? "bg-primary text-on-primary px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:scale-105" : "bg-surface-container text-on-secondary-container px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:bg-surface-container-high hover:scale-105"}
+        href="/blog/design-ui-ux"
+      >
+        Design UI/UX
+      </a>
+    </div>
+    <!-- Featured Article (Asymmetric Layout) -->
+    <section class="mb-24">
+      <div class="group relative grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        <div class="md:col-span-7 overflow-hidden rounded-4xl bg-surface-container-low aspect-video shadow-2xl shadow-primary/5">
+          <img alt="Featured Post Image" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Modern high-tech office meeting room with panoramic windows overlooking a digital city at twilight, cool blue and teal tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfXwgnvg6SV4MFL65IG049s9YuxSFvOXeLqz7LK1lNYKFGaWNj24eNKunaIR5-11hqvZ6hrvfZKOEq8-9XuIT9SVfd2_pE4pb04dvAVBEgILO7c948mteA4wjDi-tGxzQE6J9THVDtfR9aXQnFtYzEKkThZx-EO6S62V8HUesMtzu2n1Xj01wWwwH5RRw6WVm5Ua2wAHIEaaEjfhrTW_NzWaWKICqiFJQEVeCCyrp6CilRfgjhwAHzEupBkk-zXz_EN3m-g0ltgg"/>
+        </div>
+        <div class="md:col-span-5 md:-ml-20 bg-surface-container-lowest/90 backdrop-blur-md p-10 md:p-14 rounded-[2.5rem] shadow-xl">
+          <span class="font-label text-xs uppercase tracking-widest text-tertiary-container font-bold mb-4 block">Tech Trends • 12 min read</span>
+          <h2 class="font-headline text-3xl md:text-4xl font-extrabold text-primary mb-6 leading-tight">
+            L'IA Générative : Catalyseur de croissance pour les PME.
+          </h2>
+          <p class="font-body text-on-surface-variant mb-8 leading-relaxed">
+            Comment les affluents technologiques de l'intelligence artificielle redéfinissent l'efficacité opérationnelle des petites et moyennes entreprises en 2024.
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full overflow-hidden bg-surface-container">
+              <img class="w-full h-full object-cover" data-alt="Portrait of a professional man with glasses, smiling softly, neutral studio lighting with soft blue background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsXzYAuECpJJZr6H-G18ohXub5sm6sapWyivNrm1OWnkVUt_3tLWi22Mwa0xwj6VnL0yCT1R6ZBmsw5cX-bcsrhX8kHXPbY14oHOgphO87UHffLFZ2sdm9cfUPclfLj5dofdyeMXLS0CMPJmuNIlBRKmCZsHHNgZ-XW0RRGUTAlj7Bo4BRY9xomrN5Bi_hT0t7LP47WvlLccHde6wZqjvJO7M_SCnMWB26w_wHT9N0DozPWC8b6mUtYIpsKOAOYopDW-ktegJOvQ"/>
+            </div>
+            <div>
+              <p class="font-headline font-bold text-primary text-sm">Marc-Antoine Rivière</p>
+              <p class="font-body text-xs text-on-surface-variant">Lead Architect</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<!-- Blog Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+  {page.data.map(post => {
+    return (
+      <article class="group flex flex-col bg-surface-container-lowest rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/5">
+        <div class="aspect-4/3 overflow-hidden">
+        <img alt="Article thumbnail" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Clean lines of computer code on a dark monitor with soft blue and green neon reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeNwJcEd2ii7GmVz4mtFPaF-umZWxy_1bIqTIfiIA9FLDCgNcqRCye9ZKQaYLjPWRNmwdAHuYLlYFPNnb7UYqzeoxinbOfKDRq1EFWlQp-J2s8yTadsCyrf3hLR4F4-JGm4E-hMN4nC8aCqGIq686HMO4xS1RB5Oe2v2kAffP7jlj4CHIAE4XrfKH_32sK8PlM-dfSR5ZYo162jScH33oK--Vn7bER1ov9aPMDODh3laoZD0_UnUGu6XstzlqAX6RpkwMnn8khYg"/>
+        </div>
+        <div class="p-8 flex flex-col grow">
+          <div class="flex justify-between items-center mb-4">
+            <div class="space-x-2">
+              {post.data.tags.map(tag => <span class="font-label text-[10px] uppercase tracking-widest bg-secondary-container text-on-secondary-fixed-variant px-3 py-1 rounded-full font-bold">{POST_TAGS_ENUM[tag]}</span>)}
+            </div>
+            <span class="font-body text-[10px] text-on-surface-variant italic">{<FormattedDate date={post.data.pubDate}/>}</span>
+          </div>
+          <h3 class="font-headline text-xl font-bold text-primary mb-4 leading-snug group-hover:text-primary-container transition-colors">
+            {post.data.title}
+          </h3>
+          <p class="font-body text-sm text-on-surface-variant mb-8 line-clamp-3 leading-relaxed">
+            {post.data.description}
+          </p>
+          <div class="mt-auto flex items-center gap-3 pt-6 border-t border-surface-container">
+            <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container">
+              <img class="w-full h-full object-cover" data-alt="Portrait of a professional woman, natural lighting, confident expression" src={post.data.authorImage?.src}/>
+            </div>
+            <span class="font-headline font-semibold text-xs text-primary">{post.data.author}</span>
+          </div>
+        </div>
+    </article>
+    )
+  })}
+</div>
+<!-- Pagination -->
+<div class="mt-20 flex justify-center items-center gap-4">
+  { page.url.prev && (
+    <a href={page.url.prev} class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant text-primary hover:bg-surface-container transition-all">
+      <span class="material-symbols-outlined">chevron_left</span>
+    </a>
+  )}
+  <!-- <button class="w-12 h-12 flex items-center justify-center rounded-full bg-primary text-on-primary font-headline font-bold">1</button>
+  <button class="w-12 h-12 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container font-headline transition-all">2</button>
+  <span class="text-on-surface-variant">...</span> -->
+  <button class="w-12 h-12 flex items-center justify-center rounded-full bg-primary text-on-primary font-headline transition-all" aria-current>{page.currentPage}</button>
+  { page.url.next && (
+    <a href={page.url.next} class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant text-primary hover:bg-surface-container transition-all">
+      <span class="material-symbols-outlined">chevron_right</span>
+    </a>
+  )}
+</div>
+</main>
+    <Footer />
+	</body>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .editorial-underline {
+      position: relative;
+    }
+    .editorial-underline::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      width: 100%;
+      height: 30%;
+      background-color: currentColor;
+      opacity: 0.15;
+      z-index: -1;
+    }
+  </style>
+</html>
