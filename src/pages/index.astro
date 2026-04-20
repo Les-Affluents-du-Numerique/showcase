@@ -2,264 +2,230 @@
 import BaseHead from '@components/BaseHead.astro';
 import Footer from '@components/Footer.astro';
 import Header from '@components/Header.astro';
-import { SITE_DESCRIPTION, SITE_LANG, SITE_TITLE } from '../consts';
+import { SITE_DESCRIPTIONS, SITE_LANG, SITE_TITLES } from '../consts';
+
+const siteTitle = SITE_TITLES.home
+const siteDescription = SITE_DESCRIPTIONS.home
 ---
 
 <!doctype html>
 <html lang={SITE_LANG}>
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<!-- <body>
-		<Header />
-		<main class="container mx-auto sm:px-6 lg:px-8">
+  <head>
+    <BaseHead title={siteTitle} description={siteDescription} />
+  </head>
+  <body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container">
+  <!-- TopNavBar -->
+  <Header/>
+  <!-- Hero Section -->
+  <section class="relative min-h-screen pt-32 pb-20 flex items-center overflow-hidden">
+  <!-- Fluid Background Elements -->
+  <div class="absolute inset-0 -z-10 bg-surface overflow-hidden">
+  <div class="absolute -top-[20%] -left-[10%] w-[60%] h-[80%] rounded-full bg-primary/5 blur-[120px]"></div>
+  <div class="absolute bottom-0 right-0 w-[50%] h-[70%] rounded-full bg-tertiary/5 blur-[120px]"></div>
+  </div>
+  <div class="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-7">
+      <span class="inline-block font-label text-xs uppercase tracking-[0.2em] text-primary mb-6 border-l-2 border-primary pl-4">Digital Collective</span>
+      <h1 class="font-headline font-extrabold text-5xl md:text-7xl text-primary leading-[1.1] mb-8 tracking-tight">
+        L'excellence <br/>
+        <span class="text-primary-container">au confluent</span> <br/>
+        du numérique.
+      </h1>
+      <p class="font-body text-lg md:text-xl text-on-surface-variant max-w-xl mb-10 leading-relaxed">
+        Un collectif d'experts indépendants unis pour propulser les TPE et PME vers de nouveaux horizons technologiques. Proximité, agilité et expertise de haut niveau.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <button class="fluid-gradient text-on-primary px-8 py-4 rounded-full font-semibold text-lg shadow-xl hover:scale-[1.02] active:scale-95 transition-transform flex items-center gap-2">
+          Démarrer un projet
+          <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+        </button>
+        <button class="border border-outline-variant text-primary px-8 py-4 rounded-full font-semibold text-lg hover:bg-surface-container transition-colors">
+          Notre approche
+        </button>
+      </div>
+    </div>
+  <div class="lg:col-span-5 relative">
+  <div class="rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 aspect-4/5">
+  <img class="w-full h-full object-cover" data-alt="close-up of elegant computer screen displaying clean modern code with blue and teal syntax highlighting and soft depth of field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxqxQumwcM_CxodxThec-6U3PGLYNi3Zg2SoFc4HTnrHNrcFEWTq1jNFiBC2J0rAbCCs_Ium4HDu_PgzC0JONnzB6XAV-pOdb_XmpD4Mhq25oYwQIh2-3SkuJ66uOpRxbLHp-0eq3DKrlGMwDK_o7FK8c07rmDWl0Uf3UNfyNFq3CMpBpuKLXRYf1TeRuVAYTz3X6BfNbrFQ9n8irACU-Xl-B81v7ZPnBIpBQmoFhD_qsD29jxuxZtOIZDwqjGAR33ItA1rgmVuQ"/>
+  </div>
+  <div class="absolute -bottom-6 -left-6 bg-surface-container-lowest p-8 rounded-2xl shadow-xl z-20 border border-outline-variant/10">
+  <div class="flex items-center gap-4 mb-2">
+  <div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+  <span class="material-symbols-outlined" data-icon="groups">groups</span>
+  </div>
+  <div>
+  <div class="font-bold text-2xl text-primary">3+</div>
+  <div class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Experts</div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </section>
+  <!-- Services Bento Grid -->
+  <section class="py-24 bg-surface-container-low">
+  <div class="max-w-7xl mx-auto px-8">
+  <div class="mb-16">
+  <h2 class="font-headline font-bold text-4xl text-primary mb-4">Nos expertises convergentes</h2>
+  <p class="font-body text-on-surface-variant max-w-2xl text-lg">Nous couvrons l'ensemble du cycle de vie de vos produits numériques avec une approche artisanale et rigoureuse.</p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-150">
+  <!-- Web Dev -->
+  <div class="md:col-span-8 bg-surface-container-lowest p-10 rounded-4xl flex flex-col justify-between group overflow-hidden relative border border-outline-variant/10">
+  <div class="relative z-10">
+  <span class="material-symbols-outlined text-4xl text-primary mb-6" data-icon="terminal">terminal</span>
+  <h3 class="font-headline font-extrabold text-3xl text-primary mb-4">Développement Web</h3>
+  <p class="font-body text-on-surface-variant max-w-md text-lg">Architectures robustes, interfaces fluides et performances optimisées pour vos applications métier et plateformes SaaS.</p>
+  </div>
+  <div class="mt-8 relative z-10">
+  <a class="inline-flex items-center gap-2 font-semibold text-primary group-hover:gap-4 transition-all" href="#">
+                              Voir nos réalisations <span class="material-symbols-outlined" data-icon="trending_flat">trending_flat</span>
+  </a>
+  </div>
+  <div class="absolute top-0 right-0 w-1/2 h-full opacity-10 group-hover:opacity-20 transition-opacity">
+  <img class="w-full h-full object-cover" data-alt="abstract artistic visualization of data streams and web architecture in shades of deep blue and silver" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRWbh-YYIRfMa0kBw8uMeR8S0Cb1en6UR_eq15pF1bApto8p27j2Xw3y49oyZ9JLPH8P69cBbakR7uCAPxhv19i9-ppnEWfAOq-nsn9ybyJK111sYTHm3d8LdOrtiJnFLrLLppSBs7KFrUZQHZs4oMtahfrpArb1sQLvHhUTu7meTdNHEu0aVgCJJP2HmhQ4HWhgb6RvSOb_0AAKxuYNlHX2M1fuULn3Vm-yfh732DqMt_UpZsj47_SJcnJ85Y2C3Q43fzJoEEuA"/>
+  </div>
+  </div>
+  <!-- Mobile -->
+  <div class="md:col-span-4 bg-primary-container p-10 rounded-4xl flex flex-col justify-between text-on-primary-container border border-white/5">
+  <div>
+  <span class="material-symbols-outlined text-4xl mb-6" data-icon="smartphone" style="font-variation-settings: 'FILL' 1;">smartphone</span>
+  <h3 class="font-headline font-extrabold text-2xl mb-4">Mobile First</h3>
+  <p class="font-body text-sm opacity-80 leading-relaxed text-sky-100">iOS, Android &amp; Flutter. Nous créons des expériences mobiles natives qui captivent vos utilisateurs au quotidien.</p>
+  </div>
+  <div class="mt-8">
+  <span class="inline-block w-12 h-12 rounded-full border border-sky-400/30 flex items-center justify-center">
+  <span class="material-symbols-outlined" data-icon="north_east">north_east</span>
+  </span>
+  </div>
+  </div>
+  <!-- Consulting -->
+  <div class="md:col-span-4 bg-tertiary p-10 rounded-4xl flex flex-col justify-between text-white">
+  <div>
+  <span class="material-symbols-outlined text-4xl mb-6 text-tertiary-fixed" data-icon="lightbulb" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+  <h3 class="font-headline font-extrabold text-2xl mb-4">Conseil Stratégique</h3>
+  <p class="font-body text-sm opacity-80 leading-relaxed text-tertiary-fixed">Audit, architecture et accompagnement dans votre transformation numérique. Prenez les bonnes décisions techniques.</p>
+  </div>
+  </div>
+  <!-- Flexibility -->
+  <div class="md:col-span-8 bg-surface-container p-10 rounded-4xl flex items-center justify-between group overflow-hidden border border-outline-variant/10">
+  <div class="max-w-md">
+  <h3 class="font-headline font-extrabold text-2xl text-primary mb-2">Flexibilité Collective</h3>
+  <p class="font-body text-on-surface-variant">Une équipe sur-mesure assemblée selon vos besoins spécifiques, sans les lourdeurs d'une agence traditionnelle.</p>
+  </div>
+  <div class="hidden sm:block w-32 h-32 rounded-full bg-white shadow-inner flex items-center justify-center border border-outline-variant/20">
+  <span class="material-symbols-outlined text-4xl text-primary" data-icon="alt_route">alt_route</span>
+  </div>
+  </div>
+  </div>
+  </div>
+  </section>
+  <!-- Why Collective Section (Editorial Layout) -->
+  <section class="py-24 bg-surface">
+  <div class="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+  <div class="order-2 lg:order-1">
+  <div class="relative">
+  <img class="rounded-[3rem] shadow-2xl grayscale hover:grayscale-0 transition-all duration-700" data-alt="overhead shot of a minimalist wooden desk with coffee and modern tech gadgets in a bright bright light airy office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8DGjeLVIai45vZh4H8wIWQN0De2LwuXRstVMfVbP5xY_3cCWLP3saoxBvc8talMtLQ0OrW31Rd8If1nfCeO3dUPWSh7z8nY7RTg2b7_yMdUQ2fiC8hU-sMQoaqTr2pLKW1QO2W6GGJiCm1EXSmsE9T9Cl5L8HawNWmpYXqaGJ8d_g08Rh2jl65GwtnemSkTNPtlPdQNyx-Dwke-imZSIa32ImVwG3EZBiKKjQ-i6RAmwaAaagZXGlqHPaj4dPARt38OU1Ch_rHQ"/>
+  <div class="absolute -top-10 -right-10 bg-primary-container text-white p-8 rounded-3xl shadow-xl max-w-50">
+  <p class="font-headline font-bold text-lg leading-tight">L'agilité de l'indépendant, la puissance du groupe.</p>
+  </div>
+  </div>
+  </div>
+  <div class="order-1 lg:order-2">
+  <span class="font-label text-xs uppercase tracking-[0.2em] text-primary mb-4 block">Notre Philosophie</span>
+  <h2 class="font-headline font-bold text-4xl md:text-5xl text-primary mb-8 leading-tight">Pourquoi choisir un collectif ?</h2>
+  <div class="space-y-8">
+  <div class="flex gap-6">
+  <div class="text-primary-container font-headline font-extrabold text-3xl opacity-30">01</div>
+  <div>
+  <h4 class="font-bold text-xl text-primary mb-2">Proximité Réelle</h4>
+  <p class="font-body text-on-surface-variant leading-relaxed">Pas d'intermédiaires commerciaux. Vous parlez directement aux artisans qui conçoivent votre solution.</p>
+  </div>
+  </div>
+  <div class="flex gap-6">
+  <div class="text-primary-container font-headline font-extrabold text-3xl opacity-30">02</div>
+  <div>
+  <h4 class="font-bold text-xl text-primary mb-2">Expertise Senior</h4>
+  <p class="font-body text-on-surface-variant leading-relaxed">Nos membres ont tous plus de 10 ans d'expérience. Nous ne formons pas de juniors sur vos projets.</p>
+  </div>
+  </div>
+  <div class="flex gap-6">
+  <div class="text-primary-container font-headline font-extrabold text-3xl opacity-30">03</div>
+  <div>
+  <h4 class="font-bold text-xl text-primary mb-2">Coûts Maîtrisés</h4>
+  <p class="font-body text-on-surface-variant leading-relaxed">Une structure légère sans bureaux de luxe, pour investir 100% de votre budget dans la production de valeur.</p>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </section>
+  <!-- Testimonials -->
+  <section class="py-24 bg-surface-container-high relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-8 relative z-10">
+  <h2 class="font-headline font-bold text-4xl text-primary mb-16 text-center italic">"Ils nous font confiance pour naviguer le digital"</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+  <!-- Testimonial 3 -->
+  <div class="bg-surface-container-lowest p-10 rounded-2xl shadow-sm border border-outline-variant/10">
+  <div class="flex gap-1 text-primary mb-6">
+  <span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+  <span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+  <span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+  <span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+  <span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+  </div>
+  <p class="font-body text-on-surface text-lg mb-8 italic">"Enfin des prestataires qui comprennent les enjeux business des petites structures. Un vrai partenaire de croissance."</p>
+  <div class="flex items-center gap-4">
+  <div class="w-12 h-12 rounded-full bg-slate-200">
+  <img class="w-full h-full object-cover rounded-full" data-alt="professional profile photo of a smiling woman with glasses in a professional studio setting with neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKYQiS-BDIKII4UOZZ93QflHSCQZFtelG7W3MbuDNAMgjt1WAVCj3GCUh1atkb18RxNRXBslUpBAdqO2nlivd3TdPzmz4u9eSDEghQ7teaLdPA9uLRkjkPi56R3Be1RK99_l7Y6_DEp7p94JtPLi75kusi8csvxpEfAFZmnH-TXRImtFkBQSQZPS6OVfH3RMoj7z3DvHAwNGb6GG-1FCI9Ac2WMJrnKi-Q8iuEu1pRVk_DDwurWJp8BrIIdIaXkaBSBrscISShHQ"/>
+  </div>
+  <div>
+  <div class="font-bold text-primary">Nicolas Eighbal</div>
+  <div class="text-xs text-on-surface-variant uppercase font-label">Dirigeant, Tisseco Solidaire</div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <!-- Decorative Fluid Wave -->
+  <div class="absolute bottom-0 left-0 w-full h-32 bg-background translate-y-1/2 rounded-[100%]"></div>
+  </section>
+  <!-- Contact CTA -->
+  <section class="py-32 bg-background">
+  <div class="max-w-5xl mx-auto px-8">
+  <div class="fluid-gradient rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
+  <div class="relative z-10">
+  <h2 class="font-headline font-extrabold text-4xl md:text-6xl text-white mb-8 tracking-tight">Prêt à rejoindre <br/> le flux ?</h2>
+  <p class="font-body text-sky-100 text-lg md:text-xl mb-12 max-w-2xl mx-auto opacity-90">
+                          Parlons de votre projet. Nos experts reviennent vers vous sous 24h pour une première consultation gratuite.
+                      </p>
+  <form class="flex flex-col md:flex-row gap-4 max-w-lg mx-auto">
+  <input class="flex-1 bg-white/10 border border-white/20 rounded-full px-8 py-4 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/40 transition-all" placeholder="votre@email.com" type="email"/>
+  <button class="bg-white text-primary px-10 py-4 rounded-full font-bold hover:bg-sky-50 transition-colors shadow-lg">Envoyer</button>
+  </form>
+  <div class="mt-12 flex justify-center gap-8 text-white/60 text-sm">
+  <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span> Devis gratuit</div>
+  <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span> Réponse &lt; 24h</div>
+  </div>
+  </div>
+  <!-- Decorative background light -->
+  <div class="absolute -top-1/2 -right-1/4 w-[80%] h-[150%] bg-white/10 blur-[100px] rounded-full rotate-45"></div>
+  </div>
+  </div>
+  </section>
+  <!-- Footer -->
+  <Footer/>
+  </body>
 
-			<h1 class="text-xs">🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body> -->
-<body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container">
-<!-- TopNavBar -->
- <Header/>
-<!-- Hero Section -->
-<section class="relative min-h-screen pt-32 pb-20 flex items-center overflow-hidden">
-<!-- Fluid Background Elements -->
-<div class="absolute inset-0 -z-10 bg-surface overflow-hidden">
-<div class="absolute -top-[20%] -left-[10%] w-[60%] h-[80%] rounded-full bg-primary/5 blur-[120px]"></div>
-<div class="absolute bottom-0 right-0 w-[50%] h-[70%] rounded-full bg-tertiary/5 blur-[120px]"></div>
-</div>
-<div class="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-	<div class="lg:col-span-7">
-		<span class="inline-block font-label text-xs uppercase tracking-[0.2em] text-primary mb-6 border-l-2 border-primary pl-4">Digital Collective</span>
-		<h1 class="font-headline font-extrabold text-5xl md:text-7xl text-primary leading-[1.1] mb-8 tracking-tight">
-			L'excellence <br/>
-			<span class="text-primary-container">au confluent</span> <br/>
-			du numérique.
-		</h1>
-		<p class="font-body text-lg md:text-xl text-on-surface-variant max-w-xl mb-10 leading-relaxed">
-			Un collectif d'experts indépendants unis pour propulser les TPE et PME vers de nouveaux horizons technologiques. Proximité, agilité et expertise de haut niveau.
-		</p>
-		<div class="flex flex-wrap gap-4">
-			<button class="fluid-gradient text-on-primary px-8 py-4 rounded-full font-semibold text-lg shadow-xl hover:scale-[1.02] active:scale-95 transition-transform flex items-center gap-2">
-				Démarrer un projet
-				<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
-			</button>
-			<button class="border border-outline-variant text-primary px-8 py-4 rounded-full font-semibold text-lg hover:bg-surface-container transition-colors">
-				Notre approche
-			</button>
-		</div>
-	</div>
-<div class="lg:col-span-5 relative">
-<div class="rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 aspect-4/5">
-<img class="w-full h-full object-cover" data-alt="close-up of elegant computer screen displaying clean modern code with blue and teal syntax highlighting and soft depth of field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxqxQumwcM_CxodxThec-6U3PGLYNi3Zg2SoFc4HTnrHNrcFEWTq1jNFiBC2J0rAbCCs_Ium4HDu_PgzC0JONnzB6XAV-pOdb_XmpD4Mhq25oYwQIh2-3SkuJ66uOpRxbLHp-0eq3DKrlGMwDK_o7FK8c07rmDWl0Uf3UNfyNFq3CMpBpuKLXRYf1TeRuVAYTz3X6BfNbrFQ9n8irACU-Xl-B81v7ZPnBIpBQmoFhD_qsD29jxuxZtOIZDwqjGAR33ItA1rgmVuQ"/>
-</div>
-<div class="absolute -bottom-6 -left-6 bg-surface-container-lowest p-8 rounded-2xl shadow-xl z-20 border border-outline-variant/10">
-<div class="flex items-center gap-4 mb-2">
-<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
-<span class="material-symbols-outlined" data-icon="groups">groups</span>
-</div>
-<div>
-<div class="font-bold text-2xl text-primary">3+</div>
-<div class="text-xs font-label uppercase tracking-widest text-on-surface-variant">Experts</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Services Bento Grid -->
-<section class="py-24 bg-surface-container-low">
-<div class="max-w-7xl mx-auto px-8">
-<div class="mb-16">
-<h2 class="font-headline font-bold text-4xl text-primary mb-4">Nos expertises convergentes</h2>
-<p class="font-body text-on-surface-variant max-w-2xl text-lg">Nous couvrons l'ensemble du cycle de vie de vos produits numériques avec une approche artisanale et rigoureuse.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-150">
-<!-- Web Dev -->
-<div class="md:col-span-8 bg-surface-container-lowest p-10 rounded-4xl flex flex-col justify-between group overflow-hidden relative border border-outline-variant/10">
-<div class="relative z-10">
-<span class="material-symbols-outlined text-4xl text-primary mb-6" data-icon="terminal">terminal</span>
-<h3 class="font-headline font-extrabold text-3xl text-primary mb-4">Développement Web</h3>
-<p class="font-body text-on-surface-variant max-w-md text-lg">Architectures robustes, interfaces fluides et performances optimisées pour vos applications métier et plateformes SaaS.</p>
-</div>
-<div class="mt-8 relative z-10">
-<a class="inline-flex items-center gap-2 font-semibold text-primary group-hover:gap-4 transition-all" href="#">
-                            Voir nos réalisations <span class="material-symbols-outlined" data-icon="trending_flat">trending_flat</span>
-</a>
-</div>
-<div class="absolute top-0 right-0 w-1/2 h-full opacity-10 group-hover:opacity-20 transition-opacity">
-<img class="w-full h-full object-cover" data-alt="abstract artistic visualization of data streams and web architecture in shades of deep blue and silver" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRWbh-YYIRfMa0kBw8uMeR8S0Cb1en6UR_eq15pF1bApto8p27j2Xw3y49oyZ9JLPH8P69cBbakR7uCAPxhv19i9-ppnEWfAOq-nsn9ybyJK111sYTHm3d8LdOrtiJnFLrLLppSBs7KFrUZQHZs4oMtahfrpArb1sQLvHhUTu7meTdNHEu0aVgCJJP2HmhQ4HWhgb6RvSOb_0AAKxuYNlHX2M1fuULn3Vm-yfh732DqMt_UpZsj47_SJcnJ85Y2C3Q43fzJoEEuA"/>
-</div>
-</div>
-<!-- Mobile -->
-<div class="md:col-span-4 bg-primary-container p-10 rounded-4xl flex flex-col justify-between text-on-primary-container border border-white/5">
-<div>
-<span class="material-symbols-outlined text-4xl mb-6" data-icon="smartphone" style="font-variation-settings: 'FILL' 1;">smartphone</span>
-<h3 class="font-headline font-extrabold text-2xl mb-4">Mobile First</h3>
-<p class="font-body text-sm opacity-80 leading-relaxed text-sky-100">iOS, Android &amp; Flutter. Nous créons des expériences mobiles natives qui captivent vos utilisateurs au quotidien.</p>
-</div>
-<div class="mt-8">
-<span class="inline-block w-12 h-12 rounded-full border border-sky-400/30 flex items-center justify-center">
-<span class="material-symbols-outlined" data-icon="north_east">north_east</span>
-</span>
-</div>
-</div>
-<!-- Consulting -->
-<div class="md:col-span-4 bg-tertiary p-10 rounded-4xl flex flex-col justify-between text-white">
-<div>
-<span class="material-symbols-outlined text-4xl mb-6 text-tertiary-fixed" data-icon="lightbulb" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
-<h3 class="font-headline font-extrabold text-2xl mb-4">Conseil Stratégique</h3>
-<p class="font-body text-sm opacity-80 leading-relaxed text-tertiary-fixed">Audit, architecture et accompagnement dans votre transformation numérique. Prenez les bonnes décisions techniques.</p>
-</div>
-</div>
-<!-- Flexibility -->
-<div class="md:col-span-8 bg-surface-container p-10 rounded-4xl flex items-center justify-between group overflow-hidden border border-outline-variant/10">
-<div class="max-w-md">
-<h3 class="font-headline font-extrabold text-2xl text-primary mb-2">Flexibilité Collective</h3>
-<p class="font-body text-on-surface-variant">Une équipe sur-mesure assemblée selon vos besoins spécifiques, sans les lourdeurs d'une agence traditionnelle.</p>
-</div>
-<div class="hidden sm:block w-32 h-32 rounded-full bg-white shadow-inner flex items-center justify-center border border-outline-variant/20">
-<span class="material-symbols-outlined text-4xl text-primary" data-icon="alt_route">alt_route</span>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Why Collective Section (Editorial Layout) -->
-<section class="py-24 bg-surface">
-<div class="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-<div class="order-2 lg:order-1">
-<div class="relative">
-<img class="rounded-[3rem] shadow-2xl grayscale hover:grayscale-0 transition-all duration-700" data-alt="overhead shot of a minimalist wooden desk with coffee and modern tech gadgets in a bright bright light airy office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8DGjeLVIai45vZh4H8wIWQN0De2LwuXRstVMfVbP5xY_3cCWLP3saoxBvc8talMtLQ0OrW31Rd8If1nfCeO3dUPWSh7z8nY7RTg2b7_yMdUQ2fiC8hU-sMQoaqTr2pLKW1QO2W6GGJiCm1EXSmsE9T9Cl5L8HawNWmpYXqaGJ8d_g08Rh2jl65GwtnemSkTNPtlPdQNyx-Dwke-imZSIa32ImVwG3EZBiKKjQ-i6RAmwaAaagZXGlqHPaj4dPARt38OU1Ch_rHQ"/>
-<div class="absolute -top-10 -right-10 bg-primary-container text-white p-8 rounded-3xl shadow-xl max-w-50">
-<p class="font-headline font-bold text-lg leading-tight">L'agilité de l'indépendant, la puissance du groupe.</p>
-</div>
-</div>
-</div>
-<div class="order-1 lg:order-2">
-<span class="font-label text-xs uppercase tracking-[0.2em] text-primary mb-4 block">Notre Philosophie</span>
-<h2 class="font-headline font-bold text-4xl md:text-5xl text-primary mb-8 leading-tight">Pourquoi choisir un collectif ?</h2>
-<div class="space-y-8">
-<div class="flex gap-6">
-<div class="text-primary-container font-headline font-extrabold text-3xl opacity-30">01</div>
-<div>
-<h4 class="font-bold text-xl text-primary mb-2">Proximité Réelle</h4>
-<p class="font-body text-on-surface-variant leading-relaxed">Pas d'intermédiaires commerciaux. Vous parlez directement aux artisans qui conçoivent votre solution.</p>
-</div>
-</div>
-<div class="flex gap-6">
-<div class="text-primary-container font-headline font-extrabold text-3xl opacity-30">02</div>
-<div>
-<h4 class="font-bold text-xl text-primary mb-2">Expertise Senior</h4>
-<p class="font-body text-on-surface-variant leading-relaxed">Nos membres ont tous plus de 10 ans d'expérience. Nous ne formons pas de juniors sur vos projets.</p>
-</div>
-</div>
-<div class="flex gap-6">
-<div class="text-primary-container font-headline font-extrabold text-3xl opacity-30">03</div>
-<div>
-<h4 class="font-bold text-xl text-primary mb-2">Coûts Maîtrisés</h4>
-<p class="font-body text-on-surface-variant leading-relaxed">Une structure légère sans bureaux de luxe, pour investir 100% de votre budget dans la production de valeur.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Testimonials -->
-<section class="py-24 bg-surface-container-high relative overflow-hidden">
-<div class="max-w-7xl mx-auto px-8 relative z-10">
-<h2 class="font-headline font-bold text-4xl text-primary mb-16 text-center italic">"Ils nous font confiance pour naviguer le digital"</h2>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<!-- Testimonial 3 -->
-<div class="bg-surface-container-lowest p-10 rounded-2xl shadow-sm border border-outline-variant/10">
-<div class="flex gap-1 text-primary mb-6">
-<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="material-symbols-outlined" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-</div>
-<p class="font-body text-on-surface text-lg mb-8 italic">"Enfin des prestataires qui comprennent les enjeux business des petites structures. Un vrai partenaire de croissance."</p>
-<div class="flex items-center gap-4">
-<div class="w-12 h-12 rounded-full bg-slate-200">
-<img class="w-full h-full object-cover rounded-full" data-alt="professional profile photo of a smiling woman with glasses in a professional studio setting with neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKYQiS-BDIKII4UOZZ93QflHSCQZFtelG7W3MbuDNAMgjt1WAVCj3GCUh1atkb18RxNRXBslUpBAdqO2nlivd3TdPzmz4u9eSDEghQ7teaLdPA9uLRkjkPi56R3Be1RK99_l7Y6_DEp7p94JtPLi75kusi8csvxpEfAFZmnH-TXRImtFkBQSQZPS6OVfH3RMoj7z3DvHAwNGb6GG-1FCI9Ac2WMJrnKi-Q8iuEu1pRVk_DDwurWJp8BrIIdIaXkaBSBrscISShHQ"/>
-</div>
-<div>
-<div class="font-bold text-primary">Nicolas Eighbal</div>
-<div class="text-xs text-on-surface-variant uppercase font-label">Dirigeant, Tisseco Solidaire</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Decorative Fluid Wave -->
-<div class="absolute bottom-0 left-0 w-full h-32 bg-background translate-y-1/2 rounded-[100%]"></div>
-</section>
-<!-- Contact CTA -->
-<section class="py-32 bg-background">
-<div class="max-w-5xl mx-auto px-8">
-<div class="fluid-gradient rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
-<div class="relative z-10">
-<h2 class="font-headline font-extrabold text-4xl md:text-6xl text-white mb-8 tracking-tight">Prêt à rejoindre <br/> le flux ?</h2>
-<p class="font-body text-sky-100 text-lg md:text-xl mb-12 max-w-2xl mx-auto opacity-90">
-                        Parlons de votre projet. Nos experts reviennent vers vous sous 24h pour une première consultation gratuite.
-                    </p>
-<form class="flex flex-col md:flex-row gap-4 max-w-lg mx-auto">
-<input class="flex-1 bg-white/10 border border-white/20 rounded-full px-8 py-4 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/40 transition-all" placeholder="votre@email.com" type="email"/>
-<button class="bg-white text-primary px-10 py-4 rounded-full font-bold hover:bg-sky-50 transition-colors shadow-lg">Envoyer</button>
-</form>
-<div class="mt-12 flex justify-center gap-8 text-white/60 text-sm">
-<div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span> Devis gratuit</div>
-<div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span> Réponse &lt; 24h</div>
-</div>
-</div>
-<!-- Decorative background light -->
-<div class="absolute -top-1/2 -right-1/4 w-[80%] h-[150%] bg-white/10 blur-[100px] rounded-full rotate-45"></div>
-</div>
-</div>
-</section>
-<!-- Footer -->
-<Footer/>
-</body>
-
-<style>
-	.material-symbols-outlined {
-		font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-	}
-	.editorial-underline {
-		background-image: linear-gradient(transparent 70%, rgba(0, 51, 88, 0.15) 70%);
-	}
-	.fluid-gradient {
-		background: linear-gradient(135deg, #003358 0%, #004a7c 100%);
-	}
-</style>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .editorial-underline {
+      background-image: linear-gradient(transparent 70%, rgba(0, 51, 88, 0.15) 70%);
+    }
+    .fluid-gradient {
+      background: linear-gradient(135deg, #003358 0%, #004a7c 100%);
+    }
+  </style>
 </html>

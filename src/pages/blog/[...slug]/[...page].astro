@@ -7,7 +7,7 @@ import Footer from '@components/Footer.astro';
 import FormattedDate from '@components/FormattedDate.astro';
 import Header from '@components/Header.astro';
 
-import { POST_TAGS_ENUM, POST_TAGS_WITH_EMPTY_TAG, SITE_DESCRIPTION, SITE_LANG, SITE_TITLE } from '../../../consts';
+import { POST_TAGS_ENUM, POST_TAGS_WITH_EMPTY_TAG, SITE_DESCRIPTIONS, SITE_LANG, SITE_TITLES } from '../../../consts';
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = await getCollection('blog', );
@@ -24,20 +24,24 @@ export const getStaticPaths = (async ({ paginate }) => {
         );
 
     return paginate(filteredPosts, {
-      pageSize: 6,
+      pageSize: 1,
       params: { slug: tag || undefined }, // ⚠️ important
     });
   });
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
-const { posts, page } = Astro.props;
+const { page } = Astro.props;
+const { slug } = Astro.params;
+
+const siteTitle = slug ? SITE_TITLES.blogCategory[slug] : SITE_TITLES.blog
+const siteDescription = slug && !Number.isNaN(slug) ? SITE_DESCRIPTIONS.blogCategory[slug] : SITE_DESCRIPTIONS.blogAllCategory
 ---
 
 <!doctype html>
 <html lang={SITE_LANG}>
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={siteTitle} description={siteDescription} />
 	</head>
 	<body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container">
 		<Header />

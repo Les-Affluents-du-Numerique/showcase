@@ -1,0 +1,51 @@
+---
+import Footer from '@components/Footer.astro';
+import { SITE_DESCRIPTIONS, SITE_LANG, SITE_TITLES } from '../consts';
+import Header from '@components/Header.astro';
+import BaseHead from '@components/BaseHead.astro';
+
+const siteTitle = SITE_TITLES.legalNotices
+const siteDescription = SITE_DESCRIPTIONS.legalNotices
+---
+
+<!doctype html>
+<html lang={SITE_LANG}>
+  <head>
+    <BaseHead title={siteTitle} description={siteDescription} />
+  </head>
+  <body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container">
+    <Header/>
+    <main class="pt-32">
+
+      <h1>Mentions légales</h1>
+
+      <h2>Éditeur du site</h2>
+      <p>Le site "Les Affluents du numérique" est edité par un collectif informel de développeurs indépendans</p>
+      <ul>
+        <li>François Verin, développeur indépendant</li>
+        <li>Daniel Cadeau, développeur indépendant</li>
+        <li>Christopher Debray, développeur indépendant</li>
+      </ul>
+
+      <h2>Hébergement</h2>
+      <p>Le site est hébergé par Vercel, dont le siège social est situé à 340 S Lemon Ave #4133 Walnut, CA 91789, États-Unis</p>
+      <p>Le domaine est hébergé par OVH, dont le siège social est situé à 2 rue Kellermann, 59100 Roubaix, France.</p>
+
+      <h2>Contact</h2>
+      <p>Pour toute question, vous pouvez nous contacter à l'adresse email suivante : <a href="mailto:contact@lesinffluentsdunumerique.com">contact@lesinffluentsdunumerique.com</a></p>
+      
+      <h2>Propriété intellectuelle</h2>
+      <p>L'ensemble des contenus présents sur ce site (textes, images, logos) est protégé par le droit d'auteur. Toute reproduction ou utilisation non autorisée est interdite.</p>
+
+      <h2>Données personnelles</h2>
+      <p>Les données collectées via ce site (par exemple, via le formulaire de contact) sont utilisées uniquement pour répondre à vos demandes. Vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour l'exercer, contactez-nous à l'adresse email suivante : <a href="mailto:contact@lesinffluentsdunumerique.com">contact@lesinffluentsdunumerique.com</a></p>
+
+      <h2>Responsabilité</h2>
+      <p>Chaque membre du collectif est responsable de ses propres prestations. Le collectif n'est pas une entité juridique et les informations fournies sur ce site le sont à titre indicatif.</p>
+      
+      <h2>Liens externes</h2>
+      <p>Ce site peut contenir des liens vers d'autres sites. Nous ne sommes pas responsable du contenu de ces sites externes</p>
+    </main>
+    <Footer/>
+  </body>
+</html>
