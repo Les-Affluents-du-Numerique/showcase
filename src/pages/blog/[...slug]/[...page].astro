@@ -55,8 +55,6 @@ export const getStaticPaths = (async ({ paginate }) => {
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 const { posts, page } = Astro.props;
-console.log("🚀 ~ page:", page)
-console.log("🚀 ~ posts:", posts)
 ---
 
 <!doctype html>
