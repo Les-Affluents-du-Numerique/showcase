@@ -8,29 +8,6 @@ import FormattedDate from '@components/FormattedDate.astro';
 import Header from '@components/Header.astro';
 
 import { POST_TAGS_ENUM, POST_TAGS_WITH_EMPTY_TAG, SITE_DESCRIPTION, SITE_LANG, SITE_TITLE } from '../../../consts';
-import { url } from 'astro:schema';
-
-
-// export const getStaticPaths = (async ({ paginate }) => {
-//   const posts = await getCollection('blog');
-//   const postsSortedByPubDate = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-
-// //   return POST_TAGS_WITH_EMPTY_TAG.map(tag => {
-// //     const currentPosts = !tag ? postsSortedByPubDate : postsSortedByPubDate.filter(post => post.data.tags.includes(tag))
-// //     return {
-// //     params: { slug: tag },
-// //     props: { posts: currentPosts }
-// //   }})
-// // }) satisfies GetStaticPaths
-
-// return POST_TAGS_WITH_EMPTY_TAG.map(tag => {
-//     const currentPosts = !tag ? postsSortedByPubDate : postsSortedByPubDate.filter(post => post.data.tags.includes(tag))
-//     return paginate(currentPosts, { pageSize: 10})
-//     return {
-//     params: { slug: tag },
-//     props: { posts: currentPosts }
-//   }})
-// }) satisfies GetStaticPaths
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = await getCollection('blog', );
