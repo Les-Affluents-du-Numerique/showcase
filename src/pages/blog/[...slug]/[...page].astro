@@ -47,7 +47,7 @@ export const getStaticPaths = (async ({ paginate }) => {
         );
 
     return paginate(filteredPosts, {
-      pageSize: 1,
+      pageSize: 6,
       params: { slug: tag || undefined }, // ⚠️ important
     });
   });
