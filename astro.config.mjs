@@ -15,28 +15,24 @@ export default defineConfig({
 
   fonts: [
     {
-      provider: fontProviders.local(),
-      name: 'Atkinson',
-      cssVariable: '--font-atkinson',
-      fallbacks: ['sans-serif'],
-      options: {
-        variants: [
-          {
-            src: ['./src/assets/fonts/atkinson-regular.woff'],
-            weight: 400,
-            style: 'normal',
-            display: 'swap',
-          },
-          {
-            src: ['./src/assets/fonts/atkinson-bold.woff'],
-            weight: 700,
-            style: 'normal',
-            display: 'swap',
-          },
-        ],
-      },
+      provider: fontProviders.google(),
+      name: 'Manrope',
+      fallbacks: ["sans-serif"],
+      cssVariable: '--font-headline'
     },
-    ],
+    {
+      provider: fontProviders.google(),
+      name: 'Manrope',
+      fallbacks: ["sans-serif"],
+      cssVariable: '--font-label'
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Inter',
+      fallbacks: ["sans-serif"],
+      cssVariable: '--font-body'
+    },
+  ],
     
   vite: {
     plugins: [tailwindcss()]

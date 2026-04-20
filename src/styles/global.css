@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -52,6 +53,8 @@
 --color-on-primary-fixed-variant: #00497b;
 --color-on-secondary-fixed: #0f1c2b
 }
+
+
 /*
   The CSS in this style tag is based off of Bear Blog's default CSS.
   https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
