@@ -4,6 +4,7 @@ import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
 import { SITE_DESCRIPTIONS, SITE_LANG, SITE_TITLES } from "../consts";
 import { Image } from "astro:assets";
+import QuoteCard from "@components/QuoteCard.astro";
 import fverinImage from "../assets/francois_verin_profile_picture.jpeg";
 import cdebrayImage from "../assets/christopher_debray_profile_picture.jpeg";
 import dcadeauImage from "../assets/daniel_cadeau_profile_picture.jpeg";
@@ -157,8 +158,7 @@ import dcadeauImage from "../assets/daniel_cadeau_profile_picture.jpeg";
             Découvrez les visages derrière les lignes de code et les pixels.
           </p>
         </div>
-        <div class="grid md:grid-cols-12 gap-8">
-          <!-- Lead Developer -->
+        <div class="grid md:grid-cols-12 gap-8 items-stretch">
           <div
             class="md:col-span-8 bg-surface-container rounded-4xl p-12 flex flex-col md:flex-row gap-12 items-center"
           >
@@ -221,13 +221,11 @@ import dcadeauImage from "../assets/daniel_cadeau_profile_picture.jpeg";
             </div>
           </div>
 
-          <!-- Designer -->
           <div
             class="md:col-span-4 bg-primary text-on-primary rounded-4xl p-10 flex flex-col justify-between"
           >
             <div>
               <div class="w-32 h-32 rounded-3xl overflow-hidden mb-8 shadow-xl">
-                <!-- <img alt="Sophie - UX Designer" class="w-full h-full object-cover" data-alt="Close-up portrait of a woman with creative glasses and a modern hairstyle, bright professional lighting, smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAf0qPtk6rwUgSxQrqlccZx2SI6WHbTzoHi9CAjqq_kUNmNCp5LLNNdth5lw75kD9JyVDOb0OnU8xTvlbLu0Pbk55RnrofwZMUCoWC3CXNfjVcNn1DDXTdO2T1pMiiHVIWsBAqwUxipE4by1PxrbiJvFce8O-UNfkukJ0v6lm3IqoASfNz9U23oTtWJlG5k8Z0eU77hhtWJoD_UW1WTM6y8_OfB-BlUd8ThjPpl3ImfKQ3OzvRrR1v9YhieAXnk3AmoelVuroWE1Q"/> -->
                 <Image
                   alt="Daniel - Lead Dev"
                   class="w-full h-full object-cover"
@@ -264,7 +262,10 @@ import dcadeauImage from "../assets/daniel_cadeau_profile_picture.jpeg";
             </div>
           </div>
 
-          <!-- Jordan (nouvelle card) -->
+          <div class="col-span-1 block md:hidden">
+            <QuoteCard />
+          </div>
+
           <div
             class="md:col-span-4 bg-primary text-on-primary rounded-4xl p-10 flex flex-col justify-between"
           >
@@ -306,11 +307,9 @@ import dcadeauImage from "../assets/daniel_cadeau_profile_picture.jpeg";
             </div>
           </div>
 
-          <!-- Dev 2 -->
           <div class="md:col-span-5 bg-surface-container-high rounded-4xl p-10">
             <div class="flex items-center gap-6 mb-8">
               <div class="w-20 h-20 rounded-full overflow-hidden shrink-0">
-                <!-- <img alt="Thomas - Dev Backend" class="w-full h-full object-cover" data-alt="Middle-aged man with beard and professional attire, soft office background lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBFs_cKkx8tqFRBV6mwTz8gu7qCs3xAzMMEqIIBqhITunbGs2NQikOh-xWpUtGnjyZkVfu3QyL5UUiYlexMG-j8FDyY05xJ-lHSiScAnyNczE92j0RFQRj9feUFHDX-kcT19iPt_Ju-JGBlxf829tEuNhaFK8fElPhoi7hm75BTC4G_3R8ut5zLmCmg32O6F20sJNhs71_U208WndVnkYuu7NYdyVUcxPVOoZJ0OMo6FxYVTjBK4DhoCUSV2N47Ppypegm123CAQ"/> -->
                 <Image
                   alt="Christopher - Lead Dev"
                   class="w-full h-full object-cover"
@@ -348,23 +347,8 @@ import dcadeauImage from "../assets/daniel_cadeau_profile_picture.jpeg";
               >
             </div>
           </div>
-
-          <!-- Empty space for asymmetry / quote -->
-          <div
-            class="md:col-span-3 bg-tertiary-fixed rounded-4xl p-12 flex items-center justify-center text-center"
-          >
-            <div class="max-w-md">
-              <span
-                class="material-symbols-outlined text-primary text-5xl mb-6"
-                data-icon="format_quote">format_quote</span
-              >
-              <p
-                class="text-2xl font-headline font-bold text-primary italic leading-tight"
-              >
-                "Un collectif, c'est l'addition des talents sans la
-                multiplication des coûts."
-              </p>
-            </div>
+          <div class="hidden md:flex md:col-span-3 h-full">
+            <QuoteCard />
           </div>
         </div>
       </section>
