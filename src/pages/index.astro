@@ -39,7 +39,7 @@ const siteDescription = SITE_DESCRIPTIONS.home;
         <div class="lg:col-span-7">
           <span
             class="inline-block font-label text-xs uppercase tracking-[0.2em] text-primary mb-6 border-l-2 border-primary pl-4"
-            >Digital Collective</span
+            >Collectif Numérique</span
           >
           <h1
             class="font-headline font-extrabold text-5xl md:text-7xl text-primary leading-[1.1] mb-8 tracking-tight"
@@ -69,7 +69,7 @@ const siteDescription = SITE_DESCRIPTIONS.home;
               href="/notre-equipe"
               class="border border-outline-variant text-primary px-8 py-4 rounded-full font-semibold text-lg hover:bg-surface-container transition-colors flex items-center justify-center"
             >
-               Voir notre équipe
+              Voir notre équipe
             </a>
           </div>
         </div>
@@ -95,7 +95,7 @@ const siteDescription = SITE_DESCRIPTIONS.home;
                 >
               </div>
               <div>
-                <div class="font-bold text-2xl text-primary">3+</div>
+                <div class="font-bold text-2xl text-primary">4</div>
                 <div
                   class="text-xs font-label uppercase tracking-widest text-on-surface-variant"
                 >
@@ -122,93 +122,106 @@ const siteDescription = SITE_DESCRIPTIONS.home;
         <div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-150">
           <!-- Web Dev -->
           <div
-            class="md:col-span-8 bg-surface-container-lowest p-10 rounded-4xl flex flex-col justify-between group overflow-hidden relative border border-outline-variant/10"
+            class="md:col-span-8 bg-surface-container-lowest p-0 rounded-4xl overflow-hidden group border border-outline-variant/10"
           >
-            <div class="relative z-10">
-              <span
-                class="material-symbols-outlined text-4xl text-primary mb-6"
-                data-icon="terminal">terminal</span
-              >
-              <h3
-                class="font-headline font-extrabold text-3xl text-primary mb-4"
-              >
-                Développement Web
-              </h3>
-              <p class="font-body text-on-surface-variant max-w-md text-lg">
-                Architectures robustes, interfaces fluides et performances
-                optimisées pour vos applications métier et plateformes SaaS.
-              </p>
-            </div>
-            <div class="mt-8 relative z-10">
-              <a
-                class="inline-flex items-center gap-2 font-semibold text-primary group-hover:gap-4 transition-all"
-                href="#"
-              >
-                Voir nos réalisations <span
-                  class="material-symbols-outlined"
-                  data-icon="trending_flat">trending_flat</span
-                >
-              </a>
-            </div>
-            <div
-              class="absolute top-0 right-0 w-1/2 h-full opacity-10 group-hover:opacity-20 transition-opacity"
-            >
-              <img
-                class="w-full h-full object-cover"
-                data-alt="abstract artistic visualization of data streams and web architecture in shades of deep blue and silver"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRWbh-YYIRfMa0kBw8uMeR8S0Cb1en6UR_eq15pF1bApto8p27j2Xw3y49oyZ9JLPH8P69cBbakR7uCAPxhv19i9-ppnEWfAOq-nsn9ybyJK111sYTHm3d8LdOrtiJnFLrLLppSBs7KFrUZQHZs4oMtahfrpArb1sQLvHhUTu7meTdNHEu0aVgCJJP2HmhQ4HWhgb6RvSOb_0AAKxuYNlHX2M1fuULn3Vm-yfh732DqMt_UpZsj47_SJcnJ85Y2C3Q43fzJoEEuA"
-              />
+            <div class="grid grid-cols-1 md:grid-cols-2">
+              <div class="p-10 flex flex-col justify-between">
+                <div>
+                  <span
+                    class="material-symbols-outlined text-4xl text-primary mb-6"
+                    data-icon="terminal">terminal</span
+                  >
+                  <h3
+                    class="font-headline font-extrabold text-3xl text-primary mb-4"
+                  >
+                    Développement Web
+                  </h3>
+                  <p
+                    class="font-body text-on-surface-variant text-lg whitespace-normal"
+                  >
+                    Architectures robustes, interfaces fluides et performances
+                    optimisées pour vos applications métier et plateformes SaaS.
+                  </p>
+                </div>
+                <div class="mt-8">
+                  <a
+                    class="inline-flex items-center gap-2 font-semibold text-primary group-hover:gap-4 transition-all"
+                    href="#"
+                    >Voir nos réalisations <span
+                      class="material-symbols-outlined"
+                      data-icon="trending_flat">trending_flat</span
+                    ></a
+                  >
+                </div>
+              </div>
+              <div class="h-48 md:h-auto">
+                <img
+                  class="w-full h-full object-cover block"
+                  data-alt="abstract artistic visualization of data streams and web architecture in shades of deep blue and silver"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRWbh-YYIRfMa0kBw8uMeR8S0Cb1en6UR_eq15pF1bApto8p27j2Xw3y49oyZ9JLPH8P69cBbakR7uCAPxhv19i9-ppnEWfAOq-nsn9ybyJK111sYTHm3d8LdOrtiJnFLrLLppSBs7KFrUZQHZs4oMtahfrpArb1sQLvHhUTu7meTdNHEu0aVgCJJP2HmhQ4HWhgb6RvSOb_0AAKxuYNlHX2M1fuULn3Vm-yfh732DqMt_UpZsj47_SJcnJ85Y2C3Q43fzJoEEuA"
+                />
+              </div>
             </div>
           </div>
-          <!-- Mobile -->
-          <div
-            class="md:col-span-4 bg-primary-container p-10 rounded-4xl flex flex-col justify-between text-on-primary-container border border-white/5"
-          >
-            <div>
-              <span
-                class="material-symbols-outlined text-4xl mb-6"
-                data-icon="smartphone"
-                style="font-variation-settings: 'FILL' 1;">smartphone</span
-              >
-              <h3 class="font-headline font-extrabold text-2xl mb-4">
-                Mobile First
-              </h3>
-              <p
-                class="font-body text-sm opacity-80 leading-relaxed text-sky-100"
-              >
-                iOS, Android &amp; Flutter. Nous créons des expériences mobiles
-                natives qui captivent vos utilisateurs au quotidien.
-              </p>
-            </div>
-            <div class="mt-8">
-              <span
-                class="inline-block w-12 h-12 rounded-full border border-sky-400/30 flex items-center justify-center"
-              >
-                <span class="material-symbols-outlined" data-icon="north_east"
-                  >north_east</span
-                >
-              </span>
-            </div>
-          </div>
-          <!-- Consulting -->
+          <!-- Business First -->
           <div
             class="md:col-span-4 bg-tertiary p-10 rounded-4xl flex flex-col justify-between text-white"
           >
             <div>
               <span
                 class="material-symbols-outlined text-4xl mb-6 text-tertiary-fixed"
-                data-icon="lightbulb"
-                style="font-variation-settings: 'FILL' 1;">lightbulb</span
+                data-icon="business"
+                style="font-variation-settings: 'FILL' 1;">business</span
               >
               <h3 class="font-headline font-extrabold text-2xl mb-4">
-                Conseil Stratégique
+                Business First
               </h3>
               <p
                 class="font-body text-sm opacity-80 leading-relaxed text-tertiary-fixed"
               >
+                On parle votre métier avant de parler technique.
+              </p>
+              <p
+                class="font-body text-sm opacity-80 leading-relaxed text-tertiary-fixed"
+              >
+                Nous partons de vos enjeux concrets : trésorerie, croissance,
+                recrutement, saisonnalité, transformation digitale... Le
+                collectif analyse vos besoins réels avant de mobiliser les
+                bonnes expertises. Pas de jargon superflu, pas de solutions
+                toutes faites. Juste des indépendants qui comprennent votre
+                activité.
+              </p>
+            </div>
+          </div>
+          <!-- Consulting -->
+          <div
+            class="md:col-span-4 bg-primary-container p-10 rounded-4xl flex flex-col justify-between border border-white/5"
+          >
+            <div>
+              <span
+                class="material-symbols-outlined text-on-primary-container text-4xl mb-6"
+                data-icon="lightbulb"
+                style="font-variation-settings: 'FILL' 1;">lightbulb</span
+              >
+              <h3 class="font-headline font-extrabold text-on-secondary text-2xl mb-4">
+                Conseil Stratégique
+              </h3>
+              <p
+                class="font-body text-sm opacity-80 leading-relaxed text-sky-100"
+              >
                 Audit, architecture et accompagnement dans votre transformation
                 numérique. Prenez les bonnes décisions techniques.
               </p>
+            </div>
+            <div class="mt-8">
+              <a
+                class="inline-flex items-center gap-2 font-semibold text-on-secondary group-hover:gap-4 transition-all"
+                href="/blog"
+                >Voir nos articles <span
+                      class="material-symbols-outlined"
+                      data-icon="trending_flat">trending_flat</span
+                    ></a
+              >
             </div>
           </div>
           <!-- Flexibility -->
@@ -227,12 +240,14 @@ const siteDescription = SITE_DESCRIPTIONS.home;
               </p>
             </div>
             <div
-              class="hidden sm:block w-32 h-32 rounded-full bg-white shadow-inner flex items-center justify-center border border-outline-variant/20"
+              class="hidden sm:flex w-32 h-32 rounded-full bg-white shadow-inner items-center justify-center border border-outline-variant/20"
             >
               <span
-                class="material-symbols-outlined text-4xl text-primary"
-                data-icon="alt_route">alt_route</span
+                class="material-symbols-outlined text-3xl text-primary"
+                data-icon="alt_route"
               >
+                alt_route
+              </span>
             </div>
           </div>
         </div>
