@@ -21,8 +21,10 @@ const { post } = Astro.props;
       />
     </a>
 
-    <div
-      class="md:col-span-5 md:-ml-20 bg-surface-container-lowest/90 backdrop-blur-md p-10 md:p-14 rounded-[2.5rem] shadow-xl"
+    <a
+      href={`/blog/posts/${post.id}`}
+      aria-label={post.data.title}
+      class="md:col-span-5 md:-ml-20 bg-surface-container-lowest/90 backdrop-blur-md p-10 md:p-14 rounded-[2.5rem] shadow-xl block"
     >
       <div
         class="mb-4 flex flex-wrap gap-2 text-sm font-label uppercase tracking-widest text-tertiary-container font-bold"
@@ -74,6 +76,6 @@ const { post } = Astro.props;
           }
         </div>
       </div>
-    </div>
+    </a>
   </div>
 </section>
