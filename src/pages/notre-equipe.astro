@@ -8,6 +8,7 @@ import QuoteCard from "@components/QuoteCard.astro";
 import fverinImage from "../assets/francois_verin_profile_picture.jpeg";
 import cdebrayImage from "../assets/christopher_debray_profile_picture.jpeg";
 import dcadeauImage from "../assets/daniel_cadeau_profile_picture.jpeg";
+import jmombongoImage from "../assets/jordan_mombongo_profile_picture.jpeg";
 ---
 
 <!doctype html>
@@ -225,6 +226,53 @@ import dcadeauImage from "../assets/daniel_cadeau_profile_picture.jpeg";
             class="md:col-span-4 bg-primary text-on-primary rounded-4xl p-10 flex flex-col justify-between"
           >
             <div>
+              <div
+                class="w-32 h-32 rounded-3xl overflow-hidden mb-8 shadow-xl mr-auto flex items-center justify-center bg-primary-container/5"
+              >
+                <Image
+                  alt="Jordan Mombongo - Développeur"
+                  class="w-full h-full object-cover"
+                  data-alt="Professional portrait of a male developer in his 30s with a confident smile, wearing a casual linen shirt, bright studio lighting"
+                  src={jmombongoImage}
+                />
+              </div>
+              <h3 class="text-2xl font-headline font-bold mb-1 text-on-primary">
+                Jordan Mombongo
+              </h3>
+              <p
+                class="text-on-primary-container font-label text-xs uppercase tracking-widest mb-4"
+              >
+                Développeur
+              </p>
+              <p class="text-on-primary/80 text-sm leading-relaxed mb-6">
+                Passionné par les performances et les interfaces maintenables.
+                Disponible pour audits et croissance produit.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2 justify-start mt-4">
+              <span
+                class="px-3 py-1 bg-primary-container/30 text-[10px] font-label rounded-full"
+                >Java</span
+              >
+              <span
+                class="px-3 py-1 bg-primary-container/30 text-[10px] font-label rounded-full"
+                >Angular JS</span
+              >
+              <span
+                class="px-3 py-1 bg-primary-container/30 text-[10px] font-label rounded-full"
+                >Spring Boot</span
+              >
+            </div>
+          </div>
+
+          <div class="col-span-full">
+            <QuoteCard />
+          </div>
+
+          <div
+            class="md:col-span-4 bg-primary text-on-primary rounded-4xl p-10 flex flex-col justify-between"
+          >
+            <div>
               <div class="w-32 h-32 rounded-3xl overflow-hidden mb-8 shadow-xl">
                 <Image
                   alt="Daniel - Lead Dev"
@@ -262,97 +310,49 @@ import dcadeauImage from "../assets/daniel_cadeau_profile_picture.jpeg";
             </div>
           </div>
 
-          <div class="col-span-1 block md:hidden">
-            <QuoteCard />
-          </div>
-
-          <div class="hidden md:block lg:hidden md:col-span-12">
-            <QuoteCard />
-          </div>
-
           <div
-            class="md:col-span-4 bg-primary text-on-primary rounded-4xl p-10 flex flex-col justify-between"
+            class="md:col-span-8 bg-surface-container rounded-4xl p-12 flex flex-col md:flex-row gap-12 items-center"
           >
+            <div
+              class="w-48 h-48 rounded-full overflow-hidden shrink-0 shadow-lg"
+            >
+              <Image
+                alt="Christopher - Spécialiste Backend & API"
+                class="w-full h-full object-cover"
+                data-alt="Professional portrait of a male developer in his 30s with a confident smile, wearing a casual linen shirt, bright studio lighting"
+                src={cdebrayImage}
+              />
+            </div>
             <div>
-              <div
-                class="w-32 h-32 rounded-3xl overflow-hidden mb-8 shadow-xl mr-auto flex items-center justify-center bg-primary-container/5"
+              <h3
+                class="text-3xl font-headline font-extrabold text-primary mb-2"
               >
-                <span
-                  class="material-symbols-outlined text-6xl text-on-primary"
-                  data-icon="code">code</span
-                >
-              </div>
-              <h3 class="text-2xl font-headline font-bold mb-1 text-on-primary">
-                Jordan
+                Christopher Debray
               </h3>
               <p
-                class="text-on-primary-container font-label text-xs uppercase tracking-widest mb-4"
+                class="text-primary-container font-label font-semibold text-sm tracking-wider uppercase mb-6"
               >
-                Développeur
+                Spécialiste Backend &amp; API
               </p>
-              <p class="text-on-primary/80 text-sm leading-relaxed mb-6">
-                Passionné par les performances et les interfaces maintenables.
-                Disponible pour audits et croissance produit.
+              <p class="text-on-surface-variant mb-8 leading-relaxed">
+                Le garant de la stabilité. Christopher construit des fondations
+                solides et sécurisées pour vos applications les plus complexes.
               </p>
-            </div>
-            <div class="flex flex-wrap gap-2 justify-start mt-4">
-              <span
-                class="px-3 py-1 bg-primary-container/30 text-[10px] font-label rounded-full"
-                >Java</span
-              >
-              <span
-                class="px-3 py-1 bg-primary-container/30 text-[10px] font-label rounded-full"
-                >Angular JS</span
-              >
-              <span
-                class="px-3 py-1 bg-primary-container/30 text-[10px] font-label rounded-full"
-                >Spring Boot</span
-              >
-            </div>
-          </div>
-
-          <div class="md:col-span-5 bg-surface-container-high rounded-4xl p-10">
-            <div class="flex items-center gap-6 mb-8">
-              <div class="w-20 h-20 rounded-full overflow-hidden shrink-0">
-                <Image
-                  alt="Christopher - Lead Dev"
-                  class="w-full h-full object-cover"
-                  data-alt="Professional portrait of a male developer in his 30s with a confident smile, wearing a casual linen shirt, bright studio lighting"
-                  src={cdebrayImage}
-                />
-              </div>
-              <div>
-                <h3 class="text-xl font-headline font-bold text-primary">
-                  Christopher Debray
-                </h3>
-                <p
-                  class="text-xs font-label text-primary-container/70 uppercase"
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="px-3 py-1 bg-white/50 text-xs font-label rounded-full border border-outline-variant/20"
+                  >Node.js</span
                 >
-                  Spécialiste Backend &amp; API
-                </p>
+                <span
+                  class="px-3 py-1 bg-white/50 text-xs font-label rounded-full border border-outline-variant/20"
+                  >Rust</span
+                >
+                <span
+                  class="px-3 py-1 bg-white/50 text-xs font-label rounded-full border border-outline-variant/20"
+                  >AWS</span
+                >
               </div>
             </div>
-            <p class="text-on-surface-variant text-sm mb-6 leading-relaxed">
-              Le garant de la stabilité. Thomas construit des fondations solides
-              et sécurisées pour vos applications les plus complexes.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span
-                class="px-3 py-1 bg-surface-container-lowest text-[10px] font-label rounded-full"
-                >Node.js</span
-              >
-              <span
-                class="px-3 py-1 bg-surface-container-lowest text-[10px] font-label rounded-full"
-                >Rust</span
-              >
-              <span
-                class="px-3 py-1 bg-surface-container-lowest text-[10px] font-label rounded-full"
-                >AWS</span
-              >
-            </div>
-          </div>
-          <div class="hidden lg:flex lg:col-span-3 h-full">
-            <QuoteCard />
           </div>
         </div>
       </section>
@@ -437,7 +437,11 @@ import dcadeauImage from "../assets/daniel_cadeau_profile_picture.jpeg";
                   >Note de confiance</span
                 >
                 <p class="text-on-secondary-container leading-relaxed italic">
-                  "Nous offrons aux entreprises une interface unique avec un collectif de talents indépendants. Chaque membre est validé pour son expertise et son professionnalisme. En cas d'indisponibilité, un autre membre du collectif prend le relais, assurant une continuité de service sans faille."
+                  "Nous offrons aux entreprises une interface unique avec un
+                  collectif de talents indépendants. Chaque membre est validé
+                  pour son expertise et son professionnalisme. En cas
+                  d'indisponibilité, un autre membre du collectif prend le
+                  relais, assurant une continuité de service sans faille."
                 </p>
               </div>
               <div
