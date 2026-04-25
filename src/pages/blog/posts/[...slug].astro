@@ -1,20 +1,32 @@
 ---
-import { type CollectionEntry, getCollection, render } from 'astro:content';
-import BlogPost from '@layouts/BlogPost.astro';
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import BlogPost from "@layouts/BlogPost.astro";
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.id },
-		props: post,
-	}));
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: post,
+  }));
 }
-type Props = CollectionEntry<'blog'>;
+
+type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
-const { Content } = await render(post);
+
+let Content = null;
+try {
+  const res = await render(post);
+  Content = res.Content;
+} catch (err) {
+  // render may fail for non-MDX entries in some environments — fall back to raw body
+  Content = null;
+}
 ---
 
-<BlogPost {...post.data}>
-	<Content />
-</BlogPost>
+<div class="pt-24 md:pt-32">
+  <BlogPost {...post.data}>
+    {Content ? <Content /> : null}
+    {!Content ? <div class="prose max-w-none" set:html={post.body} /> : null}
+  </BlogPost>
+</div>

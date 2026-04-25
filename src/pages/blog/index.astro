@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import BlogListLayout from "@layouts/BlogListLayout.astro";
+
+import {
+  POST_TAGS_ENUM,
+  SITE_DESCRIPTIONS,
+  SITE_LANG,
+  SITE_TITLES,
+} from "../../consts";
+
+const siteTitle = SITE_TITLES.blog;
+const siteDescription = SITE_DESCRIPTIONS.blogAllCategory;
+
+const allPosts = await getCollection("blog");
+const postsSorted = allPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const availableTagEntries = Object.entries(POST_TAGS_ENUM).filter(([key]) =>
+  allPosts.some((post) => (post.data.tags ?? []).includes(key)),
+);
+
+const PAGE_SIZE = 4;
+const pageCurrent = 1;
+const gridPosts = postsSorted.slice(0, PAGE_SIZE);
+const hasNext = postsSorted.length > PAGE_SIZE;
+---
+
+<BlogListLayout
+  title={siteTitle}
+  description={siteDescription}
+  availableTagEntries={availableTagEntries}
+  effectiveTag={undefined}
+  gridPosts={gridPosts}
+  pageCurrent={pageCurrent}
+  prevHref={null}
+  nextHref={hasNext ? "/blog/2" : null}
+/>

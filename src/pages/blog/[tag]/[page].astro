@@ -1,0 +1,213 @@
+---
+import { getCollection } from "astro:content";
+import { type GetStaticPaths, type InferGetStaticPropsType } from "astro";
+
+import BaseHead from "@components/BaseHead.astro";
+import Footer from "@components/Footer.astro";
+import FormattedDate from "@components/FormattedDate.astro";
+import Header from "@components/Header.astro";
+
+import {
+  POST_TAGS_ENUM,
+  POST_TAGS_WITH_EMPTY_TAG,
+  SITE_DESCRIPTIONS,
+  SITE_LANG,
+  SITE_TITLES,
+} from "../../../consts";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getCollection("blog");
+
+  const postsSorted = posts.sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  );
+
+  // Paginate per-tag to generate /blog/<tag>/ and /blog/<tag>/2 etc.
+  return Object.keys(POST_TAGS_ENUM).flatMap((tag) => {
+    const filtered = postsSorted.filter((p) =>
+      (p.data.tags ?? []).includes(tag),
+    );
+    return paginate(filtered, { pageSize: 4, params: { tag } });
+  });
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { page } = Astro.props;
+const tagParam = (page as any)?.params?.tag as string | undefined;
+
+const effectiveTag = tagParam;
+const isAllArticles = !effectiveTag;
+
+const siteTitle = effectiveTag
+  ? SITE_TITLES.blogCategory[effectiveTag]
+  : SITE_TITLES.blog;
+const siteDescription = effectiveTag
+  ? SITE_DESCRIPTIONS.blogCategory[effectiveTag]
+  : SITE_DESCRIPTIONS.blogAllCategory;
+
+const allPosts = await getCollection("blog");
+const postsSorted = allPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const availableTagEntries = Object.entries(POST_TAGS_ENUM).filter(([key]) =>
+  allPosts.some((post) => (post.data.tags ?? []).includes(key)),
+);
+
+const PAGE_SIZE = 4;
+const currentPage = Number(Astro.params.page ?? page?.currentPage ?? 1);
+const postsForPage =
+  (page?.items as any[]) ??
+  postsSorted
+    .filter((p) => (p.data.tags ?? []).includes(effectiveTag as string))
+    .slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+const gridPosts = postsForPage;
+---
+
+<!doctype html>
+<html lang={SITE_LANG}>
+  <head>
+    <BaseHead title={siteTitle} description={siteDescription} />
+  </head>
+  <body
+    class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container"
+  >
+    <Header />
+    <main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+      <header class="mb-20 text-left max-w-4xl">
+        <span
+          class="font-label text-xs uppercase tracking-[0.2em] text-primary opacity-80 mb-4 block"
+          >Insights &amp; Analyses</span
+        >
+        <h1
+          class="font-headline text-5xl md:text-7xl font-extrabold text-primary tracking-tight leading-[1.1] mb-8"
+        >
+          Le courant des <span class="editorial-underline"
+            >idées numériques</span
+          >.
+        </h1>
+        <p
+          class="font-body text-lg text-on-surface-variant leading-relaxed max-w-2xl"
+        >
+          Explorez nos réflexions sur l'architecture logicielle, les stratégies
+          business et les courants technologiques qui façonnent l'avenir des
+          PME.
+        </p>
+        <div class="my-4 flex gap-2">
+          <a
+            class={isAllArticles
+              ? "bg-primary text-on-primary px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:scale-105"
+              : "bg-surface-container text-on-secondary-container px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:bg-surface-container-high hover:scale-105"}
+            href="/blog">Tous les articles</a
+          >
+          {
+            availableTagEntries.map(([key, label]) => (
+              <a
+                class={
+                  effectiveTag === key
+                    ? "bg-primary text-on-primary px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:scale-105"
+                    : "bg-surface-container text-on-secondary-container px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:bg-surface-container-high hover:scale-105"
+                }
+                href={`/blog/${key}`}
+              >
+                {label}
+              </a>
+            ))
+          }
+        </div>
+      </header>
+
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 relative z-20"
+      >
+        {
+          gridPosts.map((post) => (
+            <article class="group flex flex-col bg-surface-container-lowest rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/5">
+              <a href={`/blog/posts/${post.id}`} class="block h-full">
+                <div class="aspect-4/3 overflow-hidden">
+                  <img
+                    alt="Article thumbnail"
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    src={
+                      post.data.heroImage?.src ??
+                      post.data.heroImage ??
+                      "/assets/blog-placeholder-1.jpg"
+                    }
+                  />
+                </div>
+                <div class="p-8 flex flex-col grow">
+                  <div class="flex justify-between items-center mb-4">
+                    <div class="space-x-2" />
+                    <span class="font-body text-[10px] text-on-surface-variant italic">
+                      {<FormattedDate date={post.data.pubDate} />}
+                    </span>
+                  </div>
+                  <h3 class="font-headline text-xl font-bold text-primary mb-4 leading-snug group-hover:text-primary-container transition-colors">
+                    {post.data.title}
+                  </h3>
+                  {post.data.tags?.[0] && (
+                    <div class="pin-bottom mb-4">
+                      <span class="pin-badge inline-flex items-center">
+                        <span class="font-label text-[10px] uppercase tracking-widest text-on-secondary-fixed-variant px-3 py-1 rounded-full font-bold bg-transparent">
+                          {POST_TAGS_ENUM[post.data.tags[0]] ??
+                            post.data.tags[0]}
+                        </span>
+                      </span>
+                    </div>
+                  )}
+                  <p class="font-body text-sm text-on-surface-variant mb-8 line-clamp-3 leading-relaxed">
+                    {post.data.description}
+                  </p>
+
+                  <div class="mt-auto flex items-center gap-3 pt-6 border-t border-surface-container">
+                    <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container">
+                      <img
+                        class="w-full h-full object-cover"
+                        src={
+                          post.data.authorImage?.src ??
+                          post.data.authorImage ??
+                          "/assets/francois_verin_profile_picture.jpeg"
+                        }
+                      />
+                    </div>
+                    <span class="font-headline font-semibold text-xs text-primary">
+                      {post.data.author}
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="mt-20 flex justify-center items-center gap-4">
+        {
+          page.url.prev && (
+            <a
+              href={page.url.prev}
+              class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant text-primary hover:bg-surface-container transition-all"
+            >
+              <span class="material-symbols-outlined">chevron_left</span>
+            </a>
+          )
+        }
+        <button
+          class="w-12 h-12 flex items-center justify-center rounded-full bg-primary text-on-primary font-headline transition-all"
+          aria-current>{page.currentPage}</button
+        >
+        {
+          page.url.next && (
+            <a
+              href={page.url.next}
+              class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant text-primary hover:bg-surface-container transition-all"
+            >
+              <span class="material-symbols-outlined">chevron_right</span>
+            </a>
+          )
+        }
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>

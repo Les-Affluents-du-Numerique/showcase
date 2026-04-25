@@ -1,0 +1,58 @@
+---
+import { getCollection } from "astro:content";
+
+import BlogListLayout from "@layouts/BlogListLayout.astro";
+
+import {
+  POST_TAGS_ENUM,
+  SITE_DESCRIPTIONS,
+  SITE_LANG,
+  SITE_TITLES,
+} from "../../../consts";
+
+export const getStaticPaths = async () => {
+  const posts = await getCollection("blog");
+  const tags = Object.keys(POST_TAGS_ENUM).filter((tag) =>
+    posts.some((p) => (p.data.tags ?? []).includes(tag)),
+  );
+  return tags.map((tag) => ({ params: { tag } }));
+};
+
+const tag = Astro.params.tag as string;
+
+const allPosts = await getCollection("blog");
+const postsSorted = allPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const availableTagEntries = Object.entries(POST_TAGS_ENUM).filter(([key]) =>
+  allPosts.some((post) => (post.data.tags ?? []).includes(key)),
+);
+
+const effectiveTag = tag;
+const siteTitle = effectiveTag
+  ? SITE_TITLES.blogCategory[effectiveTag]
+  : SITE_TITLES.blog;
+const siteDescription = effectiveTag
+  ? SITE_DESCRIPTIONS.blogCategory[effectiveTag]
+  : SITE_DESCRIPTIONS.blogAllCategory;
+
+const PAGE_SIZE = 4;
+const pageCurrent = 1;
+const filtered = postsSorted.filter((p) =>
+  (p.data.tags ?? []).includes(effectiveTag as string),
+);
+const gridPosts = filtered.slice(0, PAGE_SIZE);
+const hasNext = filtered.length > PAGE_SIZE;
+---
+
+<BlogListLayout
+  title={siteTitle}
+  description={siteDescription}
+  availableTagEntries={availableTagEntries}
+  effectiveTag={effectiveTag}
+  gridPosts={gridPosts}
+  pageCurrent={pageCurrent}
+  prevHref={null}
+  nextHref={hasNext ? `/blog/${effectiveTag}/2` : null}
+/>

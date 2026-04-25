@@ -1,0 +1,61 @@
+---
+import { getCollection } from "astro:content";
+import { type GetStaticPaths, type InferGetStaticPropsType } from "astro";
+
+import BlogListLayout from "@layouts/BlogListLayout.astro";
+
+import {
+  POST_TAGS_ENUM,
+  SITE_DESCRIPTIONS,
+  SITE_LANG,
+  SITE_TITLES,
+} from "../../consts";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getCollection("blog");
+
+  const postsSorted = posts.sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  );
+
+  return paginate(postsSorted, { pageSize: 4 });
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { page } = Astro.props;
+
+// All-articles page: no tag param
+const effectiveTag = undefined;
+const isAllArticles = true;
+
+const siteTitle = SITE_TITLES.blog;
+const siteDescription = SITE_DESCRIPTIONS.blogAllCategory;
+
+// Server-side: compute posts for the current paginated page
+const allPosts = await getCollection("blog");
+const postsSorted = allPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const availableTagEntries = Object.entries(POST_TAGS_ENUM).filter(([key]) =>
+  allPosts.some((post) => (post.data.tags ?? []).includes(key)),
+);
+
+const PAGE_SIZE = 4;
+const currentPage = Number(Astro.params.page ?? page?.currentPage ?? 1);
+const postsForPage =
+  (page?.items as any[]) ??
+  postsSorted.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+const gridPosts = postsForPage;
+---
+
+<BlogListLayout
+  title={siteTitle}
+  description={siteDescription}
+  availableTagEntries={availableTagEntries}
+  effectiveTag={undefined}
+  gridPosts={gridPosts}
+  pageCurrent={currentPage}
+  prevHref={page?.url?.prev ?? null}
+  nextHref={page?.url?.next ?? null}
+/>

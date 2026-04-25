@@ -1,0 +1,96 @@
+---
+import BaseHead from "@components/BaseHead.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import FormattedDate from "@components/FormattedDate.astro";
+import { POST_TAGS_ENUM, SITE_LANG } from "../consts";
+
+const {
+  title,
+  description,
+  availableTagEntries,
+  effectiveTag,
+  gridPosts = [],
+  pageCurrent = 1,
+  prevHref = null,
+  nextHref = null,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={SITE_LANG}>
+  <head>
+    <BaseHead title={title} description={description} />
+    <style>
+      .editorial-underline {
+        background-image: linear-gradient(120deg, #d0e4ff 0%, #d0e4ff 100%);
+        background-repeat: no-repeat;
+        background-size: 100% 0.3em;
+        background-position: 0 88%;
+        transition: background-size 0.25s ease-in;
+      }
+      .editorial-underline:hover {
+        background-size: 100% 0.5em;
+      }
+    </style>
+  </head>
+  <body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container">
+    <Header />
+    <main class="pt-32 pb-20 px-6 max-w-7xl mx-auto">
+      <header class="mb-20 text-left max-w-4xl">
+        <span class="font-label text-xs uppercase tracking-[0.2em] text-primary opacity-80 mb-4 block">Insights &amp; Analyses</span>
+        <h1 class="font-headline text-5xl md:text-7xl font-extrabold text-primary tracking-tight leading-[1.1] mb-8">Le courant des <span class="editorial-underline">idées</span> numériques.</h1>
+        <p class="font-body text-lg text-on-surface-variant leading-relaxed max-w-2xl">{description}</p>
+        <div class="my-4 flex gap-2">
+          <a class={effectiveTag ? "bg-surface-container text-on-secondary-container px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:bg-surface-container-high hover:scale-105" : "bg-primary text-on-primary px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:scale-105"} href="/blog">Tous les articles</a>
+          {availableTagEntries?.map(([key, label]) => (
+            <a
+              class={effectiveTag === key ? "bg-primary text-on-primary px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:scale-105" : "bg-surface-container text-on-secondary-container px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:bg-surface-container-high hover:scale-105"}
+              href={`/blog/${key}`}
+            >
+              {label}
+            </a>
+          ))}
+        </div>
+      </header>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 relative z-20">
+        {gridPosts.map((post) => (
+          <article class="group flex flex-col bg-surface-container-lowest rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/5">
+            <a href={`/blog/posts/${post.id}`} class="block h-full">
+              <div class="aspect-4/3 overflow-hidden">
+                <img alt="Article thumbnail" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src={post.data.heroImage?.src ?? post.data.heroImage ?? "/assets/blog-placeholder-1.jpg"} />
+              </div>
+              <div class="p-8 flex flex-col grow">
+                <div class="flex justify-between items-center mb-4">
+                  <div class="space-x-2" />
+                  <span class="font-body text-[10px] text-on-surface-variant italic">{<FormattedDate date={post.data.pubDate} />}</span>
+                </div>
+                <h3 class="font-headline text-xl font-bold text-primary mb-4 leading-snug group-hover:text-primary-container transition-colors">{post.data.title}</h3>
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <div class="mb-4 flex flex-wrap gap-2">
+                    {post.data.tags.map((t) => (
+                      <span class="inline-flex items-center bg-surface-container border border-surface-container text-on-secondary-fixed-variant px-3 py-1 rounded-full font-bold text-[10px] uppercase tracking-widest">{POST_TAGS_ENUM[t] ?? t}</span>
+                    ))}
+                  </div>
+                )}
+                <p class="font-body text-sm text-on-surface-variant mb-8 line-clamp-3 leading-relaxed">{post.data.description}</p>
+                <div class="mt-auto flex items-center gap-3 pt-6 border-t border-surface-container">
+                  <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container"><img class="w-full h-full object-cover" src={post.data.authorImage?.src ?? post.data.authorImage ?? "/assets/francois_verin_profile_picture.jpeg"} /></div>
+                  <span class="font-headline font-semibold text-xs text-primary">{post.data.author}</span>
+                </div>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-20 flex justify-center items-center gap-4">
+        { prevHref && (<a href={prevHref} class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant text-primary hover:bg-surface-container transition-all"><span class="material-symbols-outlined">chevron_left</span></a>) }
+        <button class="w-12 h-12 flex items-center justify-center rounded-full bg-primary text-on-primary font-headline transition-all" aria-current>{pageCurrent}</button>
+        { nextHref && (<a href={nextHref} class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant text-primary hover:bg-surface-container transition-all"><span class="material-symbols-outlined">chevron_right</span></a>) }
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>
