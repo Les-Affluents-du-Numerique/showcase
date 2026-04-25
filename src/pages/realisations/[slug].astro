@@ -1,0 +1,82 @@
+---
+import BaseHead from "@components/BaseHead.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import { SITE_LANG } from "../../consts";
+import { getCollection, getEntry } from "astro:content";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("realisations");
+  return projects
+    .map((p) => {
+      const slug = p.slug ?? (p.id ? p.id.split("/").pop() : undefined);
+      return slug ? { params: { slug } } : null;
+    })
+    .filter(Boolean);
+}
+
+const slug = Astro.params.slug;
+const project = await getEntry("realisations", slug);
+if (!project) {
+  throw new Error("Project not found");
+}
+
+// Render Markdown/MDX body to an Astro component
+// Use MDX rendering when available
+let Content = null;
+try {
+  const renderResult = await project.render();
+  Content = renderResult.Content;
+} catch (e) {
+  // fallback: leave Content null and render raw body
+}
+---
+
+<!doctype html>
+<html lang={SITE_LANG}>
+  <head>
+    <BaseHead
+      title={`Les Affluents du Numérique - ${project.data.title}`}
+      description={project.data.description}
+    />
+  </head>
+  <body
+    class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed"
+  >
+    <Header />
+    <main class="pt-32">
+      <section class="max-w-4xl mx-auto px-8 mb-16">
+        {
+          project.data.hero ? (
+            <div class="aspect-video rounded-2xl overflow-hidden mb-8">
+              <img
+                alt={project.data.title}
+                class="w-full h-full object-cover"
+                src={project.data.hero}
+              />
+            </div>
+          ) : null
+        }
+        <h1 class="text-4xl font-headline font-extrabold text-primary mb-4">
+          {project.data.title}
+        </h1>
+        <p class="text-on-surface-variant mb-6">{project.data.description}</p>
+        {
+          project.data.tech ? (
+            <div class="flex flex-wrap gap-2 mb-8">
+              {project.data.tech.map((t) => (
+                <span class="px-3 py-1 bg-surface-container text-on-surface-variant text-[0.8rem] font-bold rounded-full">
+                  {t}
+                </span>
+              ))}
+            </div>
+          ) : null
+        }
+        <div class="prose max-w-none text-on-surface">
+          {Content ? <Content /> : <p>{project.body}</p>}
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
