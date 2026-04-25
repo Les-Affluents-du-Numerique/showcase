@@ -2,6 +2,7 @@
 import BaseHead from "@components/BaseHead.astro";
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
+import ContactCTA from "@components/ContactCTA.astro";
 import { SITE_DESCRIPTIONS, SITE_LANG, SITE_TITLES } from "../consts";
 
 const siteTitle = SITE_TITLES.home;
@@ -413,54 +414,7 @@ const siteDescription = SITE_DESCRIPTIONS.home;
       >
       </div>
     </section>
-    <!-- Contact CTA -->
-    <section class="py-32 bg-background">
-      <div class="max-w-5xl mx-auto px-8">
-        <div
-          class="fluid-gradient rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl"
-        >
-          <div class="relative z-10">
-            <h2
-              class="font-headline font-extrabold text-4xl md:text-6xl text-white mb-8 tracking-tight"
-            >
-              Prêt à rejoindre <br /> le flux ?
-            </h2>
-            <p
-              class="font-body text-sky-100 text-lg md:text-xl mb-12 max-w-2xl mx-auto opacity-90"
-            >
-              Parlons de votre projet. Nos experts reviennent vers vous sous 24h
-              pour une première consultation gratuite.
-            </p>
-            <div class="flex flex-col md:flex-row gap-4 max-w-lg mx-auto">
-              <a
-                href="mailto:contact@lesaffluentsdunumerique.fr"
-                class="bg-white text-primary px-10 py-4 rounded-full font-bold hover:bg-sky-50 transition-colors shadow-lg w-full text-center"
-                >Envoyer un email</a
-              >
-            </div>
-            <div class="mt-12 flex justify-center gap-8 text-white/60 text-sm">
-              <div class="flex items-center gap-2">
-                <span
-                  class="material-symbols-outlined text-sm"
-                  data-icon="check_circle">check_circle</span
-                > Devis gratuit
-              </div>
-              <div class="flex items-center gap-2">
-                <span
-                  class="material-symbols-outlined text-sm"
-                  data-icon="check_circle">check_circle</span
-                > Réponse &lt; 24h
-              </div>
-            </div>
-          </div>
-          <!-- Decorative background light -->
-          <div
-            class="absolute -top-1/2 -right-1/4 w-[80%] h-[150%] bg-white/10 blur-[100px] rounded-full rotate-45"
-          >
-          </div>
-        </div>
-      </div>
-    </section>
+    <ContactCTA />
     <!-- Footer -->
     <Footer />
   </body><style>

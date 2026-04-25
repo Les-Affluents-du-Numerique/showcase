@@ -1,26 +1,32 @@
 ---
 import { SITE_TITLE } from "../consts";
 import HeaderLink from "./HeaderLink.astro";
+
+function toNumericEntities(s) {
+  return String(s).replace(/[^\x00-\x7F]/g, (c) => `&#${c.charCodeAt(0)};`);
+}
 ---
 
 <header>
   <nav
     class="fixed top-4 left-1/2 -translate-x-1/2 w-[90%] max-w-7xl rounded-full border border-white/20 bg-surface/80 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,51,88,0.1)] flex justify-between items-center px-8 py-3 z-50"
   >
-    <div
+    <a
+      href="/"
       class="text-xl font-bold tracking-tighter text-sky-900 font-headline flex flex-row items-center gap-2"
+      aria-label="Accueil"
     >
       <span
         class="material-symbols-outlined text-4xl text-primary-container"
         data-icon="waves">waves</span
       >
-      {SITE_TITLE}
-    </div>
+      <span set:html={toNumericEntities(SITE_TITLE)} />
+    </a>
     <div class="hidden md:flex items-center gap-8">
       <HeaderLink href={"/"}>Accueil</HeaderLink>
-      <!-- <HeaderLink href={'/services'}>Services</HeaderLink> -->
-      <HeaderLink href={"/blog"}>Blog</HeaderLink>
       <HeaderLink href={"/notre-equipe"}>Notre Equipe</HeaderLink>
+      <HeaderLink href={"/realisations"}>Nos Réalisations</HeaderLink>
+      <HeaderLink href={"/blog"}>Blog</HeaderLink>
     </div>
     <a
       href="mailto:contact@lesaffluentsdunumerique.fr"

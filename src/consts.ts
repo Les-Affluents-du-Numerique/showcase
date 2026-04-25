@@ -22,7 +22,7 @@ export const SITE_DESCRIPTIONS = {
   team: 'Découvrez notre équipe de développeurs web indépendants. Passionnés et engagé pour vos projets numériques.',
   blog: 'Retrouvez nos articles sur le développement web.',
   blogCategory: BLOG_CATEGORIES_DESCRIPTION,
-  blogAllCategory: 'Retrouvez tous nos articles.',
+  blogAllCategory: 'Explorez nos réflexions sur l\'architecture logicielle, les stratégies business et les courants technologiques qui façonnent l\'avenir des PME. ',
   legalNotices: 'Retrouvez nos mentions légales',
   privacyPolicy: 'Retrouvez notre politique de confidentialité'
 } as const
