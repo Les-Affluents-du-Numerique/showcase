@@ -13,4 +13,188 @@ tech:
   - Tailwind CSS
 ---
 
-Mise en place d'un design system et d'une bibliothèque de composants réutilisables pour accélérer les développements.
+## **LE CONTEXTE**
+
+**Client :** Qorus (ex-Efma)  
+**Secteur :** Fintech / Services financiers  
+**Période :** 2021 - 2025 (4 ans)  
+**Rôle :** Développeur Full-Stack
+
+**La plateforme :**
+
+Qorus est une plateforme collaborative mondiale regroupant plus de 1 200 institutions financières dans 120+ pays. Elle centralise événements internationaux, programmes d'awards, partage de contenus et networking entre professionnels de la finance.
+
+**L'enjeu :**
+
+Faire évoluer une plateforme critique de 4+ ans, utilisée quotidiennement par des milliers d'utilisateurs dans le monde, tout en maintenant stabilité et performances.
+
+---
+
+## **LES DÉFIS TECHNIQUES**
+
+### **1. Migration de deux portails Drupal legacy**
+
+**Problématique :**
+
+Deux portails externes (Awards et contenus) tournaient sur Drupal vieillissant, avec hébergement coûteux et maintenance complexe. L'expérience utilisateur était fragmentée : les utilisateurs jonglaient entre 3 plateformes différentes.
+
+**Solution apportée :**
+
+Migration complète vers la plateforme Laravel centrale :
+- Reprise intégrale des données (contenus, utilisateurs, médias, historiques)
+- Refonte des interfaces pour harmoniser l'expérience
+- Architecture unifiée remplaçant 3 systèmes isolés
+
+**Résultats :**
+
+✅ **Expérience utilisateur unifiée** : un seul compte, une seule interface  
+✅ **Réduction des coûts d'hébergement** : décommissionnement de 2 infrastructures Drupal  
+✅ **Maintenabilité améliorée** : une seule codebase au lieu de trois  
+✅ **Portail Awards migré avec zéro interruption** malgré un pic de trafic (soumissions et votes)
+
+---
+
+### **2. Automatisation des invitations événements**
+
+**Problématique :**
+
+L'équipe gérait manuellement les invitations aux événements internationaux : création d'invitations calendrier, envoi par email, gestion des participants. Process chronophage et source d'erreurs.
+
+**Solution apportée :**
+
+Intégration Microsoft Graph API :
+- Synchronisation automatique événements CMS → calendriers Outlook/Gmail
+- Gestion des participants et notifications en temps réel
+- Mise à jour bidirectionnelle (modification événement = MAJ calendriers)
+
+**Résultats :**
+
+✅ **Gain de temps considérable** : processus manuel de plusieurs heures réduit à quelques clics  
+✅ **Réduction des erreurs** : plus d'oublis ou d'invitations incorrectes  
+✅ **Meilleure adoption** : synchronisation native avec outils quotidiens des utilisateurs
+
+---
+
+### **3. Refonte UI/UX suite rebranding**
+
+**Problématique :**
+
+Rebranding complet de l'entreprise (Efma → Qorus) nécessitant refonte visuelle totale de la plateforme.
+
+**Solution apportée :**
+
+- Refonte front-end complète (Laravel + Vue.js)
+- Migration stack technique (Laravel Mix → Vite, ajout Tailwind CSS)
+- Passage d'interface statique à composants dynamiques réactifs
+
+**Résultats :**
+
+✅ **Identité visuelle cohérente** avec le nouveau positionnement  
+✅ **Interfaces plus réactives** grâce à Vue.js  
+✅ **Base technique modernisée** facilitant évolutions futures
+
+---
+
+### **4. Optimisation performances & infrastructure**
+
+**Problématique :**
+
+Plateforme soumise à pics de charge (événements, votes awards) avec dépendances multiples à APIs externes (HubSpot, Stripe, Algolia, Posthog).
+
+**Solutions apportées :**
+
+**Performances backend :**
+- Mise en cache stratégique (Redis)
+- Queues asynchrones pour traitements lourds
+- Rate limiting intelligent pour APIs externes
+
+**Infrastructure temps réel :**
+- Développement serveur WebSocket auto-hébergé (remplacement Pusher)
+- Messagerie et notifications temps réel
+- Réduction coûts infrastructure externe
+
+**Fiabilité emails :**
+- Mécanisme de fallback multi-provider
+- Réduction drastique des emails non reçus
+
+**Résultats :**
+
+✅ **Réduction coûts infrastructure** : WebSocket auto-hébergé vs. Pusher  
+✅ **Amélioration temps de réponse** : cache et queues  
+✅ **Meilleure fiabilité** : fallback emails  
+
+---
+
+### **5. Intégration CRM HubSpot**
+
+**Problématique :**
+
+Besoin de synchroniser données plateforme avec CRM HubSpot pour automatiser marketing et suivi commercial.
+
+**Solution apportée :**
+
+Développement application publique HubSpot :
+- Flux OAuth2 complet (authentification sécurisée)
+- Gestion tokens et refresh automatique
+- Échanges bidirectionnels de données
+
+**Résultats :**
+
+✅ **Automatisation complète** : sync contacts, événements, interactions  
+✅ **Conformité sécurité** : OAuth2 standard industrie  
+✅ **Gain temps équipe marketing**
+
+---
+
+## **STACK TECHNIQUE**
+
+**Backend :** Laravel (versions 8 → 11), PHP 8.x  
+**Frontend :** Vue.js 3, Tailwind CSS  
+**Database :** MySQL, Redis  
+**Infrastructure :** WebSocket (Node.js), Queues, Cache  
+**Intégrations :** Microsoft Graph API, HubSpot API, Stripe, Algolia, Posthog  
+**DevOps :** Git, CI/CD  
+**Tests :** Pest (PHP)
+
+---
+
+## **MÉTHODOLOGIE**
+
+**Travail en équipe :**
+- Collaboration avec 4-6 développeurs selon projets
+- Participation réunions produit bilingues (FR/EN)
+- Code reviews et approche itérative
+
+**Approche technique :**
+- Développement progressif sans interruption service
+- Tests réguliers (Pest)
+- Refactoring continu pour réduire dette technique
+
+---
+
+## **IMPACT GLOBAL**
+
+**Pour les utilisateurs :**
+- Expérience unifiée (3 plateformes → 1)
+- Interfaces plus modernes et réactives
+- Fonctionnalités temps réel (messagerie, notifs)
+
+**Pour l'entreprise :**
+- Réduction coûts infrastructure (décommissionnement Drupal, Pusher)
+- Automatisation processus manuels (invitations, sync CRM)
+- Base technique solide pour évolutions futures
+
+**Pour l'équipe technique :**
+- Codebase unifiée plus maintenable
+- Stack moderne facilitant développements
+- Réduction complexité (1 système vs. 3)
+
+---
+
+## **EN QUELQUES CHIFFRES**
+
+🌍 **1 200+** institutions financières utilisatrices  
+🗺️ **120+** pays couverts  
+📊 **2** portails Drupal migrés avec succès  
+⚡ **0** interruption de service pendant migrations critiques  
+💰 Économies infrastructure significatives (hébergement + services externes)

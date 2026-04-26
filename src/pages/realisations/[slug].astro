@@ -3,7 +3,7 @@ import BaseHead from "@components/BaseHead.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import { SITE_LANG, AUTHORS } from "../../consts";
-import { getCollection, getEntry } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 
 export async function getStaticPaths() {
   const projects = await getCollection("realisations");
@@ -21,14 +21,13 @@ if (!project) {
   throw new Error("Project not found");
 }
 
-// Render Markdown/MDX body to an Astro component
-// Use MDX rendering when available
+// Render Markdown/MDX body to an Astro component or HTML
 let Content = null;
-try {
-  const renderResult = await project.render();
-  Content = renderResult.Content;
-} catch (e) {
-  // fallback: leave Content null and render raw body
+let renderedHTML = null;
+const renderResult = await render(project).catch(() => null);
+if (renderResult) {
+  Content = renderResult.Content ?? null;
+  renderedHTML = renderResult.html ?? renderResult.content ?? null;
 }
 ---
 
@@ -105,7 +104,13 @@ try {
           ) : null
         }
         <div class="prose max-w-none text-on-surface">
-          {Content ? <Content /> : <p>{project.body}</p>}
+          {Content ? (
+            <Content />
+          ) : renderedHTML ? (
+            <div set:html={renderedHTML} />
+          ) : (
+            <p>{project.body}</p>
+          )}
         </div>
       </section>
     </main>
