@@ -2,7 +2,7 @@
 import BaseHead from "@components/BaseHead.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
-import { SITE_LANG } from "../../consts";
+import { SITE_LANG, AUTHORS } from "../../consts";
 import { getCollection, getEntry } from "astro:content";
 
 export async function getStaticPaths() {
@@ -61,6 +61,38 @@ try {
           {project.data.title}
         </h1>
         <p class="text-on-surface-variant mb-6">{project.data.description}</p>
+        <div
+          class="flex items-center gap-6 text-sm text-on-surface-variant mb-6"
+        >
+          <div>
+            {
+              project.data.startDate ? (
+                <span>
+                  {new Date(project.data.startDate).toLocaleDateString(
+                    "fr-FR",
+                    { day: "numeric", month: "long", year: "numeric" },
+                  )}
+                  {project.data.endDate
+                    ? ` — ${new Date(project.data.endDate).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}`
+                    : null}
+                </span>
+              ) : null
+            }
+          </div>
+          <div class="flex items-center gap-4">
+            {
+              project.data.authors && project.data.authors.length ? (
+                project.data.authors.map((a) => (
+                  <span class="font-medium">
+                    {AUTHORS[a] ? AUTHORS[a].name : a}
+                  </span>
+                ))
+              ) : project.data.author ? (
+                <span class="font-medium">{project.data.author}</span>
+              ) : null
+            }
+          </div>
+        </div>
         {
           project.data.tech ? (
             <div class="flex flex-wrap gap-2 mb-8">

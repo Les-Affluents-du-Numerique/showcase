@@ -2,7 +2,7 @@
 import BaseHead from "@components/BaseHead.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
-import { SITE_LANG } from "../consts";
+import { SITE_LANG, AUTHORS } from "../consts";
 import { getCollection } from "astro:content";
 import ContactCTA from "@components/ContactCTA.astro";
 
@@ -60,27 +60,6 @@ const projects = rawProjects.map((p) => ({
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz-30w_LtOA9ADxu3QbB2_4uaIyirXTj7Ow-9aq6BbgmlLOEVl2RmoRhA7gjXDEYQgs-H2uATFGK12Xv6FYC53lMrPcWUHrcTxAzZpaYuJPSe9lCJhbundDUZ6N6fyMl6c12pk5M_TBwunrVzgo0ZVHW6SlgqZFfnlcgjgqG549RpkPJLxfOrQKVp_DEcK9LRsjp47imKCPX5Z1KBQHIJEid5eUD5J-OwndhT2qdZ_-oOXNd69hdmiQXW4c0R20atkln92IM_Rxn4L"
               />
             </div>
-            <div
-              class="absolute -bottom-6 -left-6 aspect-video w-64 rounded-xl bg-surface-container-lowest p-4 shadow-2xl transform -rotate-6"
-            >
-              <div class="flex items-center gap-3 mb-2">
-                <div
-                  class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center"
-                >
-                  <span class="material-symbols-outlined text-tertiary text-sm"
-                    >trending_up</span
-                  >
-                </div>
-                <span class="text-xs font-bold text-primary"
-                  >+45% Performance</span
-                >
-              </div>
-              <div
-                class="h-2 w-full bg-surface-container rounded-full overflow-hidden"
-              >
-                <div class="h-full w-3/4 bg-primary rounded-full"></div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -99,16 +78,6 @@ const projects = rawProjects.map((p) => ({
                 class="rounded-2xl shadow-2xl relative z-10 w-full object-cover aspect-[4/3]"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEawKRD1TIsmqS8yk446ND46iSEgdXR6iYIuQIXYssWggEha65UONHg1VxvuLGHUhchldUxi_d9Cj3MUOZxL5bvxHcrYIHKhMbKjuBVBl1ORM6p5sMgWXUB0LJ_xH7KAV0y1J89yD3fdDuhKaFE81KhZu1TFNb8RxD8V7ahy_YsSJRv_XGnBeSLxZSrwCAcPzoGoDiCEdrpj3wKHNc4q7VWUBO74DL8JCwKMFqN2ngNLEONs0czTh2sZN03B8Id47J7u0gghfvEABG"
               />
-              <div
-                class="absolute -bottom-12 -right-12 p-8 bg-surface-container-lowest rounded-xl shadow-2xl hidden md:block"
-              >
-                <p class="text-primary font-bold text-4xl mb-1">98%</p>
-                <p
-                  class="text-on-surface-variant text-xs uppercase tracking-widest font-bold"
-                >
-                  Taux de satisfaction
-                </p>
-              </div>
             </div>
             <div>
               <span
@@ -201,6 +170,7 @@ const projects = rawProjects.map((p) => ({
                       <p class="text-on-surface-variant mb-6 text-sm leading-relaxed">
                         {p.data.description}
                       </p>
+
                       {p.data.tech ? (
                         <div class="flex flex-wrap gap-2 mb-6">
                           {p.data.tech.map((t) => (

@@ -11,7 +11,9 @@ const blog = defineCollection({
     z.object({
       title: z.string(),
       description: z.string(),
-      author: z.string(),
+      // backward-compatible: single `author` or new `authors` array
+      author: z.string().optional(),
+      authors: z.array(z.string()).optional(),
       tags: postTagsSchema,
       // Transform string to Date object
       pubDate: z.coerce.date(),
@@ -31,7 +33,11 @@ const realisations = defineCollection({
     z.object({
       title: z.string(),
       description: z.string(),
-      date: z.coerce.date(),
+      // Support start/end dates for projects; endDate is optional for ongoing works
+      startDate: z.coerce.date(),
+      endDate: z.coerce.date().optional(),
+      // Authors as array of author slugs (see `src/consts.ts` mapping)
+      authors: z.array(z.string()).optional(),
       hero: z.string().optional(),
       tech: z.array(z.string()).optional(),
       summary: z.string().optional(),

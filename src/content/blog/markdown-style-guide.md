@@ -1,11 +1,10 @@
 ---
-title: 'Markdown Style Guide'
-author: 'Christopher Debray'
-tags: ['intelligence-artificielle', 'tendances-tech']
-description: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
-pubDate: 'Jun 19 2024'
-heroImage: '../../assets/blog-placeholder-1.jpg'
-authorImage: '../../assets/christopher_debray_profile_picture.jpeg'
+title: "Markdown Style Guide"
+authors: ["christopher-debray"]
+tags: ["intelligence-artificielle", "tendances-tech"]
+description: "Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro."
+pubDate: "Jun 19 2024"
+heroImage: "../../assets/blog-placeholder-1.jpg"
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.

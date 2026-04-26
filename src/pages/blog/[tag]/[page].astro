@@ -5,11 +5,13 @@ import { type GetStaticPaths, type InferGetStaticPropsType } from "astro";
 import BaseHead from "@components/BaseHead.astro";
 import Footer from "@components/Footer.astro";
 import FormattedDate from "@components/FormattedDate.astro";
+import { Image } from "astro:assets";
 import Header from "@components/Header.astro";
 
 import {
   POST_TAGS_ENUM,
   POST_TAGS_WITH_EMPTY_TAG,
+  AUTHORS,
   SITE_DESCRIPTIONS,
   SITE_LANG,
   SITE_TITLES,
@@ -161,17 +163,32 @@ const gridPosts = postsForPage;
 
                   <div class="mt-auto flex items-center gap-3 pt-6 border-t border-surface-container">
                     <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container">
-                      <img
-                        class="w-full h-full object-cover"
-                        src={
-                          post.data.authorImage?.src ??
-                          post.data.authorImage ??
-                          "/assets/francois_verin_profile_picture.jpeg"
-                        }
-                      />
+                      {post.data.authors &&
+                      post.data.authors[0] &&
+                      AUTHORS[post.data.authors[0]] ? (
+                        <Image
+                          src={AUTHORS[post.data.authors[0]].image}
+                          alt={AUTHORS[post.data.authors[0]].name}
+                          class="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <img
+                          class="w-full h-full object-cover"
+                          src={
+                            post.data.authorImage?.src ??
+                            post.data.authorImage ??
+                            "/assets/francois_verin_profile_picture.jpeg"
+                          }
+                          alt={post.data.author}
+                        />
+                      )}
                     </div>
                     <span class="font-headline font-semibold text-xs text-primary">
-                      {post.data.author}
+                      {post.data.authors && post.data.authors.length
+                        ? post.data.authors
+                            .map((a) => (AUTHORS[a] ? AUTHORS[a].name : a))
+                            .join(", ")
+                        : post.data.author}
                     </span>
                   </div>
                 </div>
