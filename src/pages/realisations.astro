@@ -21,11 +21,20 @@ const findAuthor = (a) => {
   return null;
 };
 
-const projects = rawProjects.map((p) => ({
-  ...p,
-  _slug: p.slug ?? (p.id ? p.id.split("/").pop() : ""),
-  authorsMeta: (p.data.authors ?? []).map((a) => findAuthor(a)),
-}));
+const projects = rawProjects
+  .map((p) => ({
+    ...p,
+    _slug: p.slug ?? (p.id ? p.id.split("/").pop() : ""),
+    authorsMeta: (p.data.authors ?? []).map((a) => findAuthor(a)),
+  }))
+  .sort((a, b) => {
+    const aDate =
+      a.data && a.data.startDate ? new Date(a.data.startDate).getTime() : 0;
+    const bDate =
+      b.data && b.data.startDate ? new Date(b.data.startDate).getTime() : 0;
+    // Sort descending (newest first)
+    return bDate - aDate;
+  });
 ---
 
 <!doctype html>
