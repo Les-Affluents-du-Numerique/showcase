@@ -1,0 +1,86 @@
+---
+const { project, idx } = Astro.props;
+import { Image } from "astro:assets";
+import { AUTHORS } from "../consts";
+---
+
+<div class={idx === 0 ? "md:col-span-2 lg:col-span-2 group" : "group"}>
+  <div
+    class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm transition-all duration-300 hover:shadow-xl flex flex-col h-full"
+  >
+    {
+      project.data.hero ? (
+        <a href={`/realisations/${project._slug}`} class="block">
+          <div class="h-56 overflow-hidden">
+            <img
+              alt={project.data.title}
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              src={project.data.hero}
+            />
+          </div>
+        </a>
+      ) : null
+    }
+    <div class="p-8">
+      <a
+        href={`/realisations/${project._slug}`}
+        class="inline-block no-underline"
+      >
+        <h3 class="font-display text-2xl font-bold text-primary mb-4">
+          {project.data.title}
+        </h3>
+      </a>
+      <p class="text-on-surface-variant mb-6 text-sm leading-relaxed">
+        {project.data.description}
+      </p>
+
+      {
+        project.authorsMeta && project.authorsMeta.length ? (
+          <div class="flex items-center mb-4">
+            <div class="flex -space-x-2">
+              {project.authorsMeta.slice(0, 3).map((m, i) =>
+                m ? (
+                  <div class="w-8 h-8 rounded-full overflow-hidden ring-2 ring-white bg-surface-container">
+                    <Image
+                      src={m.image}
+                      alt={m.name}
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-on-surface bg-surface-container ring-2 ring-white">
+                    {project.data.authors && project.data.authors[i]
+                      ? (String(project.data.authors[i])
+                          .split(" ")[0]
+                          ?.charAt(0) ?? "?")
+                      : "?"}
+                  </div>
+                ),
+              )}
+            </div>
+          </div>
+        ) : null
+      }
+
+      {
+        project.data.tech ? (
+          <div class="flex flex-wrap gap-2 mb-6">
+            {project.data.tech.map((t) => (
+              <span class="px-3 py-1 bg-surface-container text-on-surface-variant text-[0.7rem] font-bold rounded-full">
+                {t}
+              </span>
+            ))}
+          </div>
+        ) : null
+      }
+      <a
+        class="inline-flex items-center gap-2 text-primary font-bold text-sm hover:gap-4 transition-all"
+        href={`/realisations/${project._slug}`}
+      >
+        Voir le projet <span class="material-symbols-outlined text-sm"
+          >arrow_forward</span
+        >
+      </a>
+    </div>
+  </div>
+</div>
