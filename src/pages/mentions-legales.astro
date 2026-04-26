@@ -1,11 +1,11 @@
 ---
-import Footer from '@components/Footer.astro';
-import { SITE_DESCRIPTIONS, SITE_LANG, SITE_TITLES } from '../consts';
-import Header from '@components/Header.astro';
-import BaseHead from '@components/BaseHead.astro';
+import Footer from "@components/Footer.astro";
+import { SITE_DESCRIPTIONS, SITE_LANG, SITE_TITLES } from "../consts";
+import Header from "@components/Header.astro";
+import BaseHead from "@components/BaseHead.astro";
 
-const siteTitle = SITE_TITLES.legalNotices
-const siteDescription = SITE_DESCRIPTIONS.legalNotices
+const siteTitle = SITE_TITLES.legalNotices;
+const siteDescription = SITE_DESCRIPTIONS.legalNotices;
 ---
 
 <!doctype html>
@@ -13,39 +13,145 @@ const siteDescription = SITE_DESCRIPTIONS.legalNotices
   <head>
     <BaseHead title={siteTitle} description={siteDescription} />
   </head>
-  <body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container">
-    <Header/>
-    <main class="pt-32">
+  <body
+    class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container"
+  >
+    <Header />
+    <main class="pt-32 px-6 md:px-8 max-w-4xl mx-auto">
+      <h1 class="font-headline text-4xl font-extrabold mb-6">
+        Mentions Légales
+      </h1>
 
-      <h1>Mentions légales</h1>
+      <p class="text-sm text-on-surface-variant mb-6">
+        Dernière mise à jour : Avril 2026
+      </p>
 
-      <h2>Éditeur du site</h2>
-      <p>Le site "Les Affluents du numérique" est edité par un collectif informel de développeurs indépendans</p>
-      <ul>
-        <li>François Verin, développeur indépendant</li>
-        <li>Daniel Cadeau, développeur indépendant</li>
-        <li>Christopher Debray, développeur indépendant</li>
+      <h2 class="font-bold text-xl mt-6">1. Éditeur du site</h2>
+      <p>Le présent site est édité par :</p>
+      <p class="mb-4">Les Affluents du Numérique — collectif d'indépendants</p>
+
+      <h2 class="font-bold text-xl mt-6">2. Responsable de publication</h2>
+      <p class="mb-4">
+        <a
+          class="text-primary font-medium"
+          href="mailto:contact@lesaffluentsdunumerique.fr"
+          >contact@lesaffluentsdunumerique.fr</a
+        >
+      </p>
+
+      <h2 class="font-bold text-xl mt-6">3. Hébergement</h2>
+      <p class="mb-4">
+        Le site est hébergé par Vercel (siège : 340 S Lemon Ave #4133 Walnut, CA
+        91789, États‑Unis).
+      </p>
+
+      <h2 class="font-bold text-xl mt-6">
+        4. Nom de domaine et services techniques
+      </h2>
+      <p class="mb-4">Le nom de domaine est enregistré auprès de OVH.</p>
+
+      <h2 class="font-bold text-xl mt-6">5. Prestataires techniques</h2>
+      <p class="mb-4">
+        Le site peut faire appel à des prestataires techniques pour son
+        fonctionnement, notamment l'hébergement applicatif (Vercel). Ces
+        prestataires peuvent, dans le cadre strict de leur mission, traiter
+        certaines données techniques nécessaires au fonctionnement du service.
+      </p>
+
+      <h2 class="font-bold text-xl mt-6">6. Propriété intellectuelle</h2>
+      <p class="mb-4">
+        L’ensemble du site (textes, code, design, éléments graphiques,
+        structure) est protégé par le droit de la propriété intellectuelle.
+        Toute reproduction, représentation, modification ou exploitation sans
+        autorisation préalable est interdite.
+      </p>
+
+      <h2 class="font-bold text-xl mt-6">7. Limitation de responsabilité</h2>
+      <p class="mb-4">
+        L’éditeur s’efforce de fournir des informations fiables, mais ne saurait
+        garantir l’exactitude, la complétude ou l’actualité des informations
+        diffusées.
+      </p>
+
+      <hr class="my-8" />
+
+      <h1 class="font-headline text-2xl font-extrabold mb-4">
+        POLITIQUE DE CONFIDENTIALITÉ (RGPD)
+      </h1>
+      <p class="mb-4">Responsables du traitement :</p>
+      <ul class="list-disc pl-6 mb-4">
+        <li>Daniel Cadeau EI</li>
+        <li>François Verin EI</li>
+        <li>Christopher Debray EI</li>
+        <li>Jordan Mombongo EI</li>
       </ul>
 
-      <h2>Hébergement</h2>
-      <p>Le site est hébergé par Vercel, dont le siège social est situé à 340 S Lemon Ave #4133 Walnut, CA 91789, États-Unis</p>
-      <p>Le domaine est hébergé par OVH, dont le siège social est situé à 2 rue Kellermann, 59100 Roubaix, France.</p>
+      <h2 class="font-bold text-xl mt-4">1. Données collectées</h2>
+      <p class="mb-4">
+        Dans le cadre de l’utilisation du site aucune donnée n'est collectée
+        automatiquement. Pour communiquer avec le collectif, l'envoi d'emails
+        est utilisé et ces messages sont stockés chez le prestataire email
+        choisi (OVH).
+      </p>
 
-      <h2>Contact</h2>
-      <p>Pour toute question, vous pouvez nous contacter à l'adresse email suivante : <a href="mailto:contact@lesinffluentsdunumerique.com">contact@lesinffluentsdunumerique.com</a></p>
-      
-      <h2>Propriété intellectuelle</h2>
-      <p>L'ensemble des contenus présents sur ce site (textes, images, logos) est protégé par le droit d'auteur. Toute reproduction ou utilisation non autorisée est interdite.</p>
+      <h2 class="font-bold text-xl mt-4">2. Finalité du traitement</h2>
+      <p class="mb-4">Les données sont collectées uniquement pour :</p>
+      <ul class="list-disc pl-6 mb-4">
+        <li>la gestion des demandes de contact</li>
+        <li>la communication liée aux prestations proposées</li>
+        <li>le suivi de la relation client</li>
+      </ul>
 
-      <h2>Données personnelles</h2>
-      <p>Les données collectées via ce site (par exemple, via le formulaire de contact) sont utilisées uniquement pour répondre à vos demandes. Vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour l'exercer, contactez-nous à l'adresse email suivante : <a href="mailto:contact@lesinffluentsdunumerique.com">contact@lesinffluentsdunumerique.com</a></p>
+      <h2 class="font-bold text-xl mt-4">3. Base légale</h2>
+      <p class="mb-4">
+        Le traitement repose sur l’exécution de mesures précontractuelles (prise
+        de rendez‑vous) ainsi que sur l’intérêt légitime pour répondre aux
+        demandes de contact. Certains transferts peuvent être effectués hors UE
+        via des prestataires tiers et sont encadrés par des garanties
+        appropriées.
+      </p>
 
-      <h2>Responsabilité</h2>
-      <p>Chaque membre du collectif est responsable de ses propres prestations. Le collectif n'est pas une entité juridique et les informations fournies sur ce site le sont à titre indicatif.</p>
-      
-      <h2>Liens externes</h2>
-      <p>Ce site peut contenir des liens vers d'autres sites. Nous ne sommes pas responsable du contenu de ces sites externes</p>
+      <h2 class="font-bold text-xl mt-4">4. Sécurité</h2>
+      <p class="mb-4">
+        Des mesures techniques et organisationnelles sont mises en place afin de
+        protéger les données personnelles contre toute perte, accès non autorisé
+        ou divulgation.
+      </p>
+
+      <h2 class="font-bold text-xl mt-4">5. Droits des utilisateurs</h2>
+      <p class="mb-4">
+        Conformément au RGPD, vous disposez des droits d’accès, rectification,
+        suppression, limitation et opposition. Vous pouvez exercer ces droits à
+        l'adresse suivante : <a
+          class="text-primary font-medium"
+          href="mailto:contact@lesaffluentsdunumerique.fr"
+          >contact@lesaffluentsdunumerique.fr</a
+        >
+      </p>
+
+      <h2 class="font-bold text-xl mt-4">6. Cookies</h2>
+      <p class="mb-4">
+        Le site peut utiliser des cookies strictement nécessaires à son
+        fonctionnement (sécurité, gestion de session). Aucun cookie publicitaire
+        ou de suivi n'est utilisé.
+      </p>
+
+      <h2 class="font-bold text-xl mt-4">7. Contact</h2>
+      <p class="mb-8">
+        Pour toute question concernant la protection des données : <a
+          class="text-primary font-medium"
+          href="mailto:contact@lesaffluentsdunumerique.fr"
+          >contact@lesaffluentsdunumerique.fr</a
+        >
+      </p>
+
+      <p class="text-sm text-on-surface-variant">
+        Vous disposez également du droit d’introduire une réclamation auprès de
+        la CNIL : <a href="https://www.cnil.fr" class="text-primary"
+          >https://www.cnil.fr</a
+        >
+      </p>
     </main>
-    <Footer/>
+    <Footer />
   </body>
 </html>
