@@ -104,13 +104,15 @@ if (renderResult) {
           ) : null
         }
         <div class="prose max-w-none text-on-surface">
-          {Content ? (
-            <Content />
-          ) : renderedHTML ? (
-            <div set:html={renderedHTML} />
-          ) : (
-            <p>{project.body}</p>
-          )}
+          {
+            Content ? (
+              <Content />
+            ) : renderedHTML ? (
+              <div set:html={renderedHTML} />
+            ) : (
+              <p>{project.body}</p>
+            )
+          }
         </div>
       </section>
     </main>
