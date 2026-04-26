@@ -133,6 +133,13 @@ p {
 .prose p {
 	margin-bottom: 2em;
 }
+
+/* Increase vertical spacing around horizontal rules (separators) inside prose content */
+.prose hr {
+	margin: 2.5rem 0;
+	border: none;
+	border-top: 1px solid rgba(0,0,0,0.06);
+}
 textarea {
 	width: 100%;
 	font-size: 16px;
