@@ -41,7 +41,7 @@ const { title, description, image = FallbackImage } = Astro.props;
 />
 <meta name="generator" content={Astro.generator} />
 
-<!-- <Font cssVariable="--font-atkinson" preload /> -->
+<Font cssVariable="--font-atkinson" preload />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
@@ -66,24 +66,9 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
 
 <style>
-  @font-face {
-    font-family: "Atkinson";
-    src: url({atkinsonRegular}) format("woff");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: "Atkinson";
-    src: url({atkinsonBold}) format("woff");
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-  }
   :root {
-    --font-atkinson:
-      "Atkinson", Inter, system-ui, -apple-system, "Segoe UI", Roboto,
-      "Helvetica Neue", Arial, sans-serif;
+    /* `--font-atkinson` is provided by Astro's font provider (astro.config.mjs)
+       Map design tokens to that variable so components can use them. */
     --font-body: var(--font-atkinson);
     --font-headline: var(--font-atkinson);
   }
