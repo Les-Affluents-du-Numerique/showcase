@@ -1,0 +1,142 @@
+---
+title: "Tisseco Solidaire"
+authors: ["francois-verin", "christopher-debray"]
+description: "Création d'une solution métier pour la Planification et le suivi des tournées et d'une application pour chauffeur."
+startDate: 2021-09-27
+endDate: 2025-11-28
+hero: "https://lh3.googleusercontent.com/aida-public/AB6AXuAIrjcKpiGsn-AnIOgJv_WHbNFkEIt5NVLKxOqbx8cWdZ_O7CnQEUQJK0zIyiNO_MTDtoeyfZt0-IEtTBMux9Bkb9_Piy8KWZmyiTGS5pCdacIq8fDIuhpocQCPqnPuzuop2qDr_NhLflJHJmHjr70b_Lk-iC5cYJ1HOTtkeSogmCWk9WVyIQ2BenMYMnwWaheaqANPeu_RnHNLPm7FLFA9RSWi09MqZAR-qMZ01Qe2byCqGA4SEvboIiW3zgThSCx_6DHPBgmBETNv"
+tech:
+  - PWA
+  - React
+  - NestJS
+  - PostgresSQL
+  - Redis
+  - PostGis
+  - Tailwind CSS
+---
+
+## **CONTEXTE ET ENJEUX**
+<br/>
+### **L'association Tisseco**
+
+Tisseco est une association loi 1901 engagée dans l’économie circulaire. Elle collecte les vêtements via des points d’apport volontaire et des tournées mobiles, puis les tri pour leur offrir une seconde vie. Son activité repose sur une logistique complexe, impliquant des centaines de tournées annuelles et une gestion rigoureuse des données de collecte.
+<br/>
+
+### **Les défis initiaux**
+
+- **Processus manuels et chronophages :** Les chauffeurs remplissaient des feuilles de tournée papier, puis les superviseurs saisissaient les données dans des fichiers Excel, avec un risque élevé d’erreurs et de perte d’information.
+- **Environnement technique contraignant :** Les chauffeurs travaillent souvent dans des zones à faible couverture réseau, nécessitant une solution résiliente capable de fonctionner hors ligne et de synchroniser les données ultérieurement.
+
+---
+
+## **Solution technique mises en œuvre**
+<br/>
+### **1. Numérisation et unification des processus**
+
+<br/>
+**Problématique :**
+
+Centraliser et automatiser la gestion des données de collecte pour éliminer les saisies manuelles et les silos d’information.
+
+<br/>
+**Solutions clés :**
+
+**Développement d’une PWA (Progressive Web App) :**
+    - Fonctionnement hors ligne grâce à un cache local et une synchronisation différée avec le serveur.
+    - Intégration de PostGIS pour la gestion des données géolocalisées (optimisation des tournées).
+
+<br/>
+**Résultats :**
+
+- **Expérience utilisateur unifiée :** Un seul compte, une seule interface pour tous les acteurs (chauffeurs, superviseurs, administrateurs).
+- **Réduction des coûts :** Décommissionnement de deux infrastructures Drupal et mutualisation des ressources.
+- **Maintenabilité accrue :** Une codebase unique, moderne et scalable.
+
+---
+
+### **2. Planification intelligente et suivi en temps réel**
+<br/>
+**Problématique :**
+
+Automatiser la planification des tournées et le suivi des collectes pour gagner en efficacité et en traçabilité.
+
+<br/>
+**Solutions clés :**
+
+**Tableau de bord dynamique :**
+
+- Visualisation des tournées en cours, des volumes collectés et des incidents.
+- Génération automatique de rapports pour les déclarations réglementaires (ex : Refashion).
+
+<br/>
+**Résultats :**
+
+- Gain de temps : Réduction du temps consacré à la saisie manuelle et à la gestion des plannings.
+- Traçabilité renforcée : Historique complet des tournées, accessible en temps réel par tous coordinateurs.
+
+---
+
+### **3. Résilience et adaptabilité terrain**
+<br/>
+**Problématique :**
+Garantir la fiabilité de l’application dans des conditions réseau dégradées.
+
+<br/>
+**Solutions clés :**
+
+**Architecture hors ligne first :**
+    - Persistance locale des données (IndexedDB) et synchronisation automatique dès que la connexion est rétablie.
+    - Optimisation des requêtes pour limiter la consommation de données mobiles.
+
+**Interfaces :**
+    - Composants dynamiques adaptés aux terminaux mobiles (smartphones et tablettes des chauffeurs).
+
+<br/>
+**Résultats :**
+- **Disponibilité permanente :** L’application reste fonctionnelle même sans réseau, avec une synchronisation transparente.
+- **Adoption facilitée :** Onboarding simplifié pour les nouveaux chauffeurs grâce à une interface intuitive.
+- **Performance accrue :** Réduction de 30 % du temps moyen par tournée grâce à une meilleure ergonomie.
+
+---
+
+## **STACK TECHNIQUE**
+<br/>
+**Backend :** NestJS  
+**Frontend :** React, Tailwind CSS  
+**Database :** PostgreSQL, PostGis, Redis  
+**Infrastructure :** Queues, Cache  
+**Intégrations :**  
+**DevOps :** Git, CI/CD  
+**Tests :** Vitest
+
+---
+
+## **MÉTHODOLOGIE**
+<br/>
+**Travail en équipe :**
+- **Collaboration agile :** Équipe de 2 développeurs, revues de code systématiques et livraisons itératives.
+- **Approche progressive :** Déploiement par modules pour éviter les interruptions de service.
+- **Focus utilisateur :** Tests réguliers avec les chauffeurs et superviseurs pour ajuster les fonctionnalités.
+
+---
+
+## **IMPACT GLOBAL**
+<br/>
+**Pour les utilisateurs :**
+- **Simplicité :** Une seule plateforme pour gérer les tournées, les déclarations et les communications.
+- **Efficacité :** Réduction des tâches manuelles et accès instantané aux informations critiques.
+- **Mobilité :** Application optimisée pour le terrain, même en zone blanche.
+<br/>
+
+**Pour l'entreprise :**
+- **Optimisation logistique :** Meilleure planification des tournées et réduction des coûts opérationnels.
+- **Conformité :** Génération automatique des documents réglementaires (ex : traçabilité pour Refashion).
+- **Durabilité :** Réduction de l’empreinte carbone grâce à des tournées optimisées.
+<br/>
+
+**Pour l'équipe technique :**
+- **Maintenabilité :** Codebase unifiée et documentée, facilitant les évolutions futures.
+- **Innovation :** Stack moderne (React, NestJS, PWA) permettant d’intégrer de nouvelles fonctionnalités rapidement.
+- **Synergie :** Collaboration renforcée entre les développeurs et les métiers grâce à des outils adaptés.
+
+---
