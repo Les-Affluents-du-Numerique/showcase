@@ -1,0 +1,27 @@
+---
+const { type = "info" } = Astro.props;
+---
+
+<div class={`callout ${type}`} role="note">
+  <slot />
+</div>
+
+<style>
+  .callout {
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+  }
+  .callout.warning {
+    background: #fff7ed;
+    border: 1px solid rgba(255, 160, 64, 0.25);
+  }
+  .callout.tip {
+    background: #f0f9ff;
+    border: 1px solid rgba(56, 189, 248, 0.15);
+  }
+  .callout.info {
+    background: #f5f7ff;
+    border: 1px solid rgba(99, 102, 241, 0.08);
+  }
+</style>

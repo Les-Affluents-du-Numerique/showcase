@@ -1,0 +1,43 @@
+---
+const { href = "#", variant = "primary" } = Astro.props;
+---
+
+<a
+  class={`btn ${variant}`}
+  href={href}
+  rel={href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+>
+  <slot />
+</a>
+
+<style>
+  .btn {
+    display: inline-block;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .btn.primary {
+    background: var(--color-primary, #003358);
+    color: var(--color-on-primary, #ffffff);
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(0, 51, 88, 0.08);
+    display: inline-block;
+    text-align: center;
+    transition:
+      transform 180ms ease,
+      opacity 180ms ease;
+  }
+  .btn.primary:hover {
+    transform: scale(1.05);
+  }
+  .btn.ghost {
+    background: transparent;
+    color: inherit;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+  }
+</style>

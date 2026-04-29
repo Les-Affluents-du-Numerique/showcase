@@ -52,50 +52,47 @@ const { post } = Astro.props;
         {post.data.description}
       </p>
 
-      <div class="flex items-center gap-4">
-        <div
-          class="w-12 h-12 rounded-full overflow-hidden bg-surface-container"
-        >
-          {
-            post.data.authors &&
-            post.data.authors[0] &&
-            AUTHORS[post.data.authors[0]] ? (
-              <Image
-                src={AUTHORS[post.data.authors[0]].image}
-                alt={AUTHORS[post.data.authors[0]].name}
-                class="w-full h-full object-cover"
-              />
-            ) : (
-              <img
-                class="w-full h-full object-cover"
-                src={
-                  post.data.authorImage?.src ??
-                  post.data.authorImage ??
-                  "/assets/francois_verin_profile_picture.jpeg"
-                }
-                alt={post.data.author}
-              />
-            )
-          }
-        </div>
-        <div>
-          <p class="font-headline font-bold text-primary text-sm">
-            {
-              post.data.authors && post.data.authors.length
-                ? post.data.authors
-                    .map((a) => (AUTHORS[a] ? AUTHORS[a].name : a))
-                    .join(", ")
-                : post.data.author
-            }
-          </p>
-          {
-            post.data.authorRole ? (
-              <p class="font-body text-xs text-on-surface-variant">
-                {post.data.authorRole}
-              </p>
-            ) : null
-          }
-        </div>
+      <div class="flex flex-wrap items-center gap-4">
+        {
+          (post.data.authors && post.data.authors.length
+            ? post.data.authors
+            : post.data.author
+              ? [post.data.author]
+              : []
+          ).map((a, i, arr) => (
+            <div class="flex items-center gap-4 bg-surface-container rounded-full px-3 py-2">
+              {AUTHORS[a] ? (
+                <div class="w-8 h-8 rounded-full overflow-hidden">
+                  <Image
+                    src={AUTHORS[a].image}
+                    alt={AUTHORS[a].name}
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+              ) : (
+                <img
+                  class="w-12 h-12 rounded-full object-cover"
+                  src={
+                    post.data.authorImage?.src ??
+                    post.data.authorImage ??
+                    "/assets/francois_verin_profile_picture.jpeg"
+                  }
+                  alt={String(a)}
+                />
+              )}
+              <div>
+                <p class="font-headline font-bold text-primary text-sm">
+                  {AUTHORS[a] ? AUTHORS[a].name : a}
+                </p>
+                {arr.length === 1 && post.data.authorRole ? (
+                  <p class="font-body text-xs text-on-surface-variant">
+                    {post.data.authorRole}
+                  </p>
+                ) : null}
+              </div>
+            </div>
+          ))
+        }
       </div>
     </a>
   </div>

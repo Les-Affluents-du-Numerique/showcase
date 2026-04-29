@@ -39,102 +39,104 @@ if (renderResult) {
       title={`Les Affluents du Numérique - ${project.data.title}`}
       description={project.data.description}
     />
-  </head>
-  <body
-    class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed"
+  </head><div
+    class="flex flex-col items-center gap-6 text-sm text-on-surface-variant mb-6"
   >
-    <Header />
-    <main class="pt-32">
-      <section class="max-w-4xl mx-auto px-8 mb-16">
-        {
-          project.data.hero ? (
-            <div class="aspect-video rounded-2xl overflow-hidden mb-8">
-              <img
-                alt={project.data.title}
-                src={project.data.hero?.src ?? project.data.hero}
-                class="w-full object-center bg-surface"
-                style="width:100%; height:100%; object-fit:contain; object-position:center;"
-              />
-            </div>
-          ) : null
-        }
-        <h1 class="text-4xl font-headline font-extrabold text-primary mb-4">
-          {project.data.title}
-        </h1>
-        <p class="text-on-surface-variant mb-6">{project.data.description}</p>
-        <div
-          class="flex items-center gap-6 text-sm text-on-surface-variant mb-6"
-        >
-          <div>
-            {
-              project.data.startDate ? (
-                <span>
-                  {new Date(project.data.startDate).toLocaleDateString(
-                    "fr-FR",
-                    { day: "numeric", month: "long", year: "numeric" },
-                  )}
-                  {project.data.endDate
-                    ? ` — ${new Date(project.data.endDate).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}`
-                    : null}
-                </span>
-              ) : null
-            }
-          </div>
-          <div class="flex items-center gap-4">
-            {
-              project.data.authors && project.data.authors.length ? (
-                project.data.authors.map((a) => (
-                  <div class="flex items-center gap-3 bg-surface-container rounded-full px-3 py-1">
-                    {AUTHORS[a] ? (
-                      <div class="w-8 h-8 rounded-full overflow-hidden">
-                        <Image
-                          src={AUTHORS[a].image}
-                          alt={AUTHORS[a].name}
-                          class="w-full h-full object-cover"
-                        />
-                      </div>
-                    ) : (
-                      <div class="w-8 h-8 rounded-full bg-surface flex items-center justify-center font-bold text-sm">
-                        {String(a).charAt(0) ?? "?"}
-                      </div>
-                    )}
-                    <span class="font-medium text-sm">
-                      {AUTHORS[a] ? AUTHORS[a].name : a}
-                    </span>
-                  </div>
-                ))
-              ) : project.data.author ? (
-                <div class="flex items-center gap-3 bg-surface-container rounded-full px-3 py-1">
-                  <span class="font-medium">{project.data.author}</span>
-                </div>
-              ) : null
-            }
-          </div>
-        </div>
-        {
-          project.data.tech ? (
-            <div class="flex flex-wrap gap-2 mb-8">
-              {project.data.tech.map((t) => (
-                <span class="px-3 py-1 bg-surface-container text-on-surface-variant text-[0.8rem] font-bold rounded-full">
-                  {t}
-                </span>
-              ))}
-            </div>
-          ) : null
-        }
-        <div class="prose max-w-none text-on-surface">
+    <div class="text-center">
+      {
+        project.data.startDate ? (
+          <span>
+            {new Date(project.data.startDate).toLocaleDateString("fr-FR", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
+            {project.data.endDate
+              ? ` — ${new Date(project.data.endDate).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}`
+              : null}
+          </span>
+        ) : null
+      }
+    </div>
+    <div class="flex items-center gap-4 justify-center">
+      <h1 class="text-4xl font-headline font-extrabold text-primary mb-4">
+        {project.data.title}
+      </h1>
+      <p class="text-on-surface-variant mb-6">{project.data.description}</p>
+      <div class="flex items-center gap-6 text-sm text-on-surface-variant mb-6">
+        <div>
           {
-            Content ? (
-              <Content />
-            ) : renderedHTML ? (
-              <div set:html={renderedHTML} />
-            ) : (
-              <p>{project.body}</p>
-            )
+            project.data.startDate ? (
+              <span>
+                {new Date(project.data.startDate).toLocaleDateString("fr-FR", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+                {project.data.endDate
+                  ? ` — ${new Date(project.data.endDate).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}`
+                  : null}
+              </span>
+            ) : null
           }
         </div>
-      </section>
-    </main>
-    <Footer />
-  </body>
+        <div class="flex items-center gap-4 justify-center flex-1">
+          {
+            project.data.authors && project.data.authors.length ? (
+              project.data.authors.map((a) => (
+                <div class="flex items-center gap-3 bg-surface-container rounded-full px-3 py-1">
+                  {AUTHORS[a] ? (
+                    <div class="w-8 h-8 rounded-full overflow-hidden">
+                      <Image
+                        src={AUTHORS[a].image}
+                        alt={AUTHORS[a].name}
+                        class="w-full h-full object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div class="w-8 h-8 rounded-full bg-surface flex items-center justify-center font-bold text-sm">
+                      {String(a).charAt(0) ?? "?"}
+                    </div>
+                  )}
+                  <span class="font-medium text-sm">
+                    {AUTHORS[a] ? AUTHORS[a].name : a}
+                  </span>
+                </div>
+              ))
+            ) : project.data.author ? (
+              <div
+                class="flex items-center gap-3 bg-surface-container rounded-full px-3 py-1"
+                style="margin-left:auto; margin-right:auto;"
+              >
+                <span class="font-medium">{project.data.author}</span>
+              </div>
+            ) : null
+          }
+        </div>
+      </div>
+      {
+        project.data.tech ? (
+          <div class="flex flex-wrap gap-2 mb-8">
+            {project.data.tech.map((t) => (
+              <span class="px-3 py-1 bg-surface-container text-on-surface-variant text-[0.8rem] font-bold rounded-full">
+                {t}
+              </span>
+            ))}
+          </div>
+        ) : null
+      }
+      <div class="prose max-w-none text-on-surface">
+        {
+          Content ? (
+            <Content />
+          ) : renderedHTML ? (
+            <div set:html={renderedHTML} />
+          ) : (
+            <p>{project.body}</p>
+          )
+        }
+      </div>
+    </div>
+  </div>
+  <Footer />
 </html>

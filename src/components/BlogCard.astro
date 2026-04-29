@@ -49,38 +49,35 @@ const { post } = Astro.props;
       <div
         class="mt-auto flex items-center gap-3 pt-6 border-t border-surface-container"
       >
-        <div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container">
+        <div class="flex flex-wrap gap-2">
           {
-            post.data.authors &&
-            post.data.authors[0] &&
-            AUTHORS[post.data.authors[0]] ? (
-              <Image
-                src={AUTHORS[post.data.authors[0]].image}
-                alt={AUTHORS[post.data.authors[0]].name}
-                class="w-full h-full object-cover"
-              />
-            ) : (
-              <img
-                class="w-full h-full object-cover"
-                src={
-                  post.data.authorImage?.src ??
-                  post.data.authorImage ??
-                  "/assets/francois_verin_profile_picture.jpeg"
-                }
-                alt={post.data.author}
-              />
-            )
+            (post.data.authors && post.data.authors.length
+              ? post.data.authors
+              : post.data.author
+                ? [post.data.author]
+                : []
+            ).map((a) => (
+              <div class="flex items-center gap-3 bg-surface-container rounded-full px-2 py-1">
+                {AUTHORS[a] ? (
+                  <div class="w-6 h-6 rounded-full overflow-hidden">
+                    <Image
+                      src={AUTHORS[a].image}
+                      alt={AUTHORS[a].name}
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div class="w-6 h-6 rounded-full bg-surface flex items-center justify-center font-bold text-sm">
+                    {String(a).charAt(0) ?? "?"}
+                  </div>
+                )}
+                <span class="font-headline font-semibold text-xs text-primary">
+                  {AUTHORS[a] ? AUTHORS[a].name : a}
+                </span>
+              </div>
+            ))
           }
         </div>
-        <span class="font-headline font-semibold text-xs text-primary">
-          {
-            post.data.authors && post.data.authors.length
-              ? post.data.authors
-                  .map((a) => (AUTHORS[a] ? AUTHORS[a].name : a))
-                  .join(", ")
-              : post.data.author
-          }
-        </span>
       </div>
     </div>
   </a>

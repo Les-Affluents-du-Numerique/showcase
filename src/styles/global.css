@@ -140,6 +140,98 @@ p {
 	border: none;
 	border-top: 1px solid rgba(0,0,0,0.06);
 }
+
+/* Improve list rendering inside prose */
+.prose ul,
+.prose ol {
+	margin: 1rem 0 1rem 0;
+	padding-left: 1.25rem;
+}
+.prose li {
+	margin: 0.45rem 0;
+	line-height: 1.6;
+}
+.prose ul { list-style-type: disc; }
+.prose ol { list-style-type: decimal; }
+.prose ul ul,
+.prose ol ol,
+.prose ul ol,
+.prose ol ul {
+	margin-top: 0.25rem;
+	margin-bottom: 0.25rem;
+	padding-left: 1rem;
+}
+
+/* Improve heading rendering inside prose (MDX content) */
+.prose h1 {
+	font-size: 2rem;
+	margin: 1.25rem 0 0.75rem;
+	line-height: 1.15;
+	font-weight: 700;
+}
+.prose h2 {
+	font-size: 1.5rem;
+	margin: 1rem 0 0.6rem;
+	line-height: 1.2;
+	font-weight: 700;
+}
+.prose h3 {
+	font-size: 1.25rem;
+	margin: 0.9rem 0 0.5rem;
+	line-height: 1.25;
+	font-weight: 700;
+}
+.prose h4 {
+	font-size: 1.1rem;
+	margin: 0.8rem 0 0.4rem;
+	font-weight: 600;
+}
+.prose h1 + p, .prose h2 + p { margin-top: 0.25rem; }
+
+/* Make links clearly visible inside prose content and callouts */
+.prose a {
+	color: var(--color-primary, #003358);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	font-weight: 600;
+}
+.prose a:hover {
+	opacity: 0.9;
+}
+
+.callout a {
+	color: var(--color-primary, #003358);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	font-weight: 600;
+}
+
+/* Tables inside prose content */
+.prose table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 1rem 0;
+	display: block;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+.prose th,
+.prose td {
+	border: 1px solid rgba(0,0,0,0.06);
+	padding: 0.75rem 0.9rem;
+	vertical-align: top;
+	text-align: left;
+}
+.prose thead th {
+	background: rgba(0,51,88,0.06);
+	font-weight: 700;
+}
+.prose tbody tr:nth-child(odd) {
+	background: rgba(0,0,0,0.01);
+}
+.prose tbody tr:hover { background: rgba(0,0,0,0.02); }
+.prose table code { background: transparent; padding: 0; }
+
 textarea {
 	width: 100%;
 	font-size: 16px;
