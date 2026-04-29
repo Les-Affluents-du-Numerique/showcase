@@ -7,6 +7,7 @@ import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import ContactCTA from "@components/ContactCTA.astro";
 import RealisationCard from "@components/RealisationCard.astro";
+import tissecoImage from "../assets/iphone-mockup-tisseco.webp";
 
 const rawProjects = await getCollection("realisations");
 
@@ -88,7 +89,7 @@ const projects = rawProjects
         </div>
       </section>
 
-      <!-- Featured Case Study -->
+      <!-- Featured Case Study (Tisseco) -->
       <section class="py-32 px-8 overflow-hidden bg-primary text-on-primary">
         <div class="max-w-7xl mx-auto">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
@@ -97,53 +98,55 @@ const projects = rawProjects
                 class="absolute -top-10 -left-10 w-40 h-40 bg-surface-tint opacity-20 rounded-full blur-3xl"
               >
               </div>
-              <img
-                alt="Coding setup"
+              <Image
+                alt="Tisseco Solidaire — aperçu"
                 class="rounded-2xl shadow-2xl relative z-10 w-full object-cover aspect-[4/3]"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEawKRD1TIsmqS8yk446ND46iSEgdXR6iYIuQIXYssWggEha65UONHg1VxvuLGHUhchldUxi_d9Cj3MUOZxL5bvxHcrYIHKhMbKjuBVBl1ORM6p5sMgWXUB0LJ_xH7KAV0y1J89yD3fdDuhKaFE81KhZu1TFNb8RxD8V7ahy_YsSJRv_XGnBeSLxZSrwCAcPzoGoDiCEdrpj3wKHNc4q7VWUBO74DL8JCwKMFqN2ngNLEONs0czTh2sZN03B8Id47J7u0gghfvEABG"
+                src={tissecoImage}
               />
             </div>
             <div>
               <span
                 class="font-label text-[0.75rem] uppercase tracking-[0.2em] text-on-tertiary-container mb-6 block font-bold"
-                >Étude de cas majeure</span
+                >Étude de cas</span
               >
               <h2
                 class="font-display text-4xl md:text-5xl font-extrabold mb-8 leading-tight tracking-tight"
               >
-                Réinventer le flux logistique pour <span
-                  class="text-on-tertiary-container">TransPort Europe</span
-                >.
+                Tisseco Solidaire — Planification et suivi des tournées
               </h2>
               <div
                 class="space-y-6 text-on-primary/80 font-body text-lg leading-relaxed"
               >
                 <p>
-                  Le défi était colossal : migrer un système de gestion vieux de
-                  15 ans vers une architecture cloud moderne sans interruption
-                  de service pour les 200 agences du groupe.
+                  Création d'une solution métier pour la planification et le
+                  suivi des tournées, avec une application mobile pour les
+                  chauffeurs et une architecture résiliente hors-ligne.
                 </p>
                 <p>
-                  Nous avons conçu un écosystème modulaire qui a réduit les
-                  temps de traitement des commandes de 60%, tout en offrant une
-                  interface intuitive pour les opérateurs terrain.
+                  Architecture PWA, gestion géospatiale via PostGIS, et
+                  synchronisation différée pour les zones à faible couverture
+                  réseau.
                 </p>
               </div>
               <div
                 class="mt-10 grid grid-cols-2 gap-8 py-8 border-y border-white/10"
               >
                 <div>
-                  <h4 class="text-3xl font-bold mb-1">3 mois</h4>
-                  <p class="text-on-primary/60 text-sm">Développement agile</p>
+                  <h4 class="text-3xl font-bold mb-1">Depuis 2021</h4>
+                  <p class="text-on-primary/60 text-sm">
+                    Accompagnement continu
+                  </p>
                 </div>
                 <div>
-                  <h4 class="text-3xl font-bold mb-1">-25%</h4>
-                  <p class="text-on-primary/60 text-sm">Coûts opérationnels</p>
+                  <h4 class="text-3xl font-bold mb-1">Optimisations</h4>
+                  <p class="text-on-primary/60 text-sm">
+                    Productivité terrain améliorée
+                  </p>
                 </div>
               </div>
-              <button
-                class="mt-12 px-8 py-4 bg-surface-container-lowest text-primary rounded-full font-bold hover:scale-105 transition-all"
-                >Lire l'étude complète</button
+              <a
+                class="mt-12 inline-block px-8 py-4 bg-surface-container-lowest text-primary rounded-full font-bold hover:scale-105 transition-all"
+                href="/realisations/tisseco">Lire l'étude complète</a
               >
             </div>
           </div>
