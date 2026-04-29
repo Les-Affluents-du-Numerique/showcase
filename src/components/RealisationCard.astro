@@ -11,7 +11,13 @@ import { AUTHORS } from "../consts";
     {
       project.data.hero ? (
         <a href={`/realisations/${project._slug}`} class="block">
-          <div class="h-56 overflow-hidden">
+          <div
+            class={
+              idx === 0
+                ? "h-80 md:h-96 overflow-hidden"
+                : "h-56 overflow-hidden"
+            }
+          >
             <img
               alt={project.data.title}
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
