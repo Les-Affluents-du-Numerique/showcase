@@ -16,18 +16,47 @@ tech:
 ## **LE CONTEXTE**
 
 **La plateforme :**
+<br/>
 
 Qorus est une plateforme collaborative mondiale regroupant plus de 1 200 institutions financières dans 120+ pays. Elle centralise événements internationaux, programmes d'awards, partage de contenus et networking entre professionnels de la finance.
+<br/>
 
 **L'enjeu :**
+<br/>
 
 Faire évoluer une plateforme critique de 4+ ans, utilisée quotidiennement par des milliers d'utilisateurs dans le monde, tout en maintenant stabilité et performances.
+<br/>
 
 ---
 
 ## **LES DÉFIS TECHNIQUES**
+<br/>
 
-### **1. Migration de deux portails Drupal legacy**
+
+### **Refonte UI/UX suite rebranding**
+
+**Problématique :**
+
+Rebranding complet de l'entreprise (Efma → Qorus) nécessitant refonte visuelle totale de la plateforme.
+<br/>
+
+**Solution apportée :**
+
+- Refonte front-end complète (Laravel + Vue.js)
+- Migration stack technique (Laravel Mix → Vite, ajout Tailwind CSS)
+- Passage d'interface statique à composants dynamiques réactifs
+<br/>
+
+**Résultats :**
+
+**Identité visuelle cohérente** avec le nouveau positionnement  
+**Interfaces plus réactives** grâce à Vue.js  
+**Base technique modernisée** facilitant évolutions futures
+<br/>
+
+---
+
+### **Migration de deux portails Drupal legacy**
 
 **Problématique :**
 
@@ -39,6 +68,7 @@ Migration complète vers la plateforme Laravel centrale :
 - Reprise intégrale des données (contenus, utilisateurs, médias, historiques)
 - Refonte des interfaces pour harmoniser l'expérience
 - Architecture unifiée remplaçant 3 systèmes isolés
+<br/>
 
 **Résultats :**
 
@@ -46,14 +76,16 @@ Migration complète vers la plateforme Laravel centrale :
 **Réduction des coûts d'hébergement** : décommissionnement de 2 infrastructures Drupal  
 **Maintenabilité améliorée** : une seule codebase au lieu de trois  
 **Portail Awards migré avec zéro interruption** malgré un pic de trafic (soumissions et votes)
+<br/>
 
 ---
 
-### **2. Automatisation des invitations événements**
+### **Automatisation des invitations événements**
 
 **Problématique :**
 
 L'équipe gérait manuellement les invitations aux événements internationaux : création d'invitations calendrier, envoi par email, gestion des participants. Process chronophage et source d'erreurs.
+<br/>
 
 **Solution apportée :**
 
@@ -61,40 +93,23 @@ Intégration Microsoft Graph API :
 - Synchronisation automatique événements CMS → calendriers Outlook/Gmail
 - Gestion des participants et notifications en temps réel
 - Mise à jour bidirectionnelle (modification événement = MAJ calendriers)
+<br/>
 
 **Résultats :**
 
 **Gain de temps considérable** : processus manuel de plusieurs heures réduit à quelques clics  
 **Réduction des erreurs** : plus d'oublis ou d'invitations incorrectes  
 **Meilleure adoption** : synchronisation native avec outils quotidiens des utilisateurs
+<br/>
 
 ---
 
-### **3. Refonte UI/UX suite rebranding**
-
-**Problématique :**
-
-Rebranding complet de l'entreprise (Efma → Qorus) nécessitant refonte visuelle totale de la plateforme.
-
-**Solution apportée :**
-
-- Refonte front-end complète (Laravel + Vue.js)
-- Migration stack technique (Laravel Mix → Vite, ajout Tailwind CSS)
-- Passage d'interface statique à composants dynamiques réactifs
-
-**Résultats :**
-
-**Identité visuelle cohérente** avec le nouveau positionnement  
-**Interfaces plus réactives** grâce à Vue.js  
-**Base technique modernisée** facilitant évolutions futures
-
----
-
-### **4. Optimisation performances & infrastructure**
+### **Optimisation performances & infrastructure**
 
 **Problématique :**
 
 Plateforme soumise à pics de charge (événements, votes awards) avec dépendances multiples à APIs externes (HubSpot, Stripe, Algolia, Posthog).
+<br/>
 
 **Solutions apportées :**
 
@@ -102,29 +117,34 @@ Plateforme soumise à pics de charge (événements, votes awards) avec dépendan
 - Mise en cache stratégique (Redis)
 - Queues asynchrones pour traitements lourds
 - Rate limiting intelligent pour APIs externes
+<br/>
 
 **Infrastructure temps réel :**
 - Développement serveur WebSocket auto-hébergé (remplacement Pusher)
 - Messagerie et notifications temps réel
 - Réduction coûts infrastructure externe
+<br/>
 
 **Fiabilité emails :**
 - Mécanisme de fallback multi-provider
 - Réduction drastique des emails non reçus
+<br/>
 
 **Résultats :**
 
 **Réduction coûts infrastructure** : WebSocket auto-hébergé vs. Pusher  
 **Amélioration temps de réponse** : cache et queues  
 **Meilleure fiabilité** : fallback emails  
+<br/>
 
 ---
 
-### **5. Intégration CRM HubSpot**
+### **Intégrations CRM**
 
 **Problématique :**
 
 Besoin de synchroniser données plateforme avec CRM HubSpot pour automatiser marketing et suivi commercial.
+<br/>
 
 **Solution apportée :**
 
@@ -132,12 +152,14 @@ Développement application publique HubSpot :
 - Flux OAuth2 complet (authentification sécurisée)
 - Gestion tokens et refresh automatique
 - Échanges bidirectionnels de données
+<br/>
 
 **Résultats :**
 
 **Automatisation complète** : sync contacts, événements, interactions  
 **Conformité sécurité** : OAuth2 standard industrie  
 **Gain temps équipe marketing**
+<br/>
 
 ---
 
@@ -150,6 +172,7 @@ Développement application publique HubSpot :
 **Intégrations :** Microsoft Graph API, HubSpot API, Stripe, Algolia, Posthog  
 **DevOps :** Git, CI/CD  
 **Tests :** Pest (PHP)
+<br/>
 
 ---
 
@@ -159,29 +182,34 @@ Développement application publique HubSpot :
 - Collaboration avec 4-6 développeurs selon projets
 - Participation réunions produit bilingues (FR/EN)
 - Code reviews et approche itérative
+<br/>
 
 **Approche technique :**
 - Développement progressif sans interruption service
 - Tests réguliers (Pest)
 - Refactoring continu pour réduire dette technique
+<br/>
 
 ---
 
 ## **IMPACT GLOBAL**
 
 **Pour les utilisateurs :**
-- Expérience unifiée (3 plateformes → 1)
-- Interfaces plus modernes et réactives
-- Fonctionnalités temps réel (messagerie, notifs)
+- Expérience unifiée (1 plateforme au lieu de 3)
+- Interface moderne et réactive
+- Fonctionnalités temps réel (messagerie, notifications)
+<br/>
 
 **Pour l'entreprise :**
-- Réduction coûts infrastructure (décommissionnement Drupal, Pusher)
+- Réduction coûts infrastructure (décommissionnement Drupal)
 - Automatisation processus manuels (invitations, sync CRM)
 - Base technique solide pour évolutions futures
+<br/>
 
 **Pour l'équipe technique :**
 - Codebase unifiée plus maintenable
 - Stack moderne facilitant développements
 - Réduction complexité (1 système vs. 3)
+<br/>
 
 ---
