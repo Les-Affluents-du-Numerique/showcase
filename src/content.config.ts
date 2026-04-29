@@ -29,7 +29,8 @@ const realisations = defineCollection({
     base: "./src/content/realisations",
     pattern: "**/*.{md,mdx}",
   }),
-  schema: () =>
+  // Accept `image()` in the schema function so frontmatter can use imported assets
+  schema: ({ image }) =>
     z.object({
       title: z.string(),
       description: z.string(),
@@ -38,7 +39,7 @@ const realisations = defineCollection({
       endDate: z.coerce.date().optional(),
       // Authors as array of author slugs (see `src/consts.ts` mapping)
       authors: z.array(z.string()).optional(),
-      hero: z.string().optional(),
+      hero: z.optional(image()),
       tech: z.array(z.string()).optional(),
       summary: z.string().optional(),
     }),
