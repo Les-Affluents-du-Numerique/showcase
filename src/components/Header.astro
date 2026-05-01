@@ -9,15 +9,15 @@ function toNumericEntities(s) {
 
 <header>
   <nav
-    class="fixed top-4 left-1/2 -translate-x-1/2 w-[90%] max-w-7xl rounded-full border border-white/20 bg-surface/80 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,51,88,0.1)] flex justify-between items-center px-8 py-3 z-50"
+    class="fixed top-4 left-1/2 -translate-x-1/2 w-[90%] max-w-7xl rounded-full border border-white/20 bg-surface/80 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(0,51,88,0.1)] flex justify-between items-center px-4 md:px-8 py-3 z-50"
   >
     <a
       href="/"
-      class="text-xl font-bold tracking-tighter text-sky-900 font-headline flex flex-row items-center gap-2"
+      class="text-lg md:text-xl font-bold tracking-tighter text-sky-900 font-headline flex flex-row items-center gap-2"
       aria-label="Accueil"
     >
       <span
-        class="material-symbols-outlined text-4xl text-primary-container"
+        class="material-symbols-outlined text-3xl md:text-4xl text-primary-container"
         data-icon="waves">waves</span
       >
       <span set:html={toNumericEntities(SITE_TITLE)} />
@@ -30,9 +30,115 @@ function toNumericEntities(s) {
     </div>
     <a
       href="mailto:contact@lesaffluentsdunumerique.fr"
-      class="bg-primary hover:scale-105 active:scale-100 transition-all duration-300 px-6 py-2 rounded-full text-on-primary text-sm font-semibold tracking-wide shadow-lg inline-block text-center"
+      class="hidden md:inline-block bg-primary hover:scale-105 active:scale-100 transition-all duration-300 px-6 py-2 rounded-full text-on-primary text-sm font-semibold tracking-wide shadow-lg text-center"
     >
       Contact
     </a>
+    <!-- Mobile menu button -->
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden text-primary p-2 hover:bg-surface-container rounded-full transition-colors relative"
+      aria-label="Menu"
+    >
+      <span
+        id="menu-icon"
+        class="material-symbols-outlined transition-all block"
+        data-icon="menu">menu</span
+      >
+      <span
+        id="close-icon"
+        class="material-symbols-outlined transition-all absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 pointer-events-none"
+        data-icon="close">close</span
+      >
+    </button>
   </nav>
+
+  <!-- Mobile menu overlay -->
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"
+  >
+    <div
+      class="fixed top-28 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-surface rounded-3xl shadow-2xl p-6 transform translate-y-[-20px] transition-transform duration-300"
+    >
+      <div class="flex flex-col gap-4">
+        <a
+          href="/"
+          class="text-lg font-semibold text-primary hover:bg-surface-container px-4 py-3 rounded-xl transition-colors"
+        >
+          Accueil
+        </a>
+        <a
+          href="/notre-equipe"
+          class="text-lg font-semibold text-primary hover:bg-surface-container px-4 py-3 rounded-xl transition-colors"
+        >
+          Notre Equipe
+        </a>
+        <a
+          href="/realisations"
+          class="text-lg font-semibold text-primary hover:bg-surface-container px-4 py-3 rounded-xl transition-colors"
+        >
+          Nos Réalisations
+        </a>
+        <a
+          href="/blog"
+          class="text-lg font-semibold text-primary hover:bg-surface-container px-4 py-3 rounded-xl transition-colors"
+        >
+          Blog
+        </a>
+        <a
+          href="mailto:contact@lesaffluentsdunumerique.fr"
+          class="bg-primary hover:scale-105 active:scale-100 transition-all duration-300 px-6 py-3 rounded-full text-on-primary text-sm font-semibold tracking-wide shadow-lg text-center mt-2"
+        >
+          Contact
+        </a>
+      </div>
+    </div>
+  </div>
 </header>
+
+<script>
+  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const menuContent = mobileMenu?.querySelector("div");
+  const menuIcon = document.getElementById("menu-icon");
+  const closeIcon = document.getElementById("close-icon");
+
+  mobileMenuBtn?.addEventListener("click", () => {
+    const isOpen = !mobileMenu?.classList.contains("pointer-events-none");
+
+    if (isOpen) {
+      // Close menu
+      mobileMenu?.classList.add("opacity-0", "pointer-events-none");
+      menuContent?.classList.add("translate-y-[-20px]");
+      menuIcon?.classList.remove("opacity-0", "pointer-events-none");
+      closeIcon?.classList.add("opacity-0", "pointer-events-none");
+    } else {
+      // Open menu
+      mobileMenu?.classList.remove("opacity-0", "pointer-events-none");
+      menuContent?.classList.remove("translate-y-[-20px]");
+      menuIcon?.classList.add("opacity-0", "pointer-events-none");
+      closeIcon?.classList.remove("opacity-0", "pointer-events-none");
+    }
+  });
+
+  // Close menu when clicking outside
+  mobileMenu?.addEventListener("click", (e) => {
+    if (e.target === mobileMenu) {
+      mobileMenu.classList.add("opacity-0", "pointer-events-none");
+      menuContent?.classList.add("translate-y-[-20px]");
+      menuIcon?.classList.remove("opacity-0", "pointer-events-none");
+      closeIcon?.classList.add("opacity-0", "pointer-events-none");
+    }
+  });
+
+  // Close menu on navigation
+  mobileMenu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileMenu.classList.add("opacity-0", "pointer-events-none");
+      menuContent?.classList.add("translate-y-[-20px]");
+      menuIcon?.classList.remove("opacity-0", "pointer-events-none");
+      closeIcon?.classList.add("opacity-0", "pointer-events-none");
+    });
+  });
+</script>
