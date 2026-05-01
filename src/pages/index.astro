@@ -125,10 +125,10 @@ const siteDescription = SITE_DESCRIPTIONS.home;
         <div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-150">
           <!-- Web Dev -->
           <div
-            class="md:col-span-8 bg-surface-container-lowest rounded-4xl group border border-outline-variant/10"
+            class="md:col-span-8 bg-surface-container-lowest rounded-4xl group border border-outline-variant/10 overflow-hidden"
           >
             <div class="grid grid-cols-1 md:grid-cols-2">
-              <div class="p-6 lg:p-10 flex flex-col gap-4 justify-between">
+              <div class="p-6 lg:p-10 flex flex-col gap-4">
                 <div>
                   <span
                     class="material-symbols-outlined text-4xl text-primary mb-6"
@@ -140,7 +140,7 @@ const siteDescription = SITE_DESCRIPTIONS.home;
                     Développement Web
                   </h3>
                   <p
-                    class="font-body text-on-surface-variant text-lg whitespace-normal"
+                    class="font-body text-on-surface-variant text-lg break-words"
                   >
                     Architectures robustes, interfaces fluides et performances
                     optimisées pour vos applications métier et plateformes SaaS.
@@ -157,7 +157,7 @@ const siteDescription = SITE_DESCRIPTIONS.home;
                   >
                 </div>
               </div>
-              <div class="h-48 md:h-auto">
+              <div class="h-64 md:h-auto">
                 <img
                   class="w-full h-full object-cover block"
                   data-alt="abstract artistic visualization of data streams and web architecture in shades of deep blue and silver"
