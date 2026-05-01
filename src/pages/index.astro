@@ -4,6 +4,10 @@ import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
 import ContactCTA from "@components/ContactCTA.astro";
 import { SITE_DESCRIPTIONS, SITE_LANG, SITE_TITLES } from "../consts";
+import { Image } from "astro:assets";
+import webRealisationsImage from "../assets/web_realisations.png";
+import teamworkImage from "../assets/vungocquang-teamwork-7804129_1920.jpg";
+import heroIndexImage from "../assets/index_hero.png";
 
 const siteTitle = SITE_TITLES.home;
 const siteDescription = SITE_DESCRIPTIONS.home;
@@ -78,13 +82,13 @@ const siteDescription = SITE_DESCRIPTIONS.home;
         </div>
         <div class="lg:col-span-5 relative">
           <div
-            class="rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 aspect-4/5"
+            class="rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 aspect-16 bg-surface-container-high"
           >
-            <img
-              class="w-full h-full object-cover block"
+            <Image
+              class="w-full h-full object-contain block"
               style="height:100%"
               alt="close-up of elegant computer screen displaying clean modern code with blue and teal syntax highlighting and soft depth of field"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxqxQumwcM_CxodxThec-6U3PGLYNi3Zg2SoFc4HTnrHNrcFEWTq1jNFiBC2J0rAbCCs_Ium4HDu_PgzC0JONnzB6XAV-pOdb_XmpD4Mhq25oYwQIh2-3SkuJ66uOpRxbLHp-0eq3DKrlGMwDK_o7FK8c07rmDWl0Uf3UNfyNFq3CMpBpuKLXRYf1TeRuVAYTz3X6BfNbrFQ9n8irACU-Xl-B81v7ZPnBIpBQmoFhD_qsD29jxuxZtOIZDwqjGAR33ItA1rgmVuQ"
+              src={heroIndexImage}
             />
           </div>
           <div
@@ -160,10 +164,10 @@ const siteDescription = SITE_DESCRIPTIONS.home;
                 </div>
               </div>
               <div class="h-64 md:h-auto">
-                <img
+                <Image
                   class="w-full h-full object-cover block"
-                  data-alt="abstract artistic visualization of data streams and web architecture in shades of deep blue and silver"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRWbh-YYIRfMa0kBw8uMeR8S0Cb1en6UR_eq15pF1bApto8p27j2Xw3y49oyZ9JLPH8P69cBbakR7uCAPxhv19i9-ppnEWfAOq-nsn9ybyJK111sYTHm3d8LdOrtiJnFLrLLppSBs7KFrUZQHZs4oMtahfrpArb1sQLvHhUTu7meTdNHEu0aVgCJJP2HmhQ4HWhgb6RvSOb_0AAKxuYNlHX2M1fuULn3Vm-yfh732DqMt_UpZsj47_SJcnJ85Y2C3Q43fzJoEEuA"
+                  alt="abstract artistic visualization of data streams and web architecture in shades of deep blue and silver"
+                  src={webRealisationsImage}
                 />
               </div>
             </div>
@@ -267,10 +271,10 @@ const siteDescription = SITE_DESCRIPTIONS.home;
       >
         <div class="order-2 lg:order-1">
           <div class="relative">
-            <img
-              class="rounded-[3rem] shadow-2xl grayscale hover:grayscale-0 transition-all duration-700"
-              data-alt="overhead shot of a minimalist wooden desk with coffee and modern tech gadgets in a bright bright light airy office"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8DGjeLVIai45vZh4H8wIWQN0De2LwuXRstVMfVbP5xY_3cCWLP3saoxBvc8talMtLQ0OrW31Rd8If1nfCeO3dUPWSh7z8nY7RTg2b7_yMdUQ2fiC8hU-sMQoaqTr2pLKW1QO2W6GGJiCm1EXSmsE9T9Cl5L8HawNWmpYXqaGJ8d_g08Rh2jl65GwtnemSkTNPtlPdQNyx-Dwke-imZSIa32ImVwG3EZBiKKjQ-i6RAmwaAaagZXGlqHPaj4dPARt38OU1Ch_rHQ"
+            <Image
+              class="rounded-[3rem] shadow-2xl transition-all duration-700"
+              alt="overhead shot of a minimalist wooden desk with coffee and modern tech gadgets in a bright bright light airy office"
+              src={teamworkImage}
             />
             <div
               class="absolute -top-10 -right-10 bg-primary-container text-white p-8 rounded-3xl shadow-xl max-w-50"

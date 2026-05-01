@@ -8,6 +8,7 @@ import { getCollection } from "astro:content";
 import ContactCTA from "@components/ContactCTA.astro";
 import RealisationCard from "@components/RealisationCard.astro";
 import tissecoImage from "../assets/iphone-mockup-tisseco.webp";
+import realisationsImage from "../assets/realisations.png";
 
 const rawProjects = await getCollection("realisations");
 
@@ -79,10 +80,10 @@ const projects = rawProjects
             <div
               class="aspect-square rounded-[2rem] bg-surface-container-high overflow-hidden shadow-xl transform rotate-3 scale-105"
             >
-              <img
+              <Image
                 alt="Digital flow abstraction"
                 class="w-full h-full object-cover"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz-30w_LtOA9ADxu3QbB2_4uaIyirXTj7Ow-9aq6BbgmlLOEVl2RmoRhA7gjXDEYQgs-H2uATFGK12Xv6FYC53lMrPcWUHrcTxAzZpaYuJPSe9lCJhbundDUZ6N6fyMl6c12pk5M_TBwunrVzgo0ZVHW6SlgqZFfnlcgjgqG549RpkPJLxfOrQKVp_DEcK9LRsjp47imKCPX5Z1KBQHIJEid5eUD5J-OwndhT2qdZ_-oOXNd69hdmiQXW4c0R20atkln92IM_Rxn4L"
+                src={realisationsImage}
               />
             </div>
           </div>
