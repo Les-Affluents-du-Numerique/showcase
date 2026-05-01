@@ -37,11 +37,23 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
         padding: 1em;
         color: rgb(var(--gray-dark));
       }
+      @media (max-width: 768px) {
+        .prose {
+          max-width: calc(100% - 1em);
+          padding: 0.5em;
+        }
+      }
       .title {
         margin-bottom: 1em;
         padding: 1em 0;
         text-align: center;
         line-height: 1;
+      }
+      @media (max-width: 768px) {
+        .title {
+          padding: 0.5em 0;
+          margin-bottom: 0.5em;
+        }
       }
       .title h1 {
         margin: 0 0 0.5em 0;
@@ -80,13 +92,9 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
               <FormattedDate date={pubDate} />
               {
                 Astro.props.authors && Astro.props.authors.length ? (
-                  <div
-                    class="flex gap-3 items-center justify-center my-3"
-                  >
+                  <div class="flex gap-3 items-center justify-center my-3">
                     {Astro.props.authors.map((a) => (
-                      <div
-                        class="flex justify-center items-center gap-3 bg-surface-container rounded-full px-3 py-1"
-                      >
+                      <div class="flex justify-center items-center gap-3 bg-surface-container rounded-full px-3 py-1">
                         {AUTHORS[a] ? (
                           <div class="w-8 h-8 rounded-full overflow-hidden">
                             <Image
