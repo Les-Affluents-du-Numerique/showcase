@@ -28,8 +28,8 @@ export const BLOG_CATEGORIES_DESCRIPTION = {
 } as const;
 
 export const SITE_DESCRIPTIONS = {
-  home: "Collectif de développeurs web indépendants. Nous créons des solutions sur mesure pour les TPE/PME.",
-  team: "Découvrez notre équipe de développeurs web indépendants. Passionnés et engagé pour vos projets numériques.",
+  home: "Collectif de développeurs web indépendants en Île-de-France. Nous créons des solutions numériques sur mesure pour les TPE/PME de Paris et sa région.",
+  team: "Découvrez notre équipe de développeurs web indépendants basés en Île-de-France. Passionnés et engagés pour vos projets numériques à Paris et en région parisienne.",
   blog: "Retrouvez nos articles sur le développement web.",
   blogCategory: BLOG_CATEGORIES_DESCRIPTION,
   blogAllCategory:

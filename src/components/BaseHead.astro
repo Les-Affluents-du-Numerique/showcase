@@ -50,6 +50,14 @@ const { title, description, image = FallbackImage } = Astro.props;
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta
+  name="keywords"
+  content="développement web, Île-de-France, Paris, collectif développeurs, TPE, PME, transformation digitale, développeur indépendant, agence web Paris, solutions numériques Île-de-France"
+/>
+<meta name="geo.region" content="FR-IDF" />
+<meta name="geo.placename" content="Île-de-France" />
+<meta name="geo.position" content="48.8566;2.3522" />
+<meta name="ICBM" content="48.8566, 2.3522" />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
@@ -57,6 +65,8 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={new URL(image.src, Astro.url)} />
+<meta property="og:locale" content="fr_FR" />
+<meta property="og:site_name" content="Les Affluents du Numérique" />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
@@ -64,6 +74,36 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+
+<!-- Schema.org JSON-LD for Local Business -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Les Affluents du Numérique",
+    "description": "Collectif de développeurs web indépendants en Île-de-France",
+    "areaServed": {
+      "@type": "State",
+      "name": "Île-de-France"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "Île-de-France",
+      "addressCountry": "FR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "48.8566",
+      "longitude": "2.3522"
+    },
+    "serviceType": [
+      "Développement Web",
+      "Transformation Digitale",
+      "Conseil Stratégique"
+    ],
+    "priceRange": "$$"
+  }
+</script>
 
 <style>
   :root {
