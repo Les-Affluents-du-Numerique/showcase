@@ -2,6 +2,7 @@
 import BaseHead from "@components/BaseHead.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
+import SkipLink from "@components/SkipLink.astro";
 import { SITE_LANG, AUTHORS } from "../consts";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
@@ -50,8 +51,9 @@ const projects = rawProjects
   <body
     class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed"
   >
+    <SkipLink />
     <Header />
-    <main class="!pt-40 md:!pt-32">
+    <main id="main-content" class="!pt-40 md:!pt-32">
       <!-- Hero Section -->
       <section class="relative pb-32 px-4 md:px-8 overflow-hidden">
         <div
@@ -99,6 +101,7 @@ const projects = rawProjects
             <div class="relative">
               <div
                 class="absolute -top-10 -left-10 w-40 h-40 bg-surface-tint opacity-20 rounded-full blur-3xl"
+                aria-hidden="true"
               >
               </div>
               <Image

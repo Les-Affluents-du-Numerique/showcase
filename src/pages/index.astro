@@ -3,6 +3,7 @@ import BaseHead from "@components/BaseHead.astro";
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
 import ContactCTA from "@components/ContactCTA.astro";
+import SkipLink from "@components/SkipLink.astro";
 import { SITE_DESCRIPTIONS, SITE_LANG, SITE_TITLES } from "../consts";
 import { Image } from "astro:assets";
 import webRealisationsImage from "../assets/web_realisations.png";
@@ -22,14 +23,19 @@ const siteDescription = SITE_DESCRIPTIONS.home;
   <body
     class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container"
   >
+    <SkipLink />
     <!-- TopNavBar -->
     <Header />
     <!-- Hero Section -->
     <section
+      id="main-content"
       class="relative min-h-screen pt-32 pb-20 flex items-center overflow-hidden"
     >
       <!-- Fluid Background Elements -->
-      <div class="absolute inset-0 -z-10 bg-surface overflow-hidden">
+      <div
+        class="absolute inset-0 -z-10 bg-surface overflow-hidden"
+        aria-hidden="true"
+      >
         <div
           class="absolute -top-[20%] -left-[10%] w-[60%] h-[80%] rounded-full bg-primary/5 blur-[120px]"
         >
@@ -69,8 +75,10 @@ const siteDescription = SITE_DESCRIPTIONS.home;
               class="fluid-gradient text-on-primary px-8 py-4 rounded-full font-semibold text-lg shadow-xl hover:scale-[1.02] active:scale-95 transition-transform flex items-center gap-2"
             >
               Contactez-nous
-              <span class="material-symbols-outlined" data-icon="arrow_forward"
-                >arrow_forward</span
+              <span
+                class="material-symbols-outlined"
+                data-icon="arrow_forward"
+                aria-hidden="true">arrow_forward</span
               >
             </a>
             <a
@@ -99,8 +107,10 @@ const siteDescription = SITE_DESCRIPTIONS.home;
               <div
                 class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary"
               >
-                <span class="material-symbols-outlined" data-icon="groups"
-                  >groups</span
+                <span
+                  class="material-symbols-outlined"
+                  data-icon="groups"
+                  aria-hidden="true">groups</span
                 >
               </div>
               <div>
@@ -139,7 +149,8 @@ const siteDescription = SITE_DESCRIPTIONS.home;
                 <div>
                   <span
                     class="material-symbols-outlined text-4xl text-primary mb-6"
-                    data-icon="terminal">terminal</span
+                    data-icon="terminal"
+                    aria-hidden="true">terminal</span
                   >
                   <h3
                     class="font-headline font-extrabold text-3xl text-primary mb-4"
@@ -159,7 +170,8 @@ const siteDescription = SITE_DESCRIPTIONS.home;
                     href="/realisations"
                     >Voir nos réalisations <span
                       class="material-symbols-outlined"
-                      data-icon="arrow_forward">arrow_forward</span
+                      data-icon="arrow_forward"
+                      aria-hidden="true">arrow_forward</span
                     ></a
                   >
                 </div>
@@ -181,6 +193,7 @@ const siteDescription = SITE_DESCRIPTIONS.home;
               <span
                 class="material-symbols-outlined text-4xl mb-6 text-tertiary-fixed"
                 data-icon="business"
+                aria-hidden="true"
                 style="font-variation-settings: 'FILL' 1;">business</span
               >
               <h3 class="font-headline font-extrabold text-2xl mb-4">
@@ -211,6 +224,7 @@ const siteDescription = SITE_DESCRIPTIONS.home;
               <span
                 class="material-symbols-outlined text-on-primary-container text-4xl mb-6"
                 data-icon="lightbulb"
+                aria-hidden="true"
                 style="font-variation-settings: 'FILL' 1;">lightbulb</span
               >
               <h3
@@ -231,7 +245,8 @@ const siteDescription = SITE_DESCRIPTIONS.home;
                 href="/blog"
                 >Voir nos articles <span
                   class="material-symbols-outlined"
-                  data-icon="arrow_forward">arrow_forward</span
+                  data-icon="arrow_forward"
+                  aria-hidden="true">arrow_forward</span
                 ></a
               >
             </div>
@@ -257,6 +272,7 @@ const siteDescription = SITE_DESCRIPTIONS.home;
               <span
                 class="material-symbols-outlined text-3xl text-primary"
                 data-icon="alt_route"
+                aria-hidden="true"
               >
                 alt_route
               </span>
@@ -368,30 +384,38 @@ const siteDescription = SITE_DESCRIPTIONS.home;
           <div
             class="md:col-start-2 bg-surface-container-lowest p-10 rounded-2xl shadow-sm border border-outline-variant/10"
           >
-            <div class="flex gap-1 text-primary mb-6">
+            <div
+              class="flex gap-1 text-primary mb-6"
+              aria-label="5 étoiles sur 5"
+            >
               <span
                 class="material-symbols-outlined"
                 data-icon="star"
+                aria-hidden="true"
                 style="font-variation-settings: 'FILL' 1;">star</span
               >
               <span
                 class="material-symbols-outlined"
                 data-icon="star"
+                aria-hidden="true"
                 style="font-variation-settings: 'FILL' 1;">star</span
               >
               <span
                 class="material-symbols-outlined"
                 data-icon="star"
+                aria-hidden="true"
                 style="font-variation-settings: 'FILL' 1;">star</span
               >
               <span
                 class="material-symbols-outlined"
                 data-icon="star"
+                aria-hidden="true"
                 style="font-variation-settings: 'FILL' 1;">star</span
               >
               <span
                 class="material-symbols-outlined"
                 data-icon="star"
+                aria-hidden="true"
                 style="font-variation-settings: 'FILL' 1;">star</span
               >
             </div>
@@ -406,7 +430,7 @@ const siteDescription = SITE_DESCRIPTIONS.home;
                   alt="Logo - Tisseco Solidaire"
                   src={tissecoLogo}
                 />
-              </Image>
+              </div>
               <div>
                 <div class="font-bold text-primary">Pascale Bruneau</div>
                 <div

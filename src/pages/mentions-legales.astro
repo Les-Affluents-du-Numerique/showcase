@@ -3,6 +3,7 @@ import Footer from "@components/Footer.astro";
 import { SITE_DESCRIPTIONS, SITE_LANG, SITE_TITLES } from "../consts";
 import Header from "@components/Header.astro";
 import BaseHead from "@components/BaseHead.astro";
+import SkipLink from "@components/SkipLink.astro";
 
 const siteTitle = SITE_TITLES.legalNotices;
 const siteDescription = SITE_DESCRIPTIONS.legalNotices;
@@ -16,8 +17,12 @@ const siteDescription = SITE_DESCRIPTIONS.legalNotices;
   <body
     class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container"
   >
+    <SkipLink />
     <Header />
-    <main class="!pt-40 md:!pt-32 px-6 md:px-8 max-w-4xl mx-auto">
+    <main
+      id="main-content"
+      class="!pt-40 md:!pt-32 px-6 md:px-8 max-w-4xl mx-auto"
+    >
       <h1 class="font-headline text-4xl font-extrabold mb-6">
         Mentions Légales
       </h1>

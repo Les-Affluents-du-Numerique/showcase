@@ -1,0 +1,27 @@
+---
+// Skip link pour l'accessibilité - permet aux utilisateurs de lecteurs d'écran
+// de sauter directement au contenu principal
+---
+
+<a
+  href="#main-content"
+  class="skip-link absolute left-0 top-0 z-[9999] bg-primary text-on-primary px-6 py-3 rounded-br-lg font-bold -translate-x-full focus:translate-x-0 transition-transform"
+>
+  Aller au contenu principal
+</a>
+
+<style>
+  .skip-link {
+    /* Masqué par défaut, visible au focus clavier */
+    clip-path: inset(50%);
+    position: absolute;
+    white-space: nowrap;
+  }
+
+  .skip-link:focus {
+    clip-path: none;
+    position: fixed;
+    width: auto;
+    height: auto;
+  }
+</style>

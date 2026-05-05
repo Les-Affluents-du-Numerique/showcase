@@ -7,6 +7,7 @@ import Footer from "@components/Footer.astro";
 import FormattedDate from "@components/FormattedDate.astro";
 import { Image } from "astro:assets";
 import Header from "@components/Header.astro";
+import SkipLink from "@components/SkipLink.astro";
 
 import {
   POST_TAGS_ENUM,
@@ -74,8 +75,9 @@ const gridPosts = postsForPage;
   <body
     class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container"
   >
+    <SkipLink />
     <Header />
-    <main class="pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto">
+    <main id="main-content" class="pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto">
       <header class="mb-12 md:mb-20 text-left max-w-4xl">
         <span
           class="font-label text-xs uppercase tracking-[0.2em] text-primary opacity-80 mb-4 block"
@@ -204,22 +206,30 @@ const gridPosts = postsForPage;
             <a
               href={page.url.prev}
               class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant text-primary hover:bg-surface-container transition-all"
+              aria-label="Page précédente"
             >
-              <span class="material-symbols-outlined">chevron_left</span>
+              <span class="material-symbols-outlined" aria-hidden="true">
+                chevron_left
+              </span>
             </a>
           )
         }
         <button
           class="w-12 h-12 flex items-center justify-center rounded-full bg-primary text-on-primary font-headline transition-all"
-          aria-current>{page.currentPage}</button
+          aria-current="page"
+          aria-label={`Page ${page.currentPage} sur ${page.lastPage}`}
+          >{page.currentPage}</button
         >
         {
           page.url.next && (
             <a
               href={page.url.next}
               class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant text-primary hover:bg-surface-container transition-all"
+              aria-label="Page suivante"
             >
-              <span class="material-symbols-outlined">chevron_right</span>
+              <span class="material-symbols-outlined" aria-hidden="true">
+                chevron_right
+              </span>
             </a>
           )
         }
