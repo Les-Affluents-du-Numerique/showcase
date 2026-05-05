@@ -8,6 +8,7 @@ import { Image } from "astro:assets";
 import webRealisationsImage from "../assets/web_realisations.png";
 import teamworkImage from "../assets/vungocquang-teamwork-7804129_1920.jpg";
 import heroIndexImage from "../assets/index_hero.png";
+import tissecoLogo from "../assets/tisseco-logo.png";
 
 const siteTitle = SITE_TITLES.home;
 const siteDescription = SITE_DESCRIPTIONS.home;
@@ -400,18 +401,18 @@ const siteDescription = SITE_DESCRIPTIONS.home;
             </p>
             <div class="flex items-center gap-4">
               <div class="w-12 h-12 rounded-full bg-slate-200">
-                <img
-                  class="w-full h-full object-cover rounded-full"
-                  data-alt="professional profile photo of a smiling woman with glasses in a professional studio setting with neutral background"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKYQiS-BDIKII4UOZZ93QflHSCQZFtelG7W3MbuDNAMgjt1WAVCj3GCUh1atkb18RxNRXBslUpBAdqO2nlivd3TdPzmz4u9eSDEghQ7teaLdPA9uLRkjkPi56R3Be1RK99_l7Y6_DEp7p94JtPLi75kusi8csvxpEfAFZmnH-TXRImtFkBQSQZPS6OVfH3RMoj7z3DvHAwNGb6GG-1FCI9Ac2WMJrnKi-Q8iuEu1pRVk_DDwurWJp8BrIIdIaXkaBSBrscISShHQ"
+                <Image
+                  class="w-full h-full object-cover rounded-full bg-white"
+                  alt="Logo - Tisseco Solidaire"
+                  src={tissecoLogo}
                 />
-              </div>
+              </Image>
               <div>
-                <div class="font-bold text-primary">Nicolas Eighbal</div>
+                <div class="font-bold text-primary">Pascale Bruneau</div>
                 <div
                   class="text-xs text-on-surface-variant uppercase font-label"
                 >
-                  Dirigeant, Tisseco Solidaire
+                  Présidente, Tisseco Solidaire
                 </div>
               </div>
             </div>
