@@ -19,6 +19,7 @@ const blog = defineCollection({
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
       heroImage: z.optional(image()),
+      thumbnailAlt: z.string().optional(),
       authorImage: z.optional(image()),
     }),
 });
@@ -40,6 +41,7 @@ const realisations = defineCollection({
       // Authors as array of author slugs (see `src/consts.ts` mapping)
       authors: z.array(z.string()).optional(),
       hero: z.optional(image()),
+      heroAlt: z.string().optional(),
       tech: z.array(z.string()).optional(),
       summary: z.string().optional(),
     }),

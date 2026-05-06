@@ -19,7 +19,7 @@ import { AUTHORS } from "../consts";
             }
           >
             <img
-              alt={project.data.title}
+              alt={project.data.heroAlt ?? project.data.title}
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               src={
                 project.data.hero?.src ??
