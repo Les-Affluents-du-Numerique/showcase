@@ -14,7 +14,7 @@ const { post } = Astro.props;
       class="md:col-span-7 overflow-hidden rounded-[2.5rem] bg-surface-container-low aspect-video shadow-2xl shadow-primary/5 block"
     >
       <img
-        alt={post.data.title}
+        alt={post.data.thumbnailAlt ?? post.data.title}
         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         src={post.data.heroImage?.src ??
           post.data.heroImage ??
