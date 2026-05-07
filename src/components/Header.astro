@@ -6,12 +6,17 @@ function toNumericEntities(s) {
   return String(s).replace(/[^\x00-\x7F]/g, (c) => `&#${c.charCodeAt(0)};`);
 }
 
+const pageIdPrefix =
+  Astro.url.pathname === "/"
+    ? "home"
+    : Astro.url.pathname.replace(/^\/|\/$/g, "").replace(/\//g, "-");
+
 const desktopNavLinks = PRIMARY_NAV_LINKS.map((link) => ({
   ...link,
   descriptionId:
     link.href === "/"
-      ? "nav-description-home"
-      : `nav-description-${link.href.replace(/^\//, "")}`,
+      ? `nav-description-${pageIdPrefix}-home`
+      : `nav-description-${pageIdPrefix}-${link.href.replace(/^\//, "")}`,
 }));
 ---
 
