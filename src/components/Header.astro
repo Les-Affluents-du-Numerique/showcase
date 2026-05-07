@@ -9,7 +9,9 @@ function toNumericEntities(s) {
 const desktopNavLinks = PRIMARY_NAV_LINKS.map((link) => ({
   ...link,
   descriptionId:
-    link.href === "/" ? "nav-description-home" : `nav-description-${link.href.slice(1)}`,
+    link.href === "/"
+      ? "nav-description-home"
+      : `nav-description-${link.href.replace(/^\//, "")}`,
 }));
 ---
 
@@ -32,12 +34,14 @@ const desktopNavLinks = PRIMARY_NAV_LINKS.map((link) => ({
     <div class="hidden lg:flex items-center gap-8">
       {
         desktopNavLinks.map((link) => (
-          <HeaderLink aria-describedby={link.descriptionId} href={link.href}>
-            {link.label}
+          <>
+            <HeaderLink aria-describedby={link.descriptionId} href={link.href}
+              >{link.label}</HeaderLink
+            >
             <span class="sr-only" id={link.descriptionId}>
               {link.description}
             </span>
-          </HeaderLink>
+          </>
         ))
       }
     </div>
