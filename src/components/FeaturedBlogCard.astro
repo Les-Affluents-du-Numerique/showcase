@@ -2,6 +2,8 @@
 import FormattedDate from "@components/FormattedDate.astro";
 import { Image } from "astro:assets";
 import { POST_TAGS_ENUM, AUTHORS } from "../consts";
+import placeholderImage from "../assets/blog-placeholder-1.jpg";
+import authorPlaceholder from "../assets/francois_verin_profile_picture.jpeg";
 const { post } = Astro.props;
 ---
 
@@ -13,12 +15,17 @@ const { post } = Astro.props;
       href={`/blog/posts/${post.id}`}
       class="md:col-span-7 overflow-hidden rounded-[2.5rem] bg-surface-container-low aspect-video shadow-2xl shadow-primary/5 block"
     >
-      <img
-        alt={post.data.thumbnailAlt ?? post.data.title}
+      <Image
+        src={post.data.heroImage || placeholderImage}
+        alt={post.data.thumbnailAlt || post.data.title || "Image de l'article"}
+        width={1200}
+        height={675}
+        format="webp"
+        quality={85}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-        src={post.data.heroImage?.src ??
-          post.data.heroImage ??
-          "/assets/blog-placeholder-1.jpg"}
       />
     </a>
 
@@ -70,15 +77,19 @@ const { post } = Astro.props;
                   />
                 </div>
               ) : (
-                <img
-                  class="w-12 h-12 rounded-full object-cover"
-                  src={
-                    post.data.authorImage?.src ??
-                    post.data.authorImage ??
-                    "/assets/francois_verin_profile_picture.jpeg"
-                  }
-                  alt={String(a)}
-                />
+                <div class="w-12 h-12 rounded-full overflow-hidden">
+                  <Image
+                    src={post.data.authorImage || authorPlaceholder}
+                    alt={String(a)}
+                    width={48}
+                    height={48}
+                    format="webp"
+                    quality={80}
+                    loading="lazy"
+                    decoding="async"
+                    class="w-full h-full object-cover"
+                  />
+                </div>
               )}
               <div>
                 <p class="font-headline font-bold text-primary text-sm">

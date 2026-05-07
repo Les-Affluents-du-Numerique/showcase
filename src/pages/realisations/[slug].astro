@@ -49,9 +49,16 @@ if (renderResult) {
         {
           project.data.hero ? (
             <div class="aspect-video rounded-2xl overflow-hidden mb-8">
-              <img
-                alt={project.data.heroAlt ?? project.data.title}
-                src={project.data.hero?.src ?? project.data.hero}
+              <Image
+                src={project.data.hero}
+                alt={project.data.heroAlt || project.data.title || "Image du projet"}
+                width={1200}
+                height={675}
+                format="webp"
+                quality={85}
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
                 class="w-full object-center bg-surface"
                 style="width:100%; height:100%; object-fit:contain; object-position:center;"
               />

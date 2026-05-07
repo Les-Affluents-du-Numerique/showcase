@@ -6,6 +6,8 @@ import BaseHead from "@components/BaseHead.astro";
 import Footer from "@components/Footer.astro";
 import FormattedDate from "@components/FormattedDate.astro";
 import { Image } from "astro:assets";
+import placeholderImage from "../../../assets/blog-placeholder-1.jpg";
+import authorPlaceholder from "../../../assets/francois_verin_profile_picture.jpeg";
 import Header from "@components/Header.astro";
 import SkipLink from "@components/SkipLink.astro";
 
@@ -129,14 +131,16 @@ const gridPosts = postsForPage;
             <article class="group flex flex-col bg-surface-container-lowest rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/5">
               <a href={`/blog/posts/${post.id}`} class="block h-full">
                 <div class="aspect-4/3 overflow-hidden">
-                  <img
-                    alt="Miniature de l'article"
+                  <Image
+                    src={post.data.heroImage || placeholderImage}
+                    alt={post.data.thumbnailAlt || post.data.title || "Miniature de l'article"}
+                    width={800}
+                    height={600}
+                    format="webp"
+                    quality={80}
+                    loading="lazy"
+                    decoding="async"
                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    src={
-                      post.data.heroImage?.src ??
-                      post.data.heroImage ??
-                      "/assets/blog-placeholder-1.jpg"
-                    }
                   />
                 </div>
                 <div class="p-8 flex flex-col grow">
@@ -174,15 +178,19 @@ const gridPosts = postsForPage;
                           class="w-full h-full object-cover"
                         />
                       ) : (
-                        <img
-                          class="w-full h-full object-cover"
-                          src={
-                            post.data.authorImage?.src ??
-                            post.data.authorImage ??
-                            "/assets/francois_verin_profile_picture.jpeg"
-                          }
-                          alt={post.data.author}
-                        />
+                        <div class="w-full h-full overflow-hidden">
+                          <Image
+                            src={post.data.authorImage || authorPlaceholder}
+                            alt={post.data.author || "Auteur"}
+                            width={32}
+                            height={32}
+                            format="webp"
+                            quality={80}
+                            loading="lazy"
+                            decoding="async"
+                            class="w-full h-full object-cover"
+                          />
+                        </div>
                       )}
                     </div>
                     <span class="font-headline font-semibold text-xs text-primary">
