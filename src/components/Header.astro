@@ -1,5 +1,5 @@
 ---
-import { SITE_TITLE } from "../consts";
+import { PRIMARY_NAV_LINKS, SITE_TITLE } from "../consts";
 import HeaderLink from "./HeaderLink.astro";
 
 function toNumericEntities(s) {
@@ -24,10 +24,11 @@ function toNumericEntities(s) {
       <span set:html={toNumericEntities(SITE_TITLE)} />
     </a>
     <div class="hidden lg:flex items-center gap-8">
-      <HeaderLink href={"/"}>Accueil</HeaderLink>
-      <HeaderLink href={"/notre-equipe"}>Notre Equipe</HeaderLink>
-      <HeaderLink href={"/realisations"}>Nos Réalisations</HeaderLink>
-      <HeaderLink href={"/blog"}>Blog</HeaderLink>
+      {
+        PRIMARY_NAV_LINKS.map((link) => (
+          <HeaderLink href={link.href}>{link.label}</HeaderLink>
+        ))
+      }
     </div>
     <a
       href="mailto:contact@lesaffluentsdunumerique.fr"
@@ -68,30 +69,16 @@ function toNumericEntities(s) {
       class="fixed top-28 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-surface rounded-3xl shadow-2xl p-6 transform translate-y-[-20px] transition-transform duration-300"
     >
       <div class="flex flex-col gap-4">
-        <a
-          href="/"
-          class="text-lg font-semibold text-primary hover:bg-surface-container px-4 py-3 rounded-xl transition-colors"
-        >
-          Accueil
-        </a>
-        <a
-          href="/notre-equipe"
-          class="text-lg font-semibold text-primary hover:bg-surface-container px-4 py-3 rounded-xl transition-colors"
-        >
-          Notre Equipe
-        </a>
-        <a
-          href="/realisations"
-          class="text-lg font-semibold text-primary hover:bg-surface-container px-4 py-3 rounded-xl transition-colors"
-        >
-          Nos Réalisations
-        </a>
-        <a
-          href="/blog"
-          class="text-lg font-semibold text-primary hover:bg-surface-container px-4 py-3 rounded-xl transition-colors"
-        >
-          Blog
-        </a>
+        {
+          PRIMARY_NAV_LINKS.map((link) => (
+            <a
+              href={link.href}
+              class="text-lg font-semibold text-primary hover:bg-surface-container px-4 py-3 rounded-xl transition-colors"
+            >
+              {link.label}
+            </a>
+          ))
+        }
         <a
           href="mailto:contact@lesaffluentsdunumerique.fr"
           class="bg-primary hover:scale-105 active:scale-100 transition-all duration-300 px-6 py-3 rounded-full text-on-primary text-sm font-semibold tracking-wide shadow-lg text-center mt-2"

@@ -1,4 +1,6 @@
 ---
+import { FOOTER_LINKS } from "../consts";
+
 const today = new Date();
 ---
 
@@ -19,14 +21,16 @@ const today = new Date();
       </p>
     </div>
     <div class="flex gap-8">
-      <a
-        class="font-inter text-sm text-slate-500 hover:text-sky-600 transition-colors"
-        href="/sitemap">Plan du site</a
-      >
-      <a
-        class="font-inter text-sm text-slate-500 hover:text-sky-600 transition-colors"
-        href="/mentions-legales">Mentions Légales</a
-      >
+      {
+        FOOTER_LINKS.map((link) => (
+          <a
+            class="font-inter text-sm text-slate-500 hover:text-sky-600 transition-colors"
+            href={link.href}
+          >
+            {link.label}
+          </a>
+        ))
+      }
     </div>
   </div>
 </footer>

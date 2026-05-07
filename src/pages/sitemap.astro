@@ -3,18 +3,15 @@ import BaseHead from "@components/BaseHead.astro";
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
 import SkipLink from "@components/SkipLink.astro";
-import { SITE_LANG } from "../consts";
+import { FOOTER_LINKS, PRIMARY_NAV_LINKS, SITE_LANG } from "../consts";
 
 const siteTitle = "Les Affluents du Numérique - Plan du site";
 const siteDescription =
   "Retrouvez l'ensemble des principales pages du site Les Affluents du Numérique.";
 
 const pages = [
-  { href: "/", label: "Accueil" },
-  { href: "/notre-equipe", label: "Notre équipe" },
-  { href: "/realisations", label: "Nos réalisations" },
-  { href: "/blog", label: "Blog" },
-  { href: "/mentions-legales", label: "Mentions légales" },
+  ...PRIMARY_NAV_LINKS,
+  ...FOOTER_LINKS.filter((link) => link.href !== "/sitemap"),
 ];
 ---
 

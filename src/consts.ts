@@ -38,6 +38,18 @@ export const SITE_DESCRIPTIONS = {
   privacyPolicy: "Retrouvez notre politique de confidentialité",
 } as const;
 
+export const PRIMARY_NAV_LINKS = [
+  { href: "/", label: "Accueil" },
+  { href: "/notre-equipe", label: "Notre Equipe" },
+  { href: "/realisations", label: "Nos Réalisations" },
+  { href: "/blog", label: "Blog" },
+] as const;
+
+export const FOOTER_LINKS = [
+  { href: "/sitemap", label: "Plan du site" },
+  { href: "/mentions-legales", label: "Mentions Légales" },
+] as const;
+
 const CATEGORIES = {
   "design-ui-ux": "Les Affluents du Numérique - Blog - Design UI/UX",
   "developpement-web": "Les Affluents du Numérique - Blog - Développement Web",
