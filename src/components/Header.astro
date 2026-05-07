@@ -61,12 +61,10 @@ function toNumericEntities(s) {
   <!-- Mobile menu overlay -->
   <div
     id="mobile-menu"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Menu de navigation"
     class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden"
   >
-    <div
+    <nav
+      aria-label="Menu de navigation"
       class="fixed top-28 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-surface rounded-3xl shadow-2xl p-6 transform translate-y-[-20px] transition-transform duration-300"
     >
       <div class="flex flex-col gap-4">
@@ -101,14 +99,14 @@ function toNumericEntities(s) {
           Contact
         </a>
       </div>
-    </div>
+    </nav>
   </div>
 </header>
 
 <script>
   const mobileMenuBtn = document.getElementById("mobile-menu-btn");
   const mobileMenu = document.getElementById("mobile-menu");
-  const menuContent = mobileMenu?.querySelector("div");
+  const menuContent = mobileMenu?.querySelector("nav");
   const menuIcon = document.getElementById("menu-icon");
   const closeIcon = document.getElementById("close-icon");
 

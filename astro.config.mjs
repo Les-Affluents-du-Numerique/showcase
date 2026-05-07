@@ -13,6 +13,12 @@ export default defineConfig({
   site: 'https://lesaffluentsdunumerique.vercel.app/',
   integrations: [mdx(), sitemap()],
 
+  build: {
+    inlineStylesheets: 'auto',
+  },
+
+  compressHTML: true,
+
   fonts: [
     {
       provider: fontProviders.local(),
