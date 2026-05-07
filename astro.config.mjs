@@ -15,24 +15,6 @@ export default defineConfig({
 
   fonts: [
     {
-      provider: fontProviders.google(),
-      name: 'Manrope',
-      fallbacks: ["sans-serif"],
-      cssVariable: '--font-headline'
-    },
-    {
-      provider: fontProviders.google(),
-      name: 'Manrope',
-      fallbacks: ["sans-serif"],
-      cssVariable: '--font-label'
-    },
-    {
-      provider: fontProviders.google(),
-      name: 'Inter',
-      fallbacks: ["sans-serif"],
-      cssVariable: '--font-body'
-    },
-    {
       provider: fontProviders.local(),
       name: 'Atkinson',
       cssVariable: '--font-atkinson',
