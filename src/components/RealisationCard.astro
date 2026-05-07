@@ -21,7 +21,9 @@ import placeholderImage from "../assets/blog-placeholder-1.jpg";
           >
             <Image
               src={project.data.hero || placeholderImage}
-              alt={project.data.heroAlt || project.data.title || "Image du projet"}
+              alt={
+                project.data.heroAlt || project.data.title || "Image du projet"
+              }
               width={idx === 0 ? 1200 : 800}
               height={idx === 0 ? 800 : 600}
               format="webp"
