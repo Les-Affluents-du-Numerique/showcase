@@ -26,7 +26,9 @@ function toNumericEntities(s) {
     <div class="hidden lg:flex items-center gap-8">
       {
         PRIMARY_NAV_LINKS.map((link) => (
-          <HeaderLink href={link.href}>{link.label}</HeaderLink>
+          <HeaderLink aria-label={link.description} href={link.href}
+            >{link.label}</HeaderLink
+          >
         ))
       }
     </div>
@@ -72,6 +74,7 @@ function toNumericEntities(s) {
         {
           PRIMARY_NAV_LINKS.map((link) => (
             <a
+              aria-label={link.description}
               href={link.href}
               class="text-lg font-semibold text-primary hover:bg-surface-container px-4 py-3 rounded-xl transition-colors"
             >
