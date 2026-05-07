@@ -39,15 +39,39 @@ export const SITE_DESCRIPTIONS = {
 } as const;
 
 export const PRIMARY_NAV_LINKS = [
-  { href: "/", label: "Accueil" },
-  { href: "/notre-equipe", label: "Notre Equipe" },
-  { href: "/realisations", label: "Nos Réalisations" },
-  { href: "/blog", label: "Blog" },
+  {
+    href: "/",
+    label: "Accueil",
+    description: "Présentation du collectif et de ses services numériques.",
+  },
+  {
+    href: "/notre-equipe",
+    label: "Notre Équipe",
+    description: "Découvrez les membres du collectif Les Affluents du Numérique.",
+  },
+  {
+    href: "/realisations",
+    label: "Nos Réalisations",
+    description: "Parcourez nos études de cas et projets livrés.",
+  },
+  {
+    href: "/blog",
+    label: "Blog",
+    description: "Lisez nos articles autour du numérique et du développement web.",
+  },
 ] as const;
 
 export const FOOTER_LINKS = [
-  { href: "/sitemap", label: "Plan du site" },
-  { href: "/mentions-legales", label: "Mentions Légales" },
+  {
+    href: "/sitemap",
+    label: "Plan du site",
+    description: "Accédez à la liste des principales pages du site.",
+  },
+  {
+    href: "/mentions-legales",
+    label: "Mentions légales",
+    description: "Consultez les informations légales et la politique de confidentialité.",
+  },
 ] as const;
 
 const CATEGORIES = {
