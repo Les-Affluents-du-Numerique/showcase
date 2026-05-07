@@ -3,7 +3,7 @@ import BaseHead from "@components/BaseHead.astro";
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
 import SkipLink from "@components/SkipLink.astro";
-import { FOOTER_LINKS, PRIMARY_NAV_LINKS, SITE_LANG } from "../consts";
+import { FOOTER_LINKS, PRIMARY_NAV_LINKS, SITE_LANG, SITEMAP_PATH } from "../consts";
 
 const siteTitle = "Les Affluents du Numérique - Plan du site";
 const siteDescription =
@@ -11,7 +11,7 @@ const siteDescription =
 
 const pages = [
   ...PRIMARY_NAV_LINKS,
-  ...FOOTER_LINKS.filter((link) => link.href !== "/sitemap"),
+  ...FOOTER_LINKS.filter((link) => link.href !== SITEMAP_PATH),
 ];
 ---
 

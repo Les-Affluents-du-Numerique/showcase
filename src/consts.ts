@@ -74,6 +74,8 @@ export const FOOTER_LINKS = [
   },
 ] as const;
 
+export const SITEMAP_PATH = "/sitemap";
+
 const CATEGORIES = {
   "design-ui-ux": "Les Affluents du Numérique - Blog - Design UI/UX",
   "developpement-web": "Les Affluents du Numérique - Blog - Développement Web",
