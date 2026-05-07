@@ -1,10 +1,34 @@
 @import '@material-symbols/font-400/outlined.css';
 @import "tailwindcss";
 
+/* Ensure Material Symbols uses font-display: swap */
+@supports (font-variation-settings: normal) {
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined Variable', 'Material Symbols Outlined';
+  }
+}
+
+/* Font faces with optimized loading */
+@font-face {
+  font-family: 'Atkinson';
+  src: url('/src/assets/fonts/atkinson-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Atkinson';
+  src: url('/src/assets/fonts/atkinson-bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
---font-headline: "Manrope", sans-serif;
---font-body: "Inter", sans-serif;
---font-label: "Manrope", sans-serif;
+--font-headline: "Atkinson", sans-serif;
+--font-body: "Atkinson", sans-serif;
+--font-label: "Atkinson", sans-serif;
 --color-on-error: #ffffff;
 --color-on-tertiary-fixed: #00210f;
 --color-surface-container: #eceef0;
