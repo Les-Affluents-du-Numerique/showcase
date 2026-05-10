@@ -13,7 +13,8 @@ import vercel from '@astrojs/vercel';
 const getSiteUrl = () => {
   // Custom environment variable for explicit site URL (can be set in Vercel dashboard)
   if (process.env.SITE_URL) {
-    return process.env.SITE_URL;
+    // Normalize: remove trailing slash for consistency
+    return process.env.SITE_URL.replace(/\/$/, '');
   }
   // For Vercel deployments (preview and production)
   if (process.env.VERCEL_URL) {
