@@ -1,7 +1,8 @@
 export async function GET(context) {
   // Fallback to localhost if site is not configured
+  // No need to remove trailing slash as it's already normalized in astro.config.mjs
   const siteUrl = context.site 
-    ? context.site.href.replace(/\/$/, '') // Remove trailing slash if present
+    ? context.site.href.replace(/\/$/, '') // Astro's URL object includes trailing slash, remove it
     : 'http://localhost:4321';
   
   const robotsTxt = `User-agent: *
