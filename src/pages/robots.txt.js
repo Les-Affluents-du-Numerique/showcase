@@ -1,4 +1,4 @@
-export async function GET(context) {
+export function GET(context) {
   // Fallback to localhost if site is not configured
   // Astro's URL object includes trailing slash, remove it for consistency
   const siteUrl = context.site 
