@@ -8,9 +8,24 @@ import tailwindcss from '@tailwindcss/vite';
 
 import vercel from '@astrojs/vercel';
 
+// Determine the site URL based on the environment
+// Priority: SITE_URL env var > VERCEL_URL > fallback
+const getSiteUrl = () => {
+  // Custom environment variable for explicit site URL (can be set in Vercel dashboard)
+  if (process.env.SITE_URL) {
+    return process.env.SITE_URL;
+  }
+  // For Vercel deployments (preview and production)
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  // Fallback for local development
+  return 'http://localhost:4321';
+};
+
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://lesaffluentsdunumerique.vercel.app/',
+  site: getSiteUrl(),
   integrations: [mdx(), sitemap()],
 
   build: {
