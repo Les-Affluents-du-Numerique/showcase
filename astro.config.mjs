@@ -9,14 +9,20 @@ import tailwindcss from '@tailwindcss/vite';
 import vercel from '@astrojs/vercel';
 
 // Determine the site URL based on the environment
-// Priority: SITE_URL env var > VERCEL_URL > fallback
+// Priority: SITE_URL env var > VERCEL_PROJECT_PRODUCTION_URL (production) > VERCEL_URL (preview) > fallback
 const getSiteUrl = () => {
   // Custom environment variable for explicit site URL (can be set in Vercel dashboard)
   if (process.env.SITE_URL) {
     // Normalize: remove trailing slash for consistency
     return process.env.SITE_URL.replace(/\/$/, '');
   }
-  // For Vercel deployments (preview and production)
+  // For production Vercel deployments, use the stable canonical production URL
+  // VERCEL_PROJECT_PRODUCTION_URL is the custom domain configured in Vercel (e.g. www.lesaffluentsdunumerique.fr)
+  // VERCEL_URL is deployment-specific and changes on every build — not suitable for the sitemap
+  if (process.env.VERCEL_ENV === 'production' && process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  }
+  // For Vercel preview deployments, use the deployment-specific URL
   if (process.env.VERCEL_URL) {
     return `https://${process.env.VERCEL_URL}`;
   }
