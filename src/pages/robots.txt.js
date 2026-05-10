@@ -1,5 +1,8 @@
 export async function GET(context) {
-  const siteUrl = context.site.href.replace(/\/$/, ''); // Remove trailing slash if present
+  // Fallback to localhost if site is not configured
+  const siteUrl = context.site 
+    ? context.site.href.replace(/\/$/, '') // Remove trailing slash if present
+    : 'http://localhost:4321';
   
   const robotsTxt = `User-agent: *
 Allow: /
