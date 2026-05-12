@@ -68,7 +68,7 @@ pnpm install
 
 | Commande          | Action                                       |
 |:------------------|:---------------------------------------------|
-| `pnpm dev`        | Lance le serveur de développement sur `localhost:4321` |
+| `pnpm dev`        | Lance le serveur de développement |
 | `pnpm build`      | Construit le site pour la production dans `./dist/` |
 | `pnpm preview`    | Prévisualise le build de production localement |
 
