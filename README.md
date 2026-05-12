@@ -2,7 +2,7 @@
 
 Site vitrine du collectif Les Affluents du Numérique
 
-## 🌊 Partie 1 : Pourquoi - Le Collectif
+## 🌊 Partie 1 : Pourquoi le Collectif
 
 ### Qui sommes-nous ?
 
@@ -35,7 +35,7 @@ Nous concevons des solutions sur mesure qui allient haute technicité et vision 
 
 ---
 
-## 💻 Partie 2 : Comment - Guide Technique
+## 💻 Partie 2 : Guide Technique
 
 ### Prérequis
 
@@ -63,17 +63,6 @@ cd showcase
 # Installer les dépendances avec pnpm
 pnpm install
 ```
-
-### Configuration
-
-Créer un fichier `.env` à la racine du projet basé sur `.env.example` :
-
-```bash
-# .env
-SITE_URL=https://www.lesaffluentsdunumerique.fr
-```
-
-Pour le développement local, la variable `SITE_URL` est optionnelle (valeur par défaut : `http://localhost:4321`).
 
 ### Commandes Disponibles
 
@@ -106,8 +95,6 @@ Pour le développement local, la variable `SITE_URL` est optionnelle (valeur par
 pnpm dev
 ```
 
-Le site sera accessible sur `http://localhost:4321`
-
 ### Build et Déploiement
 
 ```bash
@@ -127,7 +114,7 @@ Le site génère automatiquement :
 - Un flux RSS pour le blog
 - Un fichier `robots.txt` dynamique
 
-La configuration du sitemap se fait via la variable d'environnement `SITE_URL` ou automatiquement via `VERCEL_URL` lors des déploiements Vercel.
+La configuration du sitemap se fait via la variable d'environnement automatiquement via `VERCEL_URL` lors des déploiements Vercel.
 
 ### Gestion du Contenu
 
