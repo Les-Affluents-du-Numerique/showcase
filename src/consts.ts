@@ -1,8 +1,8 @@
 import { z } from "astro/zod";
-import francoisImage from "./assets/francois_verin_profile_picture.jpeg";
-import danielImage from "./assets/daniel_cadeau_profile_picture.jpeg";
-import christopherImage from "./assets/christopher_debray_profile_picture.jpeg";
-import jordanImage from "./assets/jordan_mombongo_profile_picture.jpeg";
+import francoisImage from "./assets/francois_verin_profile_picture.webp";
+import danielImage from "./assets/daniel_cadeau_profile_picture.webp";
+import christopherImage from "./assets/christopher_debray_profile_picture.webp";
+import jordanImage from "./assets/jordan_mombongo_profile_picture.webp";
 
 export const SITE_TITLE = "Les Affluents du Numérique";
 export const SITE_LANG = "fr";
