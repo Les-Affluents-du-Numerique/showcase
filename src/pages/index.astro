@@ -6,7 +6,7 @@ import ContactCTA from "@components/ContactCTA.astro";
 import SkipLink from "@components/SkipLink.astro";
 import { SITE_DESCRIPTIONS, SITE_LANG, SITE_TITLES } from "../consts";
 import { Image } from "astro:assets";
-import webRealisationsImage from "../assets/web_realisations.webp";
+import webRealisationsImage from "../assets/realisations.webp";
 import teamworkImage from "../assets/teamwork.webp";
 import heroIndexImage from "../assets/index_hero.webp";
 import tissecoLogo from "../assets/tisseco-logo.png";
@@ -176,10 +176,10 @@ const siteDescription = SITE_DESCRIPTIONS.home;
                   >
                 </div>
               </div>
-              <div class="h-64 md:h-auto">
+              <div class="aspect-square overflow-hidden">
                 <Image
-                  class="w-full h-full object-cover block"
-                  alt="visualisation artistique abstraite de flux de données et d'architecture web en nuances de bleu profond et argent"
+                  class="w-full h-full object-cover aspect-square"
+                  alt="Un bureau avec plusieurs dossiers et rapports ouverts présentant des graphiques et des diagrammes circulaires, une tasse de café, des plantes vertes et des fournitures de bureau, avec en arrière-plan une vue sur la Tour Eiffel et un paysage urbain parisien au bord de la Seine."
                   src={webRealisationsImage}
                 />
               </div>
