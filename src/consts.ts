@@ -19,6 +19,8 @@ export const POST_TAGS_ENUM = {
   "tendances-tech": "Tendances Tech",
 } as const;
 
+export type PostTagKey = keyof typeof POST_TAGS_ENUM;
+
 export const BLOG_CATEGORIES_DESCRIPTION = {
   "design-ui-ux": "Retrouvez nos articles sur le design UI/UX.",
   "developpement-web": "Retrouvez nos articles sur le développement web.",
