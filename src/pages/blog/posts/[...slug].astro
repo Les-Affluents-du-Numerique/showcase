@@ -24,9 +24,7 @@ try {
 }
 ---
 
-<main class="!pt-40 md:!pt-32">
-  <BlogPost {...post.data}>
-    {Content ? <Content /> : null}
-    {!Content ? <div class="prose max-w-none" set:html={post.body} /> : null}
-  </BlogPost>
-</main>
+<BlogPost {...post.data}>
+  {Content ? <Content /> : null}
+  {!Content ? <div class="prose max-w-none" set:html={post.body} /> : null}
+</BlogPost>

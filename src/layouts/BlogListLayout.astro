@@ -1,124 +1,57 @@
 ---
-import BaseHead from "@components/BaseHead.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
+import type { CollectionEntry } from "astro:content";
+import Layout from "@layouts/Layout.astro";
 import BlogCard from "@components/BlogCard.astro";
 import FeaturedBlogCard from "@components/FeaturedBlogCard.astro";
-import { SITE_LANG } from "../consts";
 
-const {
-  title,
-  description,
-  availableTagEntries,
-  effectiveTag,
-  gridPosts = [],
-  pageCurrent = 1,
-  prevHref = null,
-  nextHref = null,
-} = Astro.props;
+interface Props {
+  title: string;
+  description: string;
+  gridPosts?: CollectionEntry<"blog">[];
+  // Accepted from tag/pagination callers (reserved for future filter UI).
+  availableTagEntries?: [string, string][];
+  effectiveTag?: string;
+  pageCurrent?: number;
+  prevHref?: string | null;
+  nextHref?: string | null;
+}
+
+const { title, description, gridPosts = [] } = Astro.props;
 ---
 
-<!doctype html>
-<html lang={SITE_LANG}>
-  <head>
-    <BaseHead title={title} description={description} />
-    <style>
-      .editorial-underline {
-        background-image: linear-gradient(120deg, #d0e4ff 0%, #d0e4ff 100%);
-        background-repeat: no-repeat;
-        background-size: 100% 0.3em;
-        background-position: 0 88%;
-        transition: background-size 0.25s ease-in;
-      }
-      .editorial-underline:hover {
-        background-size: 100% 0.5em;
-      }
-    </style>
-  </head>
-  <body
-    class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container"
+<Layout title={title} description={description}>
+  <main
+    id="main-content"
+    class="!pt-40 md:!pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto"
   >
-    <Header />
-    <main class="!pt-40 md:!pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto">
-      <section class="mb-20 text-left max-w-4xl">
-        <span
-          class="font-label text-xs uppercase tracking-[0.2em] text-primary opacity-80 mb-4 block"
-          >Insights &amp; Analyses</span
-        >
-        <h1
-          class="font-headline text-5xl md:text-7xl font-extrabold text-primary tracking-tight leading-[1.1] mb-8"
-        >
-          Le courant des <span class="editorial-underline">idées</span> numériques.
-        </h1>
-        <p
-          class="font-body text-lg text-on-surface-variant leading-relaxed max-w-2xl"
-        >
-          {description}
-        </p>
-        <!-- <div class="my-4 flex gap-2">
-          <a
-            class={effectiveTag
-              ? "bg-surface-container text-on-secondary-container px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:bg-surface-container-high hover:scale-105"
-              : "bg-primary text-on-primary px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:scale-105"}
-            href="/blog">Tous les articles</a
-          >
-          {
-            availableTagEntries?.map(([key, label]) => (
-              <a
-                class={
-                  effectiveTag === key
-                    ? "bg-primary text-on-primary px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:scale-105"
-                    : "bg-surface-container text-on-secondary-container px-6 py-2.5 rounded-full font-label text-sm font-semibold transition-all hover:bg-surface-container-high hover:scale-105"
-                }
-                href={`/blog/${key}`}
-              >
-                {label}
-              </a>
-            ))
-          }
-        </div> -->
-      </section>
+    <section class="mb-20 text-left max-w-4xl">
+      <span
+        class="font-label text-xs uppercase tracking-[0.2em] text-primary opacity-80 mb-4 block"
+        >Insights &amp; Analyses</span
+      >
+      <h1
+        class="font-headline text-5xl md:text-7xl font-extrabold text-primary tracking-tight leading-[1.1] mb-8"
+      >
+        Le courant des <span class="editorial-underline">idées</span> numériques.
+      </h1>
+      <p
+        class="font-body text-lg text-on-surface-variant leading-relaxed max-w-2xl"
+      >
+        {description}
+      </p>
+    </section>
 
-      {
-        gridPosts.length > 0 && (
-          <div class="space-y-10 relative z-20">
-            <FeaturedBlogCard post={gridPosts[0]} />
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-              {gridPosts.slice(1).map((post) => (
-                <BlogCard post={post} />
-              ))}
-            </div>
+    {
+      gridPosts.length > 0 && (
+        <div class="space-y-10 relative z-20">
+          <FeaturedBlogCard post={gridPosts[0]} />
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {gridPosts.slice(1).map((post) => (
+              <BlogCard post={post} />
+            ))}
           </div>
-        )
-      }
-
-      <!-- <div class="mt-20 flex justify-center items-center gap-4">
-        {
-          prevHref && (
-            <a
-              href={prevHref}
-              class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant text-primary hover:bg-surface-container transition-all"
-            >
-              <span class="material-symbols-outlined">chevron_left</span>
-            </a>
-          )
-        }
-        <button
-          class="w-12 h-12 flex items-center justify-center rounded-full bg-primary text-on-primary font-headline transition-all"
-          aria-current=\"page\">{pageCurrent}</button
-        >
-        {
-          nextHref && (
-            <a
-              href={nextHref}
-              class="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant text-primary hover:bg-surface-container transition-all"
-            >
-              <span class="material-symbols-outlined">chevron_right</span>
-            </a>
-          )
-        }
-      </div> -->
-    </main>
-    <Footer />
-  </body>
-</html>
+        </div>
+      )
+    }
+  </main>
+</Layout>

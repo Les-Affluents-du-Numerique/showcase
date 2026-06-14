@@ -7,15 +7,6 @@ import FallbackImage from "../assets/og.webp";
 import { SITE_TITLE } from "../consts";
 import { Font } from "astro:assets";
 
-const atkinsonRegular = new URL(
-  "../assets/fonts/atkinson-regular.woff",
-  import.meta.url,
-).toString();
-const atkinsonBold = new URL(
-  "../assets/fonts/atkinson-bold.woff",
-  import.meta.url,
-).toString();
-
 interface Props {
   title: string;
   description: string;
