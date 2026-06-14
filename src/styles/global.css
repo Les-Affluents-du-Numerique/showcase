@@ -58,27 +58,12 @@
   background: linear-gradient(135deg, #003358 0%, #004a7c 100%);
 }
 
-/* Font faces with optimized loading */
-@font-face {
-  font-family: "Atkinson";
-  src: url("/src/assets/fonts/atkinson-regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Atkinson";
-  src: url("/src/assets/fonts/atkinson-bold.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
 @theme {
-  --font-headline: "Atkinson", sans-serif;
-  --font-body: "Atkinson", sans-serif;
-  --font-label: "Atkinson", sans-serif;
+  /* Atkinson is provided by Astro's local font provider (astro.config.mjs)
+     and exposed through the --font-atkinson CSS variable. */
+  --font-headline: var(--font-atkinson), sans-serif;
+  --font-body: var(--font-atkinson), sans-serif;
+  --font-label: var(--font-atkinson), sans-serif;
   --color-on-error: #ffffff;
   --color-on-tertiary-fixed: #00210f;
   --color-surface-container: #eceef0;

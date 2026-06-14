@@ -6,6 +6,7 @@ import type { ImageMetadata } from "astro";
 import FallbackImage from "../assets/og.webp";
 import { SITE_TITLE } from "../consts";
 import { Font } from "astro:assets";
+import materialSymbolsFont from "../assets/fonts/material-symbols-outlined.woff2";
 
 interface Props {
   title: string;
@@ -37,7 +38,7 @@ const { title, description, image = FallbackImage } = Astro.props;
 <!-- Preload Material Symbols font for faster rendering -->
 <link
   rel="preload"
-  href="/src/assets/fonts/material-symbols-outlined.woff2"
+  href={materialSymbolsFont}
   as="font"
   type="font/woff2"
   crossorigin
@@ -104,12 +105,3 @@ const { title, description, image = FallbackImage } = Astro.props;
     "priceRange": "$$"
   }
 </script>
-
-<style>
-  :root {
-    /* `--font-atkinson` is provided by Astro's font provider (astro.config.mjs)
-       Map design tokens to that variable so components can use them. */
-    --font-body: var(--font-atkinson);
-    --font-headline: var(--font-atkinson);
-  }
-</style>
