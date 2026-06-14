@@ -3,11 +3,52 @@ import Layout from "@layouts/Layout.astro";
 import { SITE_DESCRIPTIONS, SITE_TITLES } from "../consts";
 import { Image } from "astro:assets";
 import QuoteCard from "@components/QuoteCard.astro";
+import TeamMemberCard from "@components/TeamMemberCard.astro";
 import fverinImage from "../assets/francois_verin_profile_picture.webp";
 import cdebrayImage from "../assets/christopher_debray_profile_picture.webp";
 import dcadeauImage from "../assets/daniel_cadeau_profile_picture.webp";
 import jmombongoImage from "../assets/jordan_mombongo_profile_picture.webp";
 import teamCollaborationImage from "../assets/collaboration.webp";
+
+const francois = {
+  name: "François Verin",
+  role: "Développeur Fullstack",
+  bio: "Ancien développeur en start-up, j'ai décidé de mettre mes compétences au services des TPE/PME pour redonner du sens au développement de proximité. Passionné par l'accessibilité et le développement front-end.",
+  image: fverinImage,
+  tech: [
+    "Next.js",
+    "Astro",
+    "TypeScript",
+    "Nest",
+    "Odoo",
+    "PostgreSQL",
+    "Docker",
+  ],
+};
+
+const jordan = {
+  name: "Jordan Mombongo",
+  role: "Développeur",
+  bio: "Adepte du Software Craftsmanship et spécialisé sur la sécurité des applications web. Je mettrai à votre service mon expérience de développeur pour améliorer ou créer vos projets.",
+  image: jmombongoImage,
+  tech: ["Java", "Angular JS", "Spring Boot"],
+};
+
+const daniel = {
+  name: "Daniel Cadeau",
+  role: "Développeur web",
+  bio: "Freelance en développement web, j’interviens sur des projets complexes, notamment autour d’ERP et de solutions sur mesure. Je suis aussi spécialisé dans la modernisation d’applications legacy et les interconnexions d’API complexes.",
+  image: dcadeauImage,
+  tech: ["PHP", "TypeScript", "SQL", "Docker"],
+};
+
+const christopher = {
+  name: "Christopher Debray",
+  role: "Développeur Fullstack",
+  bio: "J’accompagne la conception et le développement d’applications web modernes, avec une approche pragmatique centrée sur des solutions fiables et maintenables.",
+  image: cdebrayImage,
+  tech: ["NestJS", "Next.js", "Docker"],
+};
 ---
 
 <Layout title={SITE_TITLES.team} description={SITE_DESCRIPTIONS.team}>
@@ -146,205 +187,15 @@ import teamCollaborationImage from "../assets/collaboration.webp";
         </p>
       </div>
       <div class="grid md:grid-cols-12 gap-8 items-stretch">
-        <div
-          class="md:col-span-8 bg-surface-container rounded-4xl p-6 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-center"
-        >
-          <div
-            class="w-24 h-24 lg:w-36 lg:h-36 rounded-full overflow-hidden shrink-0 shadow-lg"
-          >
-            <Image
-              alt="François - Lead Dev"
-              class="w-full h-full object-cover"
-              data-alt="Portrait professionnel d'un développeur dans la trentaine avec un sourire confiant, portant une chemise en lin décontractée, éclairage studio lumineux"
-              src={fverinImage}
-            />
-          </div>
-          <div>
-            <h3 class="text-3xl font-headline font-extrabold text-primary mb-2">
-              François Verin
-            </h3>
-            <p
-              class="text-primary-container font-label font-semibold text-sm tracking-wider uppercase mb-6"
-            >
-              Développeur Fullstack
-            </p>
-            <p class="text-on-surface-variant mb-8 leading-relaxed">
-              Ancien développeur en start-up, j'ai décidé de mettre mes
-              compétences au services des TPE/PME pour redonner du sens au
-              développement de proximité. Passionné par l'accessibilité et le
-              développement front-end.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span
-                class="px-3 py-1 bg-white/50 text-xs font-label rounded-full border border-outline-variant/20"
-                >Next.js</span
-              >
-              <span
-                class="px-3 py-1 bg-white/50 text-xs font-label rounded-full border border-outline-variant/20"
-                >Astro</span
-              >
-              <span
-                class="px-3 py-1 bg-white/50 text-xs font-label rounded-full border border-outline-variant/20"
-                >TypeScript</span
-              >
-              <span
-                class="px-3 py-1 bg-white/50 text-xs font-label rounded-full border border-outline-variant/20"
-                >Nest</span
-              >
-              <span
-                class="px-3 py-1 bg-white/50 text-xs font-label rounded-full border border-outline-variant/20"
-                >Odoo</span
-              >
-              <span
-                class="px-3 py-1 bg-white/50 text-xs font-label rounded-full border border-outline-variant/20"
-                >PostgreSQL</span
-              >
-              <span
-                class="px-3 py-1 bg-white/50 text-xs font-label rounded-full border border-outline-variant/20"
-                >Docker</span
-              >
-            </div>
-          </div>
-        </div>
-
-        <div
-          class="md:col-span-4 bg-primary text-on-primary rounded-4xl p-6 md:p-10 flex flex-col justify-between"
-        >
-          <div>
-            <div
-              class="w-24 h-24 md:w-32 md:h-32 rounded-3xl overflow-hidden mb-8 shadow-xl mr-auto flex items-center justify-center bg-primary-container/5"
-            >
-              <Image
-                alt="Jordan Mombongo - Développeur"
-                class="w-full h-full object-cover"
-                data-alt="Portrait professionnel d'un développeur dans la trentaine avec un sourire confiant, portant une chemise en lin décontractée, éclairage studio lumineux"
-                src={jmombongoImage}
-              />
-            </div>
-            <h3 class="text-2xl font-headline font-bold mb-1 text-on-primary">
-              Jordan Mombongo
-            </h3>
-            <p
-              class="text-on-primary-container font-label text-xs uppercase tracking-widest mb-4"
-            >
-              Développeur
-            </p>
-            <p class="text-on-primary/80 text-sm leading-relaxed mb-6">
-              Adepte du Software Craftsmanship et spécialisé sur la sécurité des
-              applications web. Je mettrai à votre service mon expérience de
-              développeur pour améliorer ou créer vos projets.
-            </p>
-          </div>
-          <div class="flex flex-wrap gap-2 justify-start mt-4">
-            <span
-              class="px-3 py-1 bg-primary-container/30 text-[10px] font-label rounded-full"
-              >Java</span
-            >
-            <span
-              class="px-3 py-1 bg-primary-container/30 text-[10px] font-label rounded-full"
-              >Angular JS</span
-            >
-            <span
-              class="px-3 py-1 bg-primary-container/30 text-[10px] font-label rounded-full"
-              >Spring Boot</span
-            >
-          </div>
-        </div>
+        <TeamMemberCard {...francois} variant="wide" />
+        <TeamMemberCard {...jordan} variant="tall" />
 
         <div class="col-span-full">
           <QuoteCard />
         </div>
 
-        <div
-          class="md:col-span-4 bg-primary text-on-primary rounded-4xl p-6 md:p-10 flex flex-col justify-between"
-        >
-          <div>
-            <div
-              class="w-24 h-24 md:w-32 md:h-32 rounded-3xl overflow-hidden mb-8 shadow-xl"
-            >
-              <Image
-                alt="Daniel - Lead Dev"
-                class="w-full h-full object-cover"
-                data-alt="Portrait professionnel d'un développeur dans la trentaine avec un sourire confiant, portant une chemise en lin décontractée, éclairage studio lumineux"
-                src={dcadeauImage}
-              />
-            </div>
-            <h3 class="text-2xl font-headline font-bold mb-1">Daniel Cadeau</h3>
-            <p
-              class="text-on-primary-container font-label text-xs uppercase tracking-widest mb-4"
-            >
-              Développeur web
-            </p>
-            <p class="text-on-primary/80 text-sm leading-relaxed mb-6">
-              Freelance en développement web, j’interviens sur des projets
-              complexes, notamment autour d’ERP et de solutions sur mesure. Je
-              suis aussi spécialisé dans la modernisation d’applications legacy
-              et les interconnexions d’API complexes.
-            </p>
-          </div>
-          <div class="flex flex-wrap gap-2">
-            <span
-              class="px-3 py-1 bg-primary-container/30 text-[10px] font-label rounded-full"
-              >PHP</span
-            >
-            <span
-              class="px-3 py-1 bg-primary-container/30 text-[10px] font-label rounded-full"
-              >TypeScript</span
-            >
-            <span
-              class="px-3 py-1 bg-primary-container/30 text-[10px] font-label rounded-full"
-              >SQL</span
-            >
-            <span
-              class="px-3 py-1 bg-primary-container/30 text-[10px] font-label rounded-full"
-              >Docker</span
-            >
-          </div>
-        </div>
-
-        <div
-          class="md:col-span-8 bg-surface-container rounded-4xl p-6 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-center"
-        >
-          <div
-            class="w-24 h-24 lg:w-36 lg:h-36 rounded-full overflow-hidden shrink-0 shadow-lg"
-          >
-            <Image
-              alt="Christopher - Spécialiste Backend & API"
-              class="w-full h-full object-cover"
-              data-alt="Portrait professionnel d'un développeur dans la trentaine avec un sourire confiant, portant une chemise en lin décontractée, éclairage studio lumineux"
-              src={cdebrayImage}
-            />
-          </div>
-          <div>
-            <h3 class="text-3xl font-headline font-extrabold text-primary mb-2">
-              Christopher Debray
-            </h3>
-            <p
-              class="text-primary-container font-label font-semibold text-sm tracking-wider uppercase mb-6"
-            >
-              DÉVELOPPEUR FULLSTACK
-            </p>
-            <p class="text-on-surface-variant mb-8 leading-relaxed">
-              J’accompagne la conception et le développement d’applications web
-              modernes, avec une approche pragmatique centrée sur des solutions
-              fiables et maintenables.
-            </p>
-            <div class="flex flex-wrap gap-2">
-              <span
-                class="px-3 py-1 bg-white/50 text-xs font-label rounded-full border border-outline-variant/20"
-                >NestJS</span
-              >
-              <span
-                class="px-3 py-1 bg-white/50 text-xs font-label rounded-full border border-outline-variant/20"
-                >Next.js</span
-              >
-              <span
-                class="px-3 py-1 bg-white/50 text-xs font-label rounded-full border border-outline-variant/20"
-                >Docker</span
-              >
-            </div>
-          </div>
-        </div>
+        <TeamMemberCard {...daniel} variant="tall" />
+        <TeamMemberCard {...christopher} variant="wide" />
       </div>
     </section>
 
