@@ -5,20 +5,20 @@ import BlogListLayout from "@layouts/BlogListLayout.astro";
 
 import {
   POST_TAGS_ENUM,
+  type PostTagKey,
   SITE_DESCRIPTIONS,
-  SITE_LANG,
   SITE_TITLES,
 } from "../../../consts";
 
 export const getStaticPaths = async () => {
   const posts = await getCollection("blog");
-  const tags = Object.keys(POST_TAGS_ENUM).filter((tag) =>
+  const tags = (Object.keys(POST_TAGS_ENUM) as PostTagKey[]).filter((tag) =>
     posts.some((p) => (p.data.tags ?? []).includes(tag)),
   );
   return tags.map((tag) => ({ params: { tag } }));
 };
 
-const tag = Astro.params.tag as string;
+const tag = Astro.params.tag as PostTagKey;
 
 const allPosts = await getCollection("blog");
 const postsSorted = allPosts.sort(
@@ -26,33 +26,23 @@ const postsSorted = allPosts.sort(
 );
 
 const availableTagEntries = Object.entries(POST_TAGS_ENUM).filter(([key]) =>
-  allPosts.some((post) => (post.data.tags ?? []).includes(key)),
+  allPosts.some((post) => (post.data.tags ?? []).includes(key as PostTagKey)),
 );
-
-const effectiveTag = tag;
-const siteTitle = effectiveTag
-  ? SITE_TITLES.blogCategory[effectiveTag]
-  : SITE_TITLES.blog;
-const siteDescription = effectiveTag
-  ? SITE_DESCRIPTIONS.blogCategory[effectiveTag]
-  : SITE_DESCRIPTIONS.blogAllCategory;
 
 const PAGE_SIZE = 4;
-const pageCurrent = 1;
-const filtered = postsSorted.filter((p) =>
-  (p.data.tags ?? []).includes(effectiveTag as string),
-);
+const filtered = postsSorted.filter((p) => (p.data.tags ?? []).includes(tag));
 const gridPosts = filtered.slice(0, PAGE_SIZE);
 const hasNext = filtered.length > PAGE_SIZE;
 ---
 
 <BlogListLayout
-  title={siteTitle}
-  description={siteDescription}
+  title={SITE_TITLES.blogCategory[tag] ?? SITE_TITLES.blog}
+  description={SITE_DESCRIPTIONS.blogCategory[tag] ??
+    SITE_DESCRIPTIONS.blogAllCategory}
   availableTagEntries={availableTagEntries}
-  effectiveTag={effectiveTag}
+  effectiveTag={tag}
   gridPosts={gridPosts}
-  pageCurrent={pageCurrent}
+  pageCurrent={1}
   prevHref={null}
-  nextHref={hasNext ? `/blog/${effectiveTag}/2` : null}
+  nextHref={hasNext ? `/blog/${tag}/2` : null}
 />
