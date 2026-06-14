@@ -4,8 +4,8 @@ import BlogListLayout from "@layouts/BlogListLayout.astro";
 
 import {
   POST_TAGS_ENUM,
+  type PostTagKey,
   SITE_DESCRIPTIONS,
-  SITE_LANG,
   SITE_TITLES,
 } from "../../consts";
 
@@ -18,7 +18,7 @@ const postsSorted = allPosts.sort(
 );
 
 const availableTagEntries = Object.entries(POST_TAGS_ENUM).filter(([key]) =>
-  allPosts.some((post) => (post.data.tags ?? []).includes(key)),
+  allPosts.some((post) => (post.data.tags ?? []).includes(key as PostTagKey)),
 );
 
 const PAGE_SIZE = 4;

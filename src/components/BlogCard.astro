@@ -1,8 +1,14 @@
 ---
+import type { CollectionEntry } from "astro:content";
 import FormattedDate from "@components/FormattedDate.astro";
+import AuthorList from "@components/AuthorList.astro";
 import { Image } from "astro:assets";
-import { POST_TAGS_ENUM, AUTHORS } from "../consts";
+import { POST_TAGS_ENUM, type PostTagKey } from "../consts";
 import placeholderImage from "../assets/blog-placeholder-1.jpg";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
 const { post } = Astro.props;
 ---
 
@@ -42,7 +48,7 @@ const { post } = Astro.props;
           <div class="mb-4 flex flex-wrap gap-2">
             {post.data.tags.map((t) => (
               <span class="inline-flex items-center bg-surface-container border border-surface-container text-on-secondary-fixed-variant px-3 py-1 rounded-full font-bold text-[10px] uppercase tracking-widest">
-                {POST_TAGS_ENUM[t] ?? t}
+                {POST_TAGS_ENUM[t as PostTagKey] ?? t}
               </span>
             ))}
           </div>
@@ -56,35 +62,11 @@ const { post } = Astro.props;
       <div
         class="mt-auto flex items-center gap-3 pt-6 border-t border-surface-container"
       >
-        <div class="flex flex-wrap gap-2">
-          {
-            (post.data.authors && post.data.authors.length
-              ? post.data.authors
-              : post.data.author
-                ? [post.data.author]
-                : []
-            ).map((a) => (
-              <div class="flex items-center gap-3 bg-surface-container rounded-full px-2 py-1">
-                {AUTHORS[a] ? (
-                  <div class="w-6 h-6 rounded-full overflow-hidden">
-                    <Image
-                      src={AUTHORS[a].image}
-                      alt={AUTHORS[a].name}
-                      class="w-full h-full object-cover"
-                    />
-                  </div>
-                ) : (
-                  <div class="w-6 h-6 rounded-full bg-surface flex items-center justify-center font-bold text-sm">
-                    {String(a).charAt(0) ?? "?"}
-                  </div>
-                )}
-                <span class="font-headline font-semibold text-xs text-primary">
-                  {AUTHORS[a] ? AUTHORS[a].name : a}
-                </span>
-              </div>
-            ))
-          }
-        </div>
+        <AuthorList
+          authors={post.data.authors}
+          author={post.data.author}
+          size="sm"
+        />
       </div>
     </div>
   </a>

@@ -1,8 +1,14 @@
 ---
-const { project, idx } = Astro.props;
+import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
-import { AUTHORS } from "../consts";
+import AuthorList from "@components/AuthorList.astro";
 import placeholderImage from "../assets/blog-placeholder-1.jpg";
+
+interface Props {
+  project: CollectionEntry<"realisations"> & { _slug: string };
+  idx: number;
+}
+const { project, idx } = Astro.props;
 ---
 
 <div class={idx === 0 ? "md:col-span-2 lg:col-span-2 group" : "group"}>
@@ -42,7 +48,7 @@ import placeholderImage from "../assets/blog-placeholder-1.jpg";
         href={`/realisations/${project._slug}`}
         class="inline-block no-underline"
       >
-        <h3 class="font-display text-2xl font-bold text-primary mb-4">
+        <h3 class="font-headline text-2xl font-bold text-primary mb-4">
           {project.data.title}
         </h3>
       </a>
@@ -51,29 +57,14 @@ import placeholderImage from "../assets/blog-placeholder-1.jpg";
       </p>
 
       {
-        project.authorsMeta && project.authorsMeta.length ? (
+        project.data.authors && project.data.authors.length ? (
           <div class="flex items-center mb-4">
-            <div class="flex -space-x-2">
-              {project.authorsMeta.slice(0, 3).map((m, i) =>
-                m ? (
-                  <div class="w-8 h-8 rounded-full overflow-hidden ring-2 ring-white bg-surface-container">
-                    <Image
-                      src={m.image}
-                      alt={m.name}
-                      class="w-full h-full object-cover"
-                    />
-                  </div>
-                ) : (
-                  <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold text-on-surface bg-surface-container ring-2 ring-white">
-                    {project.data.authors && project.data.authors[i]
-                      ? (String(project.data.authors[i])
-                          .split(" ")[0]
-                          ?.charAt(0) ?? "?")
-                      : "?"}
-                  </div>
-                ),
-              )}
-            </div>
+            <AuthorList
+              authors={project.data.authors}
+              size="md"
+              variant="stack"
+              max={3}
+            />
           </div>
         ) : null
       }
