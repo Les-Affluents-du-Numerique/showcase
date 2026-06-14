@@ -1,0 +1,89 @@
+---
+import { Image } from "astro:assets";
+import { resolveAuthors } from "../lib/authors";
+
+interface Props {
+  /** New-style author slugs (see `AUTHORS` in consts.ts) */
+  authors?: string[];
+  /** Legacy single-author string */
+  author?: string;
+  /** Avatar size: `sm` = 24px, `md` = 32px */
+  size?: "sm" | "md";
+  /** `chips` = avatar + name pill; `stack` = overlapping avatars, no names */
+  variant?: "chips" | "stack";
+  /** Horizontal alignment of the list */
+  align?: "start" | "center";
+  /** Cap the number of authors shown (used by the `stack` variant) */
+  max?: number;
+}
+
+const {
+  authors,
+  author,
+  size = "md",
+  variant = "chips",
+  align = "start",
+  max,
+} = Astro.props;
+
+let people = resolveAuthors(authors, author);
+if (typeof max === "number") people = people.slice(0, max);
+
+const avatar = size === "sm" ? "w-6 h-6" : "w-8 h-8";
+const nameText = size === "sm" ? "text-xs" : "text-sm";
+const pillPad = size === "sm" ? "px-2 py-1" : "px-3 py-1";
+---
+
+{
+  people.length > 0 &&
+    (variant === "stack" ? (
+      <div class="flex -space-x-2">
+        {people.map((person) => (
+          <div
+            class={`${avatar} rounded-full overflow-hidden ring-2 ring-white bg-surface-container flex items-center justify-center`}
+          >
+            {person.image ? (
+              <Image
+                src={person.image}
+                alt={person.name}
+                class="w-full h-full object-cover"
+              />
+            ) : (
+              <span class="font-bold text-sm text-on-surface">
+                {person.initial}
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div
+        class={`flex flex-wrap items-center gap-2 ${align === "center" ? "justify-center" : ""}`}
+      >
+        {people.map((person) => (
+          <div
+            class={`flex items-center gap-3 bg-surface-container rounded-full ${pillPad}`}
+          >
+            <div
+              class={`${avatar} rounded-full overflow-hidden bg-surface flex items-center justify-center shrink-0`}
+            >
+              {person.image ? (
+                <Image
+                  src={person.image}
+                  alt={person.name}
+                  class="w-full h-full object-cover"
+                />
+              ) : (
+                <span class="font-bold text-sm">{person.initial}</span>
+              )}
+            </div>
+            <span
+              class={`font-headline font-semibold text-primary ${nameText}`}
+            >
+              {person.name}
+            </span>
+          </div>
+        ))}
+      </div>
+    ))
+}
