@@ -1,150 +1,119 @@
 ---
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
-import BaseHead from "@components/BaseHead.astro";
-import Footer from "@components/Footer.astro";
+import Layout from "@layouts/Layout.astro";
 import FormattedDate from "@components/FormattedDate.astro";
-import Header from "@components/Header.astro";
-import SkipLink from "@components/SkipLink.astro";
-import { SITE_LANG, AUTHORS } from "../consts";
+import AuthorList from "@components/AuthorList.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage, thumbnailAlt } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, thumbnailAlt } =
+  Astro.props;
 ---
 
-<html lang={SITE_LANG}>
-  <head>
-    <BaseHead title={title} description={description} />
-    <style>
-      main {
-        width: calc(100% - 2em);
-        max-width: 100%;
-        margin: 0;
-      }
-      .hero-image {
-        width: 100%;
-      }
-      .hero-image img {
-        display: block;
-        margin: 0 auto;
-        border-radius: 12px;
-        box-shadow: var(--box-shadow);
-      }
+<Layout title={title} description={description}>
+  <style>
+    main {
+      width: calc(100% - 2em);
+      max-width: 100%;
+      margin: 0;
+    }
+    .hero-image {
+      width: 100%;
+    }
+    .hero-image img {
+      display: block;
+      margin: 0 auto;
+      border-radius: 12px;
+      box-shadow:
+        0 2px 6px rgba(0, 51, 88, 0.08),
+        0 8px 24px rgba(0, 51, 88, 0.1),
+        0 16px 32px rgba(0, 51, 88, 0.08);
+    }
+    .prose {
+      width: 720px;
+      max-width: calc(100% - 2em);
+      margin: auto;
+      padding: 1em;
+      color: var(--color-on-surface);
+    }
+    @media (max-width: 768px) {
       .prose {
-        width: 720px;
-        max-width: calc(100% - 2em);
-        margin: auto;
-        padding: 1em;
-        color: rgb(var(--gray-dark));
+        max-width: calc(100% - 1em);
+        padding: 0.5em;
       }
-      @media (max-width: 768px) {
-        .prose {
-          max-width: calc(100% - 1em);
-          padding: 0.5em;
-        }
-      }
+    }
+    .title {
+      margin-bottom: 1em;
+      padding: 1em 0;
+      text-align: center;
+      line-height: 1;
+    }
+    @media (max-width: 768px) {
       .title {
-        margin-bottom: 1em;
-        padding: 1em 0;
-        text-align: center;
-        line-height: 1;
-      }
-      @media (max-width: 768px) {
-        .title {
-          padding: 0.5em 0;
-          margin-bottom: 0.5em;
-        }
-      }
-      .title h1 {
-        margin: 0 0 0.5em 0;
-        font-size: 2.25rem;
-        line-height: 1.05;
-        font-weight: 700;
-      }
-      @media (max-width: 768px) {
-        .title h1 {
-          font-size: 1.75rem;
-          margin: 0 0 0.25em 0;
-        }
-      }
-      .author-list span {
-        font-size: 0.95rem;
-        font-weight: 600;
-      }
-      .date {
+        padding: 0.5em 0;
         margin-bottom: 0.5em;
-        color: rgb(var(--gray));
       }
-      .last-updated-on {
-        font-style: italic;
+    }
+    .title h1 {
+      margin: 0 0 0.5em 0;
+      font-size: 2.25rem;
+      line-height: 1.05;
+      font-weight: 700;
+    }
+    @media (max-width: 768px) {
+      .title h1 {
+        font-size: 1.75rem;
+        margin: 0 0 0.25em 0;
       }
-    </style>
-  </head>
-
-  <body>
-    <SkipLink />
-    <Header />
-    <main id="main-content">
-      <article>
-        <div class="hero-image">
-          {
-            heroImage && (
-              <Image width={1020} height={510} src={heroImage} alt={thumbnailAlt ?? title} />
-            )
-          }
-        </div>
-        <div class="prose">
-          <div class="title">
-            <div class="date">
-              <FormattedDate date={pubDate} />
-              {
-                Astro.props.authors && Astro.props.authors.length ? (
-                  <div class="flex flex-col md:flex-row gap-2 md:gap-3 items-center justify-center my-3">
-                    {Astro.props.authors.map((a) => (
-                      <div class="flex justify-center items-center gap-3 bg-surface-container rounded-full px-3 py-1">
-                        {AUTHORS[a] ? (
-                          <div class="w-8 h-8 rounded-full overflow-hidden">
-                            <Image
-                              src={AUTHORS[a].image}
-                              alt={AUTHORS[a].name}
-                              class="w-full h-full object-cover"
-                            />
-                          </div>
-                        ) : (
-                          <div class="w-8 h-8 rounded-full bg-surface flex items-center justify-center font-bold text-sm">
-                            {String(a).charAt(0) ?? "?"}
-                          </div>
-                        )}
-                        <span class="font-medium text-sm">
-                          {AUTHORS[a] ? AUTHORS[a].name : a}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                ) : Astro.props.author ? (
-                  <div class="author-list" style="margin-top:.5rem">
-                    <div class="flex items-center gap-3 bg-surface-container rounded-full px-3 py-1">
-                      <span class="font-medium">{Astro.props.author}</span>
-                    </div>
-                  </div>
-                ) : null
-              }
-              {
-                updatedDate && (
-                  <div class="last-updated-on">
-                    Last updated on <FormattedDate date={updatedDate} />
-                  </div>
-                )
-              }
+    }
+    .date {
+      margin-bottom: 0.5em;
+      color: var(--color-on-surface-variant);
+    }
+    .last-updated-on {
+      font-style: italic;
+    }
+  </style>
+  <main id="main-content" class="!pt-40 md:!pt-32">
+    <article>
+      <div class="hero-image">
+        {
+          heroImage && (
+            <Image
+              width={1020}
+              height={510}
+              src={heroImage}
+              alt={thumbnailAlt ?? title}
+            />
+          )
+        }
+      </div>
+      <div class="prose">
+        <div class="title">
+          <div class="date">
+            <FormattedDate date={pubDate} />
+            <div class="my-3">
+              <AuthorList
+                authors={Astro.props.authors}
+                author={Astro.props.author}
+                size="md"
+                align="center"
+              />
             </div>
-            <h1>{title}</h1>
-            <hr />
+            {
+              updatedDate && (
+                <div class="last-updated-on">
+                  Last updated on <FormattedDate date={updatedDate} />
+                </div>
+              )
+            }
           </div>
-          <slot />
+          <h1>{title}</h1>
+          <hr />
         </div>
-      </article>
-    </main>
-    <Footer />
-  </body>
-</html>
+        <slot />
+      </div>
+    </article>
+  </main>
+</Layout>

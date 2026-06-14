@@ -1,9 +1,5 @@
 ---
-import BaseHead from "@components/BaseHead.astro";
-import Header from "@components/Header.astro";
-import Footer from "@components/Footer.astro";
-import SkipLink from "@components/SkipLink.astro";
-import { SITE_LANG, AUTHORS } from "../consts";
+import Layout from "@layouts/Layout.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import ContactCTA from "@components/ContactCTA.astro";
@@ -13,207 +9,153 @@ import realisationsImage from "../assets/realisations.webp";
 
 const rawProjects = await getCollection("realisations");
 
-const findAuthor = (a) => {
-  if (!a) return null;
-  if (typeof a === "object" && a.slug) return AUTHORS[a.slug] ?? null;
-  if (typeof a === "string") {
-    if (AUTHORS[a]) return AUTHORS[a];
-    const found = Object.values(AUTHORS).find((v) => v.name === a);
-    if (found) return found;
-  }
-  return null;
-};
-
 const projects = rawProjects
   .map((p) => ({
     ...p,
-    _slug: p.slug ?? (p.id ? p.id.split("/").pop() : ""),
-    authorsMeta: (p.data.authors ?? []).map((a) => findAuthor(a)),
+    _slug: p.id.split("/").pop() ?? p.id,
   }))
+  // Sort descending (newest first)
   .sort((a, b) => {
-    const aDate =
-      a.data && a.data.startDate ? new Date(a.data.startDate).getTime() : 0;
-    const bDate =
-      b.data && b.data.startDate ? new Date(b.data.startDate).getTime() : 0;
-    // Sort descending (newest first)
+    const aDate = a.data.startDate ? new Date(a.data.startDate).getTime() : 0;
+    const bDate = b.data.startDate ? new Date(b.data.startDate).getTime() : 0;
     return bDate - aDate;
   });
 ---
 
-<!doctype html>
-<html lang={SITE_LANG}>
-  <head>
-    <BaseHead
-      title={"Les Affluents du Numérique - Nos réalisations"}
-      description={"Galerie de projets et études de cas"}
-    />
-  </head>
-  <body
-    class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed"
-  >
-    <SkipLink />
-    <Header />
-    <main id="main-content" class="!pt-40 md:!pt-32">
-      <!-- Hero Section -->
-      <section class="relative pb-32 px-4 md:px-8 overflow-hidden">
-        <div
-          class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
-        >
-          <div class="lg:col-span-7">
-            <span
-              class="font-label text-[0.75rem] uppercase tracking-[0.1em] text-primary mb-6 block font-bold"
-              >Nos réalisations</span
-            >
-            <h1
-              class="font-display text-5xl md:text-7xl font-extrabold text-primary leading-[1.1] mb-8 tracking-tighter"
-            >
-              Nos courants de <span class="editorial-underline">succès</span>.
-            </h1>
-            <p
-              class="font-body text-xl text-on-surface-variant max-w-2xl leading-relaxed"
-            >
-              Chaque projet est un affluent qui rejoint le fleuve numérique de
-              nos clients. Nous concevons des solutions sur mesure qui allient
-              haute technicité et vision stratégique pour les TPE et PME
-              ambitieuses.
-            </p>
-          </div>
-          <div class="lg:col-span-5 relative hidden lg:block mt-8">
-            <div
-              class="aspect-square rounded-[2rem] bg-surface-container-high overflow-hidden shadow-xl transform rotate-3 scale-105"
-            >
-              <Image
-                alt="Un bureau avec plusieurs dossiers et rapports ouverts présentant des graphiques et des diagrammes circulaires, une tasse de café, des plantes vertes et des fournitures de bureau, avec en arrière-plan une vue sur la Tour Eiffel et un paysage urbain parisien au bord de la Seine."
-                class="w-full h-full object-cover aspect-square"
-                src={realisationsImage}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Featured Case Study (Tisseco) -->
-      <section
-        class="py-20 md:py-32 px-4 md:px-8 overflow-hidden bg-primary text-on-primary"
+<Layout
+  title={"Les Affluents du Numérique - Nos réalisations"}
+  description={"Galerie de projets et études de cas"}
+>
+  <main id="main-content" class="!pt-40 md:!pt-32">
+    <!-- Hero Section -->
+    <section class="relative pb-32 px-4 md:px-8 overflow-hidden">
+      <div
+        class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
       >
-        <div class="max-w-7xl mx-auto">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div class="relative">
-              <div
-                class="absolute -top-10 -left-10 w-40 h-40 bg-surface-tint opacity-20 rounded-full blur-3xl"
-                aria-hidden="true"
-              >
-              </div>
-              <Image
-                alt="Tisseco Solidaire — aperçu"
-                class="rounded-2xl shadow-2xl relative z-10 w-full object-cover aspect-[4/3]"
-                src={tissecoImage}
-              />
-            </div>
-            <div>
-              <span
-                class="font-label text-[0.75rem] uppercase tracking-[0.2em] text-on-tertiary-container mb-6 block font-bold"
-                >Étude de cas</span
-              >
-              <h2
-                class="font-display text-4xl md:text-5xl font-extrabold mb-8 leading-tight tracking-tight"
-              >
-                Tisseco Solidaire — Planification et suivi des tournées
-              </h2>
-              <div
-                class="space-y-6 text-on-primary/80 font-body text-lg leading-relaxed"
-              >
-                <p>
-                  Création d'une solution métier pour la planification et le
-                  suivi des tournées, avec une application mobile pour les
-                  chauffeurs et une architecture résiliente hors-ligne.
-                </p>
-                <p>
-                  Architecture PWA, gestion géospatiale via PostGIS, et
-                  synchronisation différée pour les zones à faible couverture
-                  réseau.
-                </p>
-              </div>
-              <div
-                class="mt-10 grid lg:grid-cols-2 gap-8 py-8 border-y border-white/10"
-              >
-                <div>
-                  <p class="text-3xl font-bold mb-1">Depuis 2025</p>
-                  <p class="text-on-primary/70 text-sm">Engagement continu</p>
-                </div>
-                <div>
-                  <p class="text-3xl font-bold mb-1">Optimisation</p>
-                  <p class="text-on-primary/70 text-sm">
-                    Productivité terrain améliorée
-                  </p>
-                </div>
-              </div>
-              <a
-                class="mt-12 inline-block px-8 py-4 bg-surface-container-lowest text-primary rounded-full font-bold hover:scale-105 transition-all"
-                href="/realisations/tisseco">Lire l'étude complète</a
-              >
-            </div>
+        <div class="lg:col-span-7">
+          <span
+            class="font-label text-[0.75rem] uppercase tracking-[0.1em] text-primary mb-6 block font-bold"
+            >Nos réalisations</span
+          >
+          <h1
+            class="font-headline text-5xl md:text-7xl font-extrabold text-primary leading-[1.1] mb-8 tracking-tighter"
+          >
+            Nos courants de <span class="editorial-underline">succès</span>.
+          </h1>
+          <p
+            class="font-body text-xl text-on-surface-variant max-w-2xl leading-relaxed"
+          >
+            Chaque projet est un affluent qui rejoint le fleuve numérique de nos
+            clients. Nous concevons des solutions sur mesure qui allient haute
+            technicité et vision stratégique pour les TPE et PME ambitieuses.
+          </p>
+        </div>
+        <div class="lg:col-span-5 relative hidden lg:block mt-8">
+          <div
+            class="aspect-square rounded-[2rem] bg-surface-container-high overflow-hidden shadow-xl transform rotate-3 scale-105"
+          >
+            <Image
+              alt="Un bureau avec plusieurs dossiers et rapports ouverts présentant des graphiques et des diagrammes circulaires, une tasse de café, des plantes vertes et des fournitures de bureau, avec en arrière-plan une vue sur la Tour Eiffel et un paysage urbain parisien au bord de la Seine."
+              class="w-full h-full object-cover aspect-square"
+              src={realisationsImage}
+            />
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Project Gallery & Filters -->
-      <section class="bg-surface-container-low py-24 px-8">
-        <div class="max-w-7xl mx-auto">
-          <div
-            class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8"
-          >
-            <div>
-              <h2
-                class="font-display text-4xl font-bold text-primary mb-4 tracking-tight"
-              >
-                Galerie de projets
-              </h2>
-              <p class="text-on-surface-variant max-w-md">
-                Explorez nos dernières interventions techniques et créatives.
+    <!-- Featured Case Study (Tisseco) -->
+    <section
+      class="py-20 md:py-32 px-4 md:px-8 overflow-hidden bg-primary text-on-primary"
+    >
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <div class="relative">
+            <div
+              class="absolute -top-10 -left-10 w-40 h-40 bg-surface-tint opacity-20 rounded-full blur-3xl"
+              aria-hidden="true"
+            >
+            </div>
+            <Image
+              alt="Tisseco Solidaire — aperçu"
+              class="rounded-2xl shadow-2xl relative z-10 w-full object-cover aspect-[4/3]"
+              src={tissecoImage}
+            />
+          </div>
+          <div>
+            <span
+              class="font-label text-[0.75rem] uppercase tracking-[0.2em] text-on-tertiary-container mb-6 block font-bold"
+              >Étude de cas</span
+            >
+            <h2
+              class="font-headline text-4xl md:text-5xl font-extrabold mb-8 leading-tight tracking-tight"
+            >
+              Tisseco Solidaire — Planification et suivi des tournées
+            </h2>
+            <div
+              class="space-y-6 text-on-primary/80 font-body text-lg leading-relaxed"
+            >
+              <p>
+                Création d'une solution métier pour la planification et le suivi
+                des tournées, avec une application mobile pour les chauffeurs et
+                une architecture résiliente hors-ligne.
+              </p>
+              <p>
+                Architecture PWA, gestion géospatiale via PostGIS, et
+                synchronisation différée pour les zones à faible couverture
+                réseau.
               </p>
             </div>
-          </div>
-
-          <!-- Bento Project Grid (from content collection) -->
-
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {
-              projects.map((p, idx) => (
-                <RealisationCard project={p} idx={idx} />
-              ))
-            }
+            <div
+              class="mt-10 grid lg:grid-cols-2 gap-8 py-8 border-y border-white/10"
+            >
+              <div>
+                <p class="text-3xl font-bold mb-1">Depuis 2025</p>
+                <p class="text-on-primary/70 text-sm">Engagement continu</p>
+              </div>
+              <div>
+                <p class="text-3xl font-bold mb-1">Optimisation</p>
+                <p class="text-on-primary/70 text-sm">
+                  Productivité terrain améliorée
+                </p>
+              </div>
+            </div>
+            <a
+              class="mt-12 inline-block px-8 py-4 bg-surface-container-lowest text-primary rounded-full font-bold hover:scale-105 transition-all"
+              href="/realisations/tisseco">Lire l'étude complète</a
+            >
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- CTA Section -->
-      <ContactCTA />
-    </main>
-    <Footer />
+    <!-- Project Gallery & Filters -->
+    <section class="bg-surface-container-low py-24 px-8">
+      <div class="max-w-7xl mx-auto">
+        <div
+          class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8"
+        >
+          <div>
+            <h2
+              class="font-headline text-4xl font-bold text-primary mb-4 tracking-tight"
+            >
+              Galerie de projets
+            </h2>
+            <p class="text-on-surface-variant max-w-md">
+              Explorez nos dernières interventions techniques et créatives.
+            </p>
+          </div>
+        </div>
 
-    <style>
-      .material-symbols-outlined {
-        font-variation-settings:
-          "FILL" 0,
-          "wght" 400,
-          "GRAD" 0,
-          "opsz" 24;
-      }
-      .editorial-underline {
-        position: relative;
-      }
-      .editorial-underline::after {
-        content: "";
-        position: absolute;
-        bottom: 0.1em;
-        left: 0;
-        width: 100%;
-        height: 0.3em;
-        background-color: currentColor;
-        opacity: 0.2;
-        z-index: -1;
-      }
-    </style>
-  </body>
-</html>
+        <!-- Bento Project Grid (from content collection) -->
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((p, idx) => <RealisationCard project={p} idx={idx} />)}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <ContactCTA />
+  </main>
+</Layout>
