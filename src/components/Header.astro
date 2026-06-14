@@ -1,10 +1,6 @@
 ---
 import { SITE_TITLE } from "../consts";
 import HeaderLink from "./HeaderLink.astro";
-
-function toNumericEntities(s) {
-  return String(s).replace(/[^\x00-\x7F]/g, (c) => `&#${c.charCodeAt(0)};`);
-}
 ---
 
 <header>
@@ -13,7 +9,7 @@ function toNumericEntities(s) {
   >
     <a
       href="/"
-      class="text-lg lg:text-xl font-bold tracking-tighter text-sky-900 font-headline flex flex-row items-center gap-2"
+      class="text-lg lg:text-xl font-bold tracking-tighter text-primary font-headline flex flex-row items-center gap-2"
       aria-label="Accueil"
     >
       <span
@@ -21,7 +17,7 @@ function toNumericEntities(s) {
         data-icon="waves"
         aria-hidden="true">waves</span
       >
-      <span set:html={toNumericEntities(SITE_TITLE)} />
+      <span>{SITE_TITLE}</span>
     </a>
     <div class="hidden lg:flex items-center gap-8">
       <HeaderLink href={"/"}>Accueil</HeaderLink>
