@@ -6,7 +6,6 @@ import type { ImageMetadata } from "astro";
 import FallbackImage from "../assets/og.webp";
 import { SITE_TITLE } from "../consts";
 import { Font } from "astro:assets";
-import materialSymbolsFont from "../assets/fonts/material-symbols-outlined.woff2";
 
 interface Props {
   title: string;
@@ -33,16 +32,7 @@ const { title, description, image = FallbackImage } = Astro.props;
 />
 <meta name="generator" content={Astro.generator} />
 
-<Font cssVariable="--font-atkinson" preload />
-
-<!-- Preload Material Symbols font for faster rendering -->
-<link
-  rel="preload"
-  href={materialSymbolsFont}
-  as="font"
-  type="font/woff2"
-  crossorigin
-/>
+<Font cssVariable="--font-atkinson" />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
