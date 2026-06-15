@@ -5,7 +5,9 @@
   font-family: "Material Symbols Outlined";
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  /* `block` avoids briefly flashing the ligature text (e.g. "arrow_forward")
+     before the icon font loads, now that it is no longer preloaded. */
+  font-display: block;
   src: url("../assets/fonts/material-symbols-outlined.woff2") format("woff2");
 }
 
