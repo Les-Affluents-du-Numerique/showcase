@@ -1,11 +1,11 @@
 ---
+export const prerender = true;
+
 import Layout from "@layouts/Layout.astro";
-import ContactCTA from "@components/ContactCTA.astro";
+import Eyebrow from "@components/Eyebrow.astro";
+import HeroExpertiseMap from "@components/HeroExpertiseMap.astro";
 import { SITE_DESCRIPTIONS, SITE_TITLES } from "../consts";
 import { Image } from "astro:assets";
-import webRealisationsImage from "../assets/realisations.webp";
-import teamworkImage from "../assets/teamwork.webp";
-import heroIndexImage from "../assets/index_hero.webp";
 import tissecoLogo from "../assets/tisseco-logo.png";
 
 const siteTitle = SITE_TITLES.home;
@@ -33,13 +33,10 @@ const siteDescription = SITE_DESCRIPTIONS.home;
       </div>
     </div>
     <div
-      class="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+      class="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center w-full"
     >
       <div class="lg:col-span-7">
-        <span
-          class="inline-block font-label text-xs uppercase tracking-[0.2em] text-primary mb-6 border-l-2 border-primary pl-4"
-          >Collectif Numérique</span
-        >
+        <Eyebrow class="mb-6">Collectif numérique</Eyebrow>
         <h1
           class="font-headline font-extrabold text-5xl md:text-7xl text-primary leading-[1.1] mb-8 tracking-tight"
         >
@@ -58,8 +55,8 @@ const siteDescription = SITE_DESCRIPTIONS.home;
         </p>
         <div class="flex flex-wrap gap-4">
           <a
-            href="mailto:contact@lesaffluentsdunumerique.fr"
-            class="fluid-gradient text-on-primary px-8 py-4 rounded-full font-semibold text-lg shadow-xl hover:scale-[1.02] active:scale-95 transition-transform flex items-center gap-2"
+            href="#contact"
+            class="fluid-gradient text-on-primary px-8 py-4 rounded-lg font-semibold text-lg shadow-xl hover:scale-[1.02] active:scale-95 transition-transform flex items-center gap-2"
           >
             Contactez-nous
             <span
@@ -70,110 +67,70 @@ const siteDescription = SITE_DESCRIPTIONS.home;
           </a>
           <a
             href="/notre-equipe"
-            class="border border-outline-variant text-primary px-8 py-4 rounded-full font-semibold text-lg hover:bg-surface-container transition-colors flex items-center justify-center"
+            class="border border-outline-variant text-primary px-8 py-4 rounded-lg font-semibold text-lg hover:bg-surface-container transition-colors flex items-center justify-center"
           >
             Voir notre équipe
           </a>
         </div>
       </div>
-      <div class="lg:col-span-5 relative">
-        <div
-          class="rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 aspect-16 bg-surface-container-high"
-        >
-          <Image
-            class="w-full h-full object-contain block"
-            alt="illustration vectorielle représentant Paris avec la Tour Eiffel le Panthéon et l'Arche de la Défense surplombant des rivières sinueuses stylisées ornées d'icônes technologiques flottantes symbolisant cloud computing analytics cybersécurité et connectivité réseau"
-            src={heroIndexImage}
-          />
-        </div>
-        <div
-          class="absolute -bottom-6 -left-6 bg-surface-container-lowest p-8 rounded-2xl shadow-xl z-20 border border-outline-variant/10"
-        >
-          <div class="flex items-center gap-4 mb-2">
-            <div
-              class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary"
-            >
-              <span
-                class="material-symbols-outlined"
-                data-icon="groups"
-                aria-hidden="true">groups</span
-              >
-            </div>
-            <div>
-              <div class="font-bold text-2xl text-primary">4</div>
-              <div
-                class="text-xs font-label uppercase tracking-widest text-on-surface-variant"
-              >
-                Experts
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="lg:col-span-5 lg:pl-4">
+        <HeroExpertiseMap />
       </div>
     </div>
   </section>
   <!-- Services Bento Grid -->
-  <section class="py-16 md:py-24 bg-surface-container-low">
-    <div class="max-w-7xl mx-auto px-8">
+  <section class="py-28 md:py-36 bg-surface-container-low">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
       <div class="mb-16">
         <h2 class="font-headline font-bold text-4xl text-primary mb-4">
           Nos expertises convergentes
         </h2>
         <p class="font-body text-on-surface-variant max-w-2xl text-lg">
           Nous accompagnons les entreprises d'Île-de-France dans l'ensemble du
-          cycle de vie de leurs produits numériques avec une approche artisanale
-          et rigoureuse.
+          cycle de vie de leurs produits numériques avec une approche
+          rigoureuse.
         </p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-150">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
         <!-- Web Dev -->
         <div
-          class="md:col-span-8 bg-surface-container-lowest rounded-4xl group border border-outline-variant/10 overflow-hidden"
+          class="md:col-span-8 bg-surface-container-lowest rounded-2xl group border border-outline-variant/10 overflow-hidden"
         >
-          <div class="grid grid-cols-1 md:grid-cols-2">
-            <div class="p-6 lg:p-10 flex flex-col gap-4">
-              <div>
-                <span
-                  class="material-symbols-outlined text-4xl text-primary mb-6"
-                  data-icon="terminal"
-                  aria-hidden="true">terminal</span
-                >
-                <h3
-                  class="font-headline font-extrabold text-3xl text-primary mb-4"
-                >
-                  Développement Web
-                </h3>
-                <p
-                  class="font-body text-on-surface-variant text-lg break-words"
-                >
-                  Architectures robustes, interfaces fluides et performances
-                  optimisées pour vos applications métier et plateformes SaaS.
-                </p>
-              </div>
-              <div>
-                <a
-                  class="inline-flex items-center gap-2 font-semibold text-primary transition-all"
-                  href="/realisations"
-                  >Voir nos réalisations <span
-                    class="material-symbols-outlined"
-                    data-icon="arrow_forward"
-                    aria-hidden="true">arrow_forward</span
-                  ></a
-                >
-              </div>
+          <div class="h-full flex flex-col justify-between p-8 lg:p-10 gap-6">
+            <div>
+              <span
+                class="material-symbols-outlined text-4xl text-primary mb-6"
+                data-icon="terminal"
+                aria-hidden="true">terminal</span
+              >
+              <h3
+                class="font-headline font-extrabold text-3xl text-primary mb-4"
+              >
+                Développement Web
+              </h3>
+              <p
+                class="font-body text-on-surface-variant text-lg max-w-2xl break-words"
+              >
+                Architectures robustes, interfaces fluides et performances
+                optimisées pour vos applications métier et plateformes SaaS.
+              </p>
             </div>
-            <div class="aspect-square overflow-hidden">
-              <Image
-                class="w-full h-full object-cover aspect-square"
-                alt="Un bureau avec plusieurs dossiers et rapports ouverts présentant des graphiques et des diagrammes circulaires, une tasse de café, des plantes vertes et des fournitures de bureau, avec en arrière-plan une vue sur la Tour Eiffel et un paysage urbain parisien au bord de la Seine."
-                src={webRealisationsImage}
-              />
+            <div>
+              <a
+                class="inline-flex items-center gap-2 font-semibold text-primary transition-all"
+                href="/realisations"
+                >Voir nos réalisations <span
+                  class="material-symbols-outlined"
+                  data-icon="arrow_forward"
+                  aria-hidden="true">arrow_forward</span
+                ></a
+              >
             </div>
           </div>
         </div>
         <!-- Business First -->
         <div
-          class="md:col-span-4 bg-tertiary p-6 lg:p-10 rounded-4xl flex flex-col justify-between text-white"
+          class="md:col-span-4 bg-tertiary p-8 lg:p-10 rounded-2xl flex flex-col justify-between text-white"
         >
           <div>
             <span
@@ -182,49 +139,41 @@ const siteDescription = SITE_DESCRIPTIONS.home;
               aria-hidden="true">business</span
             >
             <h3 class="font-headline font-extrabold text-2xl mb-4">
-              Business First
+              Comprendre avant de construire
             </h3>
-            <p
-              class="font-body text-sm opacity-80 leading-relaxed text-tertiary-fixed"
-            >
+            <p class="font-body text-sm leading-relaxed text-white">
               On parle votre métier avant de parler technique.
             </p>
-            <p
-              class="font-body text-sm opacity-80 leading-relaxed text-tertiary-fixed"
-            >
+            <p class="mt-3 font-body text-sm leading-relaxed text-white">
               Nous partons de vos enjeux concrets : trésorerie, croissance,
               recrutement, saisonnalité, transformation digitale... Le collectif
               analyse vos besoins réels avant de mobiliser les bonnes
-              expertises. Pas de jargon superflu, pas de solutions toutes
-              faites. Juste des indépendants qui comprennent votre activité.
+              expertises, avec des solutions pensées pour votre activité et
+              expliquées simplement.
             </p>
           </div>
         </div>
         <!-- Blog -->
         <div
-          class="md:col-span-4 bg-primary-container p-6 lg:p-10 rounded-4xl flex flex-col justify-between gap-4 border border-white/5"
+          class="md:col-span-4 bg-primary-container p-8 lg:p-10 rounded-2xl flex flex-col justify-between gap-6 border border-white/5"
         >
           <div>
             <span
-              class="material-symbols-outlined is-filled text-on-primary-container text-4xl mb-6"
+              class="material-symbols-outlined is-filled text-primary-fixed text-4xl mb-6"
               data-icon="lightbulb"
               aria-hidden="true">lightbulb</span
             >
-            <h3
-              class="font-headline font-extrabold text-on-secondary text-2xl mb-4"
-            >
+            <h3 class="font-headline font-extrabold text-white text-2xl mb-4">
               Conseil Stratégique
             </h3>
-            <p
-              class="font-body text-sm opacity-80 leading-relaxed text-on-primary-container"
-            >
+            <p class="font-body text-sm leading-relaxed text-primary-fixed">
               Audit, architecture et accompagnement dans votre transformation
               numérique. Prenez les bonnes décisions techniques.
             </p>
           </div>
           <div>
             <a
-              class="inline-flex items-center gap-2 font-semibold text-on-secondary group-hover:gap-4 transition-all"
+              class="inline-flex items-center gap-2 font-semibold text-white group-hover:gap-4 transition-all"
               href="/blog"
               >Voir nos articles <span
                 class="material-symbols-outlined"
@@ -236,15 +185,15 @@ const siteDescription = SITE_DESCRIPTIONS.home;
         </div>
         <!-- Flexibility -->
         <div
-          class="md:col-span-8 bg-surface-container p-6 lg:p-10 rounded-4xl flex items-center justify-between group overflow-hidden border border-outline-variant/10"
+          class="md:col-span-8 bg-surface-container p-8 lg:p-10 rounded-2xl flex items-center justify-between gap-8 group overflow-hidden border border-outline-variant/10"
         >
           <div class="max-w-md">
             <h3 class="font-headline font-extrabold text-2xl text-primary mb-2">
               Flexibilité Collective
             </h3>
             <p class="font-body text-on-surface-variant">
-              Une équipe sur-mesure assemblée selon vos besoins spécifiques,
-              sans les lourdeurs d'une agence traditionnelle.
+              Une équipe sur-mesure assemblée selon vos besoins spécifiques, qui
+              s'adapte au rythme et à l'évolution de votre projet.
             </p>
           </div>
           <div
@@ -263,164 +212,140 @@ const siteDescription = SITE_DESCRIPTIONS.home;
     </div>
   </section>
   <!-- Why Collective Section (Editorial Layout) -->
-  <section class="py-16 md:py-24 bg-surface">
-    <div
-      class="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center"
-    >
-      <div class="order-2 lg:order-1">
-        <div class="relative">
-          <Image
-            class="rounded-[3rem] shadow-2xl transition-all duration-700"
-            alt="illustration de trois personnes en équipe naviguant en voilier sur la Seine vers Paris"
-            src={teamworkImage}
-          />
-          <div
-            class="absolute -top-10 -right-10 bg-primary-container text-white p-8 rounded-3xl shadow-xl max-w-50"
+  <section class="py-28 md:py-36 bg-surface">
+    <div class="max-w-7xl mx-auto px-4 md:px-8">
+      <div
+        class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-16"
+      >
+        <div class="max-w-2xl">
+          <h2
+            class="font-headline font-bold text-4xl md:text-5xl text-primary leading-tight"
           >
-            <p class="font-headline font-bold text-lg leading-tight">
-              L'agilité de l'indépendant, la puissance du groupe.
-            </p>
-          </div>
+            Pourquoi choisir un collectif&nbsp;?
+          </h2>
         </div>
       </div>
-      <div class="order-1 lg:order-2">
-        <span
-          class="font-label text-xs uppercase tracking-[0.2em] text-primary mb-4 block"
-          >Notre Philosophie</span
-        >
-        <h2
-          class="font-headline font-bold text-4xl md:text-5xl text-primary mb-8 leading-tight"
-        >
-          Pourquoi choisir un collectif ?
-        </h2>
-        <div class="space-y-8">
-          <div class="flex gap-6">
-            <div
-              class="text-primary-container font-headline font-extrabold text-3xl opacity-30"
-            >
-              01
-            </div>
-            <div>
-              <h3 class="font-bold text-xl text-primary mb-2">
-                Proximité Réelle
-              </h3>
-              <p class="font-body text-on-surface-variant leading-relaxed">
-                Pas d'intermédiaires commerciaux. Vous parlez directement aux
-                artisans qui conçoivent votre solution.
-              </p>
-            </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
+        <div>
+          <div
+            class="text-primary-container font-headline font-extrabold text-5xl opacity-30 mb-4"
+          >
+            01
           </div>
-          <div class="flex gap-6">
-            <div
-              class="text-primary-container font-headline font-extrabold text-3xl opacity-30"
-            >
-              02
-            </div>
-            <div>
-              <h3 class="font-bold text-xl text-primary mb-2">
-                Compétences qui font avancer
-              </h3>
-              <p class="font-body text-on-surface-variant leading-relaxed">
-                On arrive avec des outils, des méthodes et des réflexes qui ont
-                déjà fait leurs preuves sur le terrain. Pas de théorie flottante
-                : du concret et du directement utile pour votre activité. Chaque
-                membre apporte son savoir-faire, rodé sur des cas réels.
-              </p>
-            </div>
+          <h3 class="font-bold text-xl text-primary mb-3">Proximité Réelle</h3>
+          <p class="font-body text-on-surface-variant leading-relaxed">
+            Vous échangez directement avec les personnes qui conçoivent et
+            réalisent votre solution, du premier rendez-vous à la livraison.
+          </p>
+        </div>
+        <div>
+          <div
+            class="text-primary-container font-headline font-extrabold text-5xl opacity-30 mb-4"
+          >
+            02
           </div>
-          <div class="flex gap-6">
-            <div
-              class="text-primary-container font-headline font-extrabold text-3xl opacity-30"
-            >
-              03
-            </div>
-            <div>
-              <h3 class="font-bold text-xl text-primary mb-2">
-                Des moyens bien placés
-              </h3>
-              <p class="font-body text-on-surface-variant leading-relaxed">
-                On investit dans l'essentiel : les relations, les bons outils,
-                et surtout le temps passé à produire de la valeur pour vous. Une
-                organisation simple, des échanges directs, et chaque euro
-                orienté vers le résultat.
-              </p>
-            </div>
+          <h3 class="font-bold text-xl text-primary mb-3">
+            Compétences qui font avancer
+          </h3>
+          <p class="font-body text-on-surface-variant leading-relaxed">
+            On arrive avec des outils, des méthodes et des réflexes qui ont déjà
+            fait leurs preuves sur le terrain : du concret, directement utile
+            pour votre activité. Chaque membre apporte son savoir-faire, rodé
+            sur des cas réels.
+          </p>
+        </div>
+        <div>
+          <div
+            class="text-primary-container font-headline font-extrabold text-5xl opacity-30 mb-4"
+          >
+            03
           </div>
+          <h3 class="font-bold text-xl text-primary mb-3">
+            Des moyens bien placés
+          </h3>
+          <p class="font-body text-on-surface-variant leading-relaxed">
+            On investit dans l'essentiel : les relations, les bons outils, et
+            surtout le temps passé à produire de la valeur pour vous. Une
+            organisation simple, des échanges directs, et chaque euro orienté
+            vers le résultat.
+          </p>
         </div>
       </div>
     </div>
   </section>
-  <!-- Testimonials -->
-  <section
-    class="py-16 md:py-24 bg-surface-container-high relative overflow-hidden"
-  >
-    <div class="max-w-7xl mx-auto px-8 relative z-10">
-      <h2
-        class="font-headline font-bold text-4xl text-primary mb-16 text-center italic"
-      >
-        On vous laisse la parole
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div
-          class="md:col-start-2 bg-surface-container-lowest p-10 rounded-2xl shadow-sm border border-outline-variant/10"
+  <!-- Testimonial -->
+  <section class="bg-background py-28 md:py-36">
+    <div class="mx-auto max-w-7xl px-4 md:px-8">
+      <div class="mb-10 md:mb-12">
+        <Eyebrow>Témoignage client</Eyebrow>
+        <h2
+          class="mt-3 font-headline text-4xl font-extrabold tracking-tight text-primary md:text-5xl"
         >
+          On vous laisse la parole.
+        </h2>
+      </div>
+
+      <figure
+        class="grid overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface-container-lowest shadow-sm md:grid-cols-[16rem_1fr]"
+      >
+        <figcaption
+          class="border-b border-outline-variant/30 p-7 md:border-b-0 md:border-r md:p-9"
+        >
+          <div class="h-16 w-16 rounded-full bg-surface-container p-2">
+            <Image
+              class="h-full w-full rounded-full object-cover"
+              alt="Logo de Tisseco Solidaire"
+              src={tissecoLogo}
+            />
+          </div>
+          <div class="mt-5 font-headline text-lg font-bold text-primary">
+            Pascale Bruneau
+          </div>
           <div
-            class="flex gap-1 text-primary mb-6"
+            class="mt-1 text-xs font-label uppercase tracking-wider text-on-surface-variant"
+          >
+            Présidente<br />Tisseco Solidaire
+          </div>
+          <div
+            class="mt-6 flex gap-0.5 text-primary-container"
             aria-label="5 étoiles sur 5"
           >
             <span
-              class="material-symbols-outlined is-filled"
-              data-icon="star"
+              class="material-symbols-outlined is-filled text-lg"
               aria-hidden="true">star</span
             >
             <span
-              class="material-symbols-outlined is-filled"
-              data-icon="star"
+              class="material-symbols-outlined is-filled text-lg"
               aria-hidden="true">star</span
             >
             <span
-              class="material-symbols-outlined is-filled"
-              data-icon="star"
+              class="material-symbols-outlined is-filled text-lg"
               aria-hidden="true">star</span
             >
             <span
-              class="material-symbols-outlined is-filled"
-              data-icon="star"
+              class="material-symbols-outlined is-filled text-lg"
               aria-hidden="true">star</span
             >
             <span
-              class="material-symbols-outlined is-filled"
-              data-icon="star"
+              class="material-symbols-outlined is-filled text-lg"
               aria-hidden="true">star</span
             >
           </div>
-          <p class="font-body text-on-surface text-lg mb-8 italic">
-            "Enfin des prestataires qui comprennent les enjeux business des
-            petites structures. Un vrai partenaire de croissance."
-          </p>
-          <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-full bg-surface-container-high">
-              <Image
-                class="w-full h-full object-cover rounded-full bg-white"
-                alt="Logo - Tisseco Solidaire"
-                src={tissecoLogo}
-              />
-            </div>
-            <div>
-              <div class="font-bold text-primary">Pascale Bruneau</div>
-              <div class="text-xs text-on-surface-variant uppercase font-label">
-                Présidente, Tisseco Solidaire
-              </div>
-            </div>
-          </div>
+        </figcaption>
+
+        <div class="flex flex-col justify-center p-7 sm:p-10 md:p-12 lg:p-14">
+          <span
+            class="material-symbols-outlined mb-5 text-4xl text-primary-container"
+            aria-hidden="true">format_quote</span
+          >
+          <blockquote
+            class="max-w-3xl font-headline text-2xl font-bold leading-snug tracking-tight text-primary sm:text-3xl"
+          >
+            Enfin des prestataires qui comprennent les enjeux business des
+            petites structures. Un vrai partenaire de croissance.
+          </blockquote>
         </div>
-      </div>
-    </div>
-    <!-- Decorative Fluid Wave -->
-    <div
-      class="absolute bottom-0 left-0 w-full h-16 md:h-32 bg-background translate-y-1/2 rounded-[100%]"
-    >
+      </figure>
     </div>
   </section>
-  <ContactCTA />
 </Layout>

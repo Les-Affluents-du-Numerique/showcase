@@ -1,55 +1,246 @@
 ---
-
 ---
 
-<!-- Contact CTA component -->
-<section class="contact-cta py-20 md:py-32 bg-background">
-  <div class="max-w-5xl mx-auto px-4 md:px-8">
+<section id="contact" class="contact-cta bg-background py-20 md:py-28">
+  <div class="mx-auto max-w-7xl px-4 md:px-8">
     <div
-      class="fluid-gradient rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl"
+      class="relative overflow-hidden rounded-2xl bg-primary px-6 py-12 shadow-xl sm:px-10 lg:px-16 lg:py-18"
     >
-      <div class="relative z-10">
-        <h2
-          class="font-headline font-extrabold text-4xl md:text-6xl text-white mb-8 tracking-tight"
-        >
-          Prêt à rejoindre <br /> le flux ?
-        </h2>
-        <p
-          class="font-body text-primary-fixed text-lg md:text-xl mb-12 max-w-2xl mx-auto opacity-90"
-        >
-          Parlons de votre projet. Nos experts reviennent vers vous sous 24h
-          pour une première consultation gratuite.
-        </p>
-        <div class="flex flex-col md:flex-row gap-4 max-w-lg mx-auto">
-          <a
-            href="mailto:contact@lesaffluentsdunumerique.fr"
-            class="bg-white text-primary px-10 py-4 rounded-full font-bold hover:bg-surface-container transition-colors shadow-lg w-full text-center"
-            >Envoyer un email</a
-          >
-        </div>
-        <div class="mt-12 flex justify-center gap-8 text-white/70 text-sm">
-          <div class="flex items-center gap-2">
-            <span
-              class="material-symbols-outlined text-sm"
-              data-icon="check_circle"
-              aria-hidden="true">check_circle</span
-            > Devis gratuit
-          </div>
-          <div class="flex items-center gap-2">
-            <span
-              class="material-symbols-outlined text-sm"
-              data-icon="check_circle"
-              aria-hidden="true">check_circle</span
-            > Réponse &lt; 24h
-          </div>
-        </div>
-      </div>
-      <!-- Decorative background light -->
       <div
-        class="absolute -top-1/2 -right-1/4 w-[80%] h-[150%] bg-white/10 blur-[100px] rounded-full rotate-45"
+        class="absolute -left-32 -top-32 h-80 w-80 rounded-full bg-primary-container/30 blur-3xl"
         aria-hidden="true"
       >
+      </div>
+      <div class="relative grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
+        <div class="max-w-md pt-2">
+          <h2
+            class="font-headline text-4xl font-extrabold tracking-tight text-white md:text-5xl"
+          >
+            Parlons de votre projet.
+          </h2>
+          <p class="mt-5 text-base leading-7 text-primary-fixed md:text-lg">
+            Décrivez votre projet en quelques lignes pour que nous puissions
+            vous répondre au mieux et, si besoin, convenir d'un échange en
+            visio.
+          </p>
+
+          <ul
+            class="mt-9 space-y-4 text-sm font-semibold text-white md:text-base"
+          >
+            <li class="flex items-center gap-3">
+              <span
+                class="material-symbols-outlined text-lg text-[#56c6e9]"
+                aria-hidden="true">schedule</span
+              >
+              Réponse sous 24 h
+            </li>
+            <li class="flex items-center gap-3">
+              <span
+                class="material-symbols-outlined text-lg text-[#56c6e9]"
+                aria-hidden="true">description</span
+              >
+              Devis gratuit et détaillé après avoir précisé votre besoin
+            </li>
+          </ul>
+        </div>
+
+        <form
+          class="contact-form rounded-2xl bg-white p-5 text-left shadow-2xl sm:p-8"
+          action="/api/contact"
+          method="post"
+        >
+          <div class="grid gap-4 sm:grid-cols-2">
+            <label class="contact-field">
+              Votre nom
+              <input
+                name="name"
+                type="text"
+                required
+                autocomplete="name"
+                maxlength="100"
+                placeholder="Marie Dupont"
+              />
+            </label>
+            <label class="contact-field">
+              E-mail
+              <input
+                name="email"
+                type="email"
+                required
+                autocomplete="email"
+                maxlength="254"
+                placeholder="marie@entreprise.fr"
+              />
+            </label>
+            <label class="contact-field">
+              Entreprise <span class="font-normal text-on-surface-variant"
+                >(facultatif)</span
+              >
+              <input
+                name="company"
+                type="text"
+                autocomplete="organization"
+                maxlength="150"
+                placeholder="Nom de votre structure"
+              />
+            </label>
+            <label class="contact-field">
+              Votre besoin
+              <select name="projectType">
+                <option value="Créer un outil web">Créer un outil web</option>
+                <option value="Refondre un site ou une application"
+                  >Refondre un site ou une application</option
+                >
+                <option value="Automatiser des processus"
+                  >Automatiser des processus</option
+                >
+                <option value="Conseil / autre besoin"
+                  >Conseil / autre besoin</option
+                >
+              </select>
+            </label>
+          </div>
+          <label class="contact-field mt-4 block">
+            Budget envisagé <span class="font-normal text-on-surface-variant"
+              >(facultatif)</span
+            >
+            <select name="budget">
+              <option value="Je ne sais pas encore"
+                >Je ne sais pas encore</option
+              >
+              <option value="Moins de 5 000 €">Moins de 5 000 €</option>
+              <option value="Entre 5 000 et 15 000 €"
+                >Entre 5 000 et 15 000 €</option
+              >
+              <option value="Plus de 15 000 €">Plus de 15 000 €</option>
+            </select>
+          </label>
+          <label class="contact-field mt-4 block">
+            Votre projet en quelques lignes
+            <textarea
+              name="message"
+              required
+              rows="4"
+              minlength="10"
+              maxlength="5000"
+              placeholder="Contexte, besoin, échéance…"></textarea>
+          </label>
+
+          <div class="absolute -left-[9999px]" aria-hidden="true">
+            <label for="contact-website">Site internet</label>
+            <input
+              id="contact-website"
+              name="website"
+              type="text"
+              tabindex="-1"
+              autocomplete="off"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-[#1686a8] px-6 py-4 font-bold text-white transition-colors hover:bg-[#0d7595] disabled:cursor-not-allowed disabled:opacity-70"
+          >
+            Envoyer
+            <span class="material-symbols-outlined text-lg" aria-hidden="true"
+              >arrow_forward</span
+            >
+          </button>
+          <p class="mt-4 text-center text-xs text-on-surface-variant">
+            Vos coordonnées servent uniquement à vous répondre.
+            <a class="underline underline-offset-2" href="/mentions-legales"
+              >En savoir plus.</a
+            >
+          </p>
+          <p
+            class="contact-form-status mt-3 min-h-5 text-center text-sm font-semibold text-primary"
+            aria-live="polite"
+          >
+          </p>
+        </form>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  .contact-field {
+    color: var(--color-on-surface, #191c1e);
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+
+  .contact-field input,
+  .contact-field select,
+  .contact-field textarea {
+    appearance: none;
+    background: white;
+    border: 1px solid #c8d3d9;
+    border-radius: 0.625rem;
+    color: var(--color-on-surface, #191c1e);
+    font: inherit;
+    font-weight: 400;
+    margin-top: 0.375rem;
+    padding: 0.7rem 0.85rem;
+    width: 100%;
+  }
+
+  .contact-field select {
+    appearance: auto;
+  }
+
+  .contact-field textarea {
+    min-height: 7rem;
+    resize: vertical;
+  }
+
+  .contact-field input::placeholder,
+  .contact-field textarea::placeholder {
+    color: #66757d;
+  }
+
+  .contact-field input:focus,
+  .contact-field select:focus,
+  .contact-field textarea:focus {
+    border-color: #1686a8;
+    outline: 2px solid #a7deed;
+    outline-offset: 1px;
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>(".contact-form");
+  const status = form?.querySelector<HTMLElement>(".contact-form-status");
+  const submitButton = form?.querySelector<HTMLButtonElement>(
+    'button[type="submit"]',
+  );
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    if (status) status.textContent = "Envoi en cours…";
+    if (submitButton) submitButton.disabled = true;
+
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error);
+
+      form.reset();
+      if (status)
+        status.textContent = "Merci, votre message a bien été envoyé.";
+    } catch {
+      if (status)
+        status.textContent =
+          "L’envoi a échoué. Vous pouvez nous écrire à contact@lesaffluentsdunumerique.fr.";
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+    }
+  });
+</script>

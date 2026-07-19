@@ -8,58 +8,75 @@ interface Props {
   bio: string;
   image: ImageMetadata;
   tech: string[];
-  /** `wide` = large light horizontal card; `tall` = narrow dark vertical card */
   variant: "wide" | "tall";
 }
 
 const { name, role, bio, image, tech, variant } = Astro.props;
-const alt = `${name} — ${role}`;
+const alt = `Portrait de ${name}`;
 ---
 
 {
   variant === "wide" ? (
-    <div class="md:col-span-8 bg-surface-container rounded-4xl p-6 md:p-12 flex flex-col md:flex-row gap-8 md:gap-12 items-center">
-      <div class="w-24 h-24 lg:w-36 lg:h-36 rounded-full overflow-hidden shrink-0 shadow-lg">
-        <Image src={image} alt={alt} class="w-full h-full object-cover" />
+    <article class="flex flex-col items-center gap-8 rounded-2xl border border-outline-variant/20 bg-surface-container p-6 md:col-span-8 md:flex-row md:gap-12 md:p-12">
+      <div class="h-28 w-28 shrink-0 overflow-hidden rounded-full shadow-lg lg:h-40 lg:w-40">
+        <Image
+          src={image}
+          alt={alt}
+          class="h-full w-full object-cover object-top"
+          widths={[240, 320]}
+          sizes="160px"
+        />
       </div>
       <div>
-        <h3 class="text-3xl font-headline font-extrabold text-primary mb-2">
-          {name}
-        </h3>
-        <p class="text-primary-container font-label font-semibold text-sm tracking-wider uppercase mb-6">
+        <p class="mb-3 font-label text-xs font-bold uppercase tracking-[0.14em] text-on-surface-variant">
           {role}
         </p>
-        <p class="text-on-surface-variant mb-8 leading-relaxed">{bio}</p>
-        <div class="flex flex-wrap gap-2">
-          {tech.map((t) => (
-            <span class="px-3 py-1 bg-white/50 text-xs font-label rounded-full border border-outline-variant/20">
-              {t}
-            </span>
+        <h3 class="font-headline text-3xl font-extrabold text-primary">
+          {name}
+        </h3>
+        <p class="mt-5 leading-7 text-on-surface-variant">{bio}</p>
+        <ul
+          class="mt-7 flex flex-wrap gap-x-3 gap-y-2 border-t border-outline-variant/30 pt-5"
+          aria-label={`Technologies maîtrisées par ${name}`}
+        >
+          {tech.map((technology) => (
+            <li class="font-label text-xs font-semibold text-primary">
+              {technology}
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
-    </div>
+    </article>
   ) : (
-    <div class="md:col-span-4 bg-primary text-on-primary rounded-4xl p-6 md:p-10 flex flex-col justify-between">
+    <article class="flex flex-col justify-between rounded-2xl bg-primary p-7 text-on-primary md:col-span-4 md:p-9">
       <div>
-        <div class="w-24 h-24 md:w-32 md:h-32 rounded-3xl overflow-hidden mb-8 shadow-xl">
-          <Image src={image} alt={alt} class="w-full h-full object-cover" />
+        <div class="mb-8 h-28 w-28 overflow-hidden rounded-xl shadow-xl md:h-32 md:w-32">
+          <Image
+            src={image}
+            alt={alt}
+            class="h-full w-full object-cover object-top"
+            widths={[240, 320]}
+            sizes="128px"
+          />
         </div>
-        <h3 class="text-2xl font-headline font-bold mb-1 text-on-primary">
-          {name}
-        </h3>
-        <p class="text-on-primary-container font-label text-xs uppercase tracking-widest mb-4">
+        <p class="mb-3 font-label text-xs font-bold uppercase tracking-[0.14em] text-primary-fixed-dim">
           {role}
         </p>
-        <p class="text-on-primary/80 text-sm leading-relaxed mb-6">{bio}</p>
+        <h3 class="font-headline text-3xl font-extrabold text-on-primary">
+          {name}
+        </h3>
+        <p class="mt-5 text-sm leading-7 text-on-primary/80">{bio}</p>
       </div>
-      <div class="flex flex-wrap gap-2">
-        {tech.map((t) => (
-          <span class="px-3 py-1 bg-primary-container/30 text-[10px] font-label rounded-full">
-            {t}
-          </span>
+      <ul
+        class="mt-7 flex flex-wrap gap-x-3 gap-y-2 border-t border-white/15 pt-5"
+        aria-label={`Technologies maîtrisées par ${name}`}
+      >
+        {tech.map((technology) => (
+          <li class="font-label text-xs font-semibold text-primary-fixed">
+            {technology}
+          </li>
         ))}
-      </div>
-    </div>
+      </ul>
+    </article>
   )
 }

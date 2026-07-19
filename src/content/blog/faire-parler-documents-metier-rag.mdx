@@ -1,0 +1,58 @@
+---
+title: "Faire parler ses documents métier"
+authors: ["daniel-cadeau"]
+tags: ["intelligence-artificielle", "developpement-web"]
+description: "Retour d'expérience sur la conception d'une plateforme qui transforme des documents non structurés en informations recherchables et exploitables grâce à une architecture RAG."
+pubDate: "Jul 19 2026"
+---
+
+Une entreprise peut avoir des années de connaissances dans ses dossiers, comptes rendus, pièces techniques et documents administratifs, sans pouvoir les retrouver au bon moment. Le problème n'est pas l'absence de données. C'est la difficulté à les rendre fiables, accessibles et utiles dans le quotidien des équipes.
+
+Dans le cadre d'une récente mission, j'ai participé à la réalisation d'une plateforme dédiée au traitement de documents non structurés. L'objectif était de pouvoir importer des sources métier hétérogènes, d'en extraire le contenu utile, puis de retrouver une information pertinente sans dépendre d'un classement manuel rigide.
+
+## Le besoin : retrouver le bon contenu, pas seulement des mots-clés
+
+Une recherche classique fonctionne bien lorsqu'on connaît les termes exacts employés dans un document. En pratique, les utilisateurs posent des questions avec leur propre vocabulaire : ils cherchent une règle, un contexte, une échéance ou une procédure, même si les mots employés ne sont pas ceux du fichier d'origine.
+
+Le défi consistait donc à construire un parcours complet :
+
+- importer et suivre les documents ;
+- extraire puis structurer leur contenu ;
+- conserver les informations de contexte utiles ;
+- rechercher par proximité de sens ;
+- restituer une réponse appuyée sur les passages pertinents.
+
+L'enjeu n'était pas de brancher un modèle de langage sur un dossier de fichiers. Il fallait rendre les données métier suffisamment propres et traçables pour que les réponses puissent être vérifiées.
+
+## L'ingestion est le vrai point de départ
+
+Un système RAG fiable commence avant la recherche sémantique. Chaque document doit passer par une chaîne de traitement claire : import, extraction de texte, normalisation, découpage et enrichissement par des métadonnées.
+
+Le découpage est particulièrement important. Un document trop largement fragmenté perd son contexte. À l'inverse, des blocs trop longs rendent la recherche moins précise. Il faut trouver une granularité qui garde le sens du passage tout en facilitant la récupération des bonnes sources.
+
+Les métadonnées complètent ce travail : type de document, date, domaine métier, source ou droits d'accès. Elles permettent ensuite de filtrer une recherche et de donner aux équipes un résultat plus pertinent.
+
+## Une architecture pensée pour l'exploitation
+
+La plateforme s'appuie sur une API FastAPI en Python et une interface React avec TypeScript. PostgreSQL, complété par pgvector, sert à stocker à la fois les données métier et les représentations vectorielles utilisées pour la recherche sémantique. L'ensemble est déployé dans des conteneurs Docker.
+
+Cette architecture permet de séparer les responsabilités :
+
+- le front-end accompagne l'import, le suivi et la consultation ;
+- l'API expose les flux de traitement et les règles métier ;
+- la base conserve les documents, leurs métadonnées et leurs embeddings ;
+- le moteur de recherche retrouve les extraits les plus proches de la question posée.
+
+Lorsqu'une réponse augmentée par un LLM est nécessaire, le modèle reçoit uniquement les extraits sélectionnés et leur contexte. La qualité de la réponse dépend alors directement de la qualité de l'ingestion et de la recherche en amont.
+
+## Le RAG ne remplace pas la maîtrise des données
+
+Une architecture RAG est utile lorsqu'elle reste au service d'un usage concret. Elle doit permettre à une personne de comprendre d'où vient une réponse, de retrouver le document source et, si besoin, de signaler un contenu incomplet ou obsolète.
+
+Cela implique de penser dès le début à la qualité des sources, aux droits d'accès, au cycle de vie des documents et à la conformité des flux de données. Dans cette mission, la documentation des traitements a fait partie intégrante du travail, notamment pour inscrire la plateforme dans une démarche compatible avec le RGPD.
+
+## Ce que cette mission confirme
+
+Pour beaucoup d'organisations, la valeur de l'IA ne réside pas dans une démonstration spectaculaire. Elle se trouve dans la capacité à exploiter plus simplement un patrimoine documentaire déjà existant.
+
+Le RAG devient alors une brique de produit : un moyen de raccourcir la recherche d'information, de mieux partager la connaissance et de construire des outils métier plus utiles. À condition de soigner l'ingestion, les sources et l'expérience de consultation, bien avant de parler de modèle de langage.

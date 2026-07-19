@@ -1,0 +1,24 @@
+---
+interface Props {
+  tone?: "default" | "inverse";
+  class?: string;
+}
+
+const { tone = "default", class: className = "" } = Astro.props;
+---
+
+<span
+  class:list={[
+    "inline-flex items-center gap-3 font-label text-xs font-bold uppercase tracking-[0.18em]",
+    tone === "inverse" ? "text-primary-fixed" : "text-primary",
+    className,
+  ]}
+>
+  <span
+    class:list={[
+      "h-5 w-0.5 shrink-0 rounded-full",
+      tone === "inverse" ? "bg-[#56c6e9]" : "bg-primary",
+    ]}
+    aria-hidden="true"></span>
+  <slot />
+</span>

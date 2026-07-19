@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import Layout from "@layouts/Layout.astro";
 import { SITE_DESCRIPTIONS, SITE_TITLES } from "../consts";
 
@@ -68,9 +70,9 @@ const siteDescription = SITE_DESCRIPTIONS.legalNotices;
 
     <hr class="my-8" />
 
-    <h1 class="font-headline text-2xl font-extrabold mb-4">
+    <h2 class="font-headline text-2xl font-extrabold mb-4">
       POLITIQUE DE CONFIDENTIALITÉ (RGPD)
-    </h1>
+    </h2>
     <p class="mb-4">Responsables du traitement :</p>
     <ul class="list-disc pl-6 mb-4">
       <li>Daniel Cadeau EI</li>
@@ -79,15 +81,14 @@ const siteDescription = SITE_DESCRIPTIONS.legalNotices;
       <li>Jordan Mombongo EI</li>
     </ul>
 
-    <h2 class="font-bold text-xl mt-4">1. Données collectées</h2>
+    <h3 class="font-bold text-lg mt-4">1. Données collectées</h3>
     <p class="mb-4">
-      Dans le cadre de l’utilisation du site aucune donnée n'est collectée
-      automatiquement. Pour communiquer avec le collectif, l'envoi d'emails est
-      utilisé et ces messages sont stockés chez le prestataire email choisi
-      (OVH).
+      Dans le cadre de l’utilisation du site, aucune donnée n'est collectée
+      automatiquement. Le formulaire de contact recueille le nom, l'adresse
+      e-mail et le message que vous choisissez de nous transmettre.
     </p>
 
-    <h2 class="font-bold text-xl mt-4">2. Finalité du traitement</h2>
+    <h3 class="font-bold text-lg mt-4">2. Finalité du traitement</h3>
     <p class="mb-4">Les données sont collectées uniquement pour :</p>
     <ul class="list-disc pl-6 mb-4">
       <li>la gestion des demandes de contact</li>
@@ -95,21 +96,31 @@ const siteDescription = SITE_DESCRIPTIONS.legalNotices;
       <li>le suivi de la relation client</li>
     </ul>
 
-    <h2 class="font-bold text-xl mt-4">3. Base légale</h2>
+    <h3 class="font-bold text-lg mt-4">3. Base légale</h3>
     <p class="mb-4">
       Le traitement repose sur l’intérêt légitime pour répondre aux demandes de
       contact. Certains transferts peuvent être effectués hors UE via des
       prestataires tiers et sont encadrés par des garanties appropriées.
     </p>
 
-    <h2 class="font-bold text-xl mt-4">4. Sécurité</h2>
+    <h3 class="font-bold text-lg mt-4">4. Prestataire d'envoi</h3>
+    <p class="mb-4">
+      Les messages du formulaire sont transmis par Resend, notre prestataire
+      d'envoi d'e-mails transactionnels. Ils sont utilisés uniquement pour
+      acheminer votre demande vers notre boîte de réception. Resend peut traiter
+      ces données en dehors de l'Union européenne, avec les garanties prévues
+      par sa documentation et les mécanismes applicables de protection des
+      données.
+    </p>
+
+    <h3 class="font-bold text-lg mt-4">5. Sécurité</h3>
     <p class="mb-4">
       Des mesures techniques et organisationnelles sont mises en place afin de
       protéger les données personnelles contre toute perte, accès non autorisé
       ou divulgation.
     </p>
 
-    <h2 class="font-bold text-xl mt-4">5. Droits des utilisateurs</h2>
+    <h3 class="font-bold text-lg mt-4">6. Droits des utilisateurs</h3>
     <p class="mb-4">
       Conformément au RGPD, vous disposez des droits d’accès, rectification,
       suppression, limitation et opposition. Vous pouvez exercer ces droits à
@@ -120,14 +131,14 @@ const siteDescription = SITE_DESCRIPTIONS.legalNotices;
       >
     </p>
 
-    <h2 class="font-bold text-xl mt-4">6. Cookies</h2>
+    <h3 class="font-bold text-lg mt-4">7. Cookies</h3>
     <p class="mb-4">
       Le site peut utiliser des cookies strictement nécessaires à son
       fonctionnement (sécurité, gestion de session). Aucun cookie publicitaire
       ou de suivi n'est utilisé.
     </p>
 
-    <h2 class="font-bold text-xl mt-4">7. Contact</h2>
+    <h3 class="font-bold text-lg mt-4">8. Contact</h3>
     <p class="mb-8">
       Pour toute question concernant la protection des données : <a
         class="text-primary font-medium"

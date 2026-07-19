@@ -1,0 +1,25 @@
+{
+  "name": "Les Affluents du Numérique",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && git config --global core.filemode false && printf '.devcontainer/\\n.pnpm-store/\\n' > /home/node/.gitignore_global && git config --global core.excludesFile /home/node/.gitignore_global && sudo corepack disable pnpm && sudo npm install --global pnpm@10.33.0 && pnpm config set store-dir /home/node/.pnpm-store --global && pnpm install --frozen-lockfile --force",
+  "postAttachCommand": "sh .devcontainer/start-dev.sh",
+  "forwardPorts": [
+    4321
+  ],
+  "portsAttributes": {
+    "4321": {
+      "label": "Astro dev",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "astro-build.astro-vscode",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "bradlc.vscode-tailwindcss"
+      ]
+    }
+  }
+}

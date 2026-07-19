@@ -1,0 +1,265 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Member {
+  name: string;
+  image: ImageMetadata;
+}
+
+interface Props {
+  members: Member[];
+}
+
+const { members } = Astro.props;
+const positions = ["top-left", "top-right", "bottom-left", "bottom-right"];
+---
+
+<div
+  class="team-orbit"
+  role="img"
+  aria-label={`Le collectif réunit ${members.map((member) => member.name).join(", ")}.`}
+>
+  <div class="team-orbit__texture" aria-hidden="true"></div>
+  <div class="team-orbit__path" aria-hidden="true"></div>
+
+  <div class="team-orbit__center" aria-hidden="true">
+    <span class="team-orbit__pulse"></span>
+    <span class="material-symbols-outlined">waves</span>
+  </div>
+
+  {
+    members.map((member, index) => (
+      <figure
+        class={`team-orbit__member team-orbit__member--${positions[index]}`}
+      >
+        <div class="team-orbit__portrait">
+          <Image
+            src={member.image}
+            alt={`Portrait de ${member.name}`}
+            class="h-full w-full object-cover object-top"
+            widths={[160, 240]}
+            sizes="80px"
+          />
+        </div>
+        <figcaption>{member.name}</figcaption>
+      </figure>
+    ))
+  }
+</div>
+
+<style>
+  .team-orbit {
+    position: relative;
+    width: 100%;
+    max-width: 35rem;
+    aspect-ratio: 1.04;
+    margin-inline: auto;
+    isolation: isolate;
+  }
+
+  .team-orbit__texture {
+    position: absolute;
+    inset: 2%;
+    z-index: -2;
+    background-image: repeating-linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--color-primary) 5%, transparent) 0,
+      color-mix(in srgb, var(--color-primary) 5%, transparent) 1px,
+      transparent 1px,
+      transparent 8px
+    );
+    mask-image: radial-gradient(ellipse at center, black 12%, transparent 72%);
+  }
+
+  .team-orbit::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    width: 44%;
+    height: 44%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--color-primary-fixed) 58%, transparent);
+    filter: blur(2.8rem);
+    content: "";
+  }
+
+  .team-orbit__path {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    width: 72%;
+    height: 72%;
+    transform: translate(-50%, -50%);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 17%, transparent);
+    border-radius: 50%;
+  }
+
+  .team-orbit__center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    width: clamp(5.8rem, 19%, 6.8rem);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    place-items: center;
+    border: 1px solid color-mix(in srgb, var(--color-primary) 24%, transparent);
+    border-radius: 1.4rem;
+    background: var(--color-surface-container-lowest);
+    color: var(--color-primary);
+    box-shadow:
+      0 1.2rem 2.8rem color-mix(in srgb, var(--color-primary) 12%, transparent),
+      0 0 2.5rem
+        color-mix(in srgb, var(--color-primary-fixed-dim) 42%, transparent);
+  }
+
+  .team-orbit__center > .material-symbols-outlined {
+    font-size: 2.15rem;
+  }
+
+  .team-orbit__pulse {
+    position: absolute;
+    inset: -1px;
+    border: 1px solid color-mix(in srgb, var(--color-primary) 28%, transparent);
+    border-radius: 1.5rem;
+    animation: team-center-pulse 3.5s ease-out infinite;
+  }
+
+  .team-orbit__member {
+    position: absolute;
+    width: 4.7rem;
+    height: 4.7rem;
+    transform: translate(-50%, -50%);
+  }
+
+  .team-orbit__member--top-left {
+    top: 24.5%;
+    left: 24.5%;
+  }
+
+  .team-orbit__member--top-right {
+    top: 24.5%;
+    left: 75.5%;
+  }
+
+  .team-orbit__member--bottom-left {
+    top: 75.5%;
+    left: 24.5%;
+  }
+
+  .team-orbit__member--bottom-right {
+    top: 75.5%;
+    left: 75.5%;
+  }
+
+  .team-orbit__portrait {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 3px solid var(--color-surface-container-lowest);
+    border-radius: 50%;
+    background: var(--color-surface-container);
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--color-primary) 18%, transparent),
+      0 0.75rem 1.3rem color-mix(in srgb, var(--color-primary) 12%, transparent);
+  }
+
+  .team-orbit figcaption {
+    position: absolute;
+    top: 50%;
+    left: calc(100% - 0.55rem);
+    transform: translateY(-50%);
+    padding: 0.52rem 0.72rem 0.52rem 0.9rem;
+    border: 1px solid
+      color-mix(in srgb, var(--color-outline-variant) 42%, transparent);
+    border-radius: 0 0.7rem 0.7rem 0;
+    background: color-mix(
+      in srgb,
+      var(--color-surface-container-lowest) 94%,
+      transparent
+    );
+    color: var(--color-primary);
+    font-family: var(--font-headline);
+    font-size: 0.76rem;
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
+    box-shadow: 0 0.55rem 1.2rem
+      color-mix(in srgb, var(--color-primary) 8%, transparent);
+  }
+
+  .team-orbit__member--top-left figcaption,
+  .team-orbit__member--bottom-left figcaption {
+    right: calc(100% - 0.55rem);
+    left: auto;
+    padding: 0.52rem 0.9rem 0.52rem 0.72rem;
+    border-radius: 0.7rem 0 0 0.7rem;
+  }
+
+  @keyframes team-center-pulse {
+    0% {
+      opacity: 0.55;
+      transform: scale(1);
+    }
+    75%,
+    100% {
+      opacity: 0;
+      transform: scale(1.28);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .team-orbit {
+      left: -2.5rem;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .team-orbit {
+      aspect-ratio: 0.96;
+    }
+
+    .team-orbit__path {
+      width: 62%;
+      height: 62%;
+    }
+
+    .team-orbit__member {
+      width: 3.8rem;
+      height: 3.8rem;
+    }
+
+    .team-orbit__member--top-left,
+    .team-orbit__member--top-right {
+      top: 28%;
+    }
+
+    .team-orbit__member--bottom-left,
+    .team-orbit__member--bottom-right {
+      top: 72%;
+    }
+
+    .team-orbit__member--top-left,
+    .team-orbit__member--bottom-left {
+      left: 28%;
+    }
+
+    .team-orbit__member--top-right,
+    .team-orbit__member--bottom-right {
+      left: 72%;
+    }
+
+    .team-orbit figcaption {
+      max-width: 6rem;
+      padding: 0.45rem 0.55rem 0.45rem 0.75rem;
+      font-size: 0.64rem;
+      white-space: normal;
+    }
+  }
+</style>
