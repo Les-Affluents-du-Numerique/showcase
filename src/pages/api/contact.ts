@@ -1,10 +1,46 @@
 import type { APIRoute } from "astro";
+import { getSecret } from "astro:env/server";
 import { Resend } from "resend";
 
 const MAX_MESSAGE_LENGTH = 5_000;
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export const POST: APIRoute = async ({ request }) => {
+// Best-effort, in-memory rate limiting. On a warm serverless instance this
+// blunts rapid automated floods from a single IP; it resets on cold starts and
+// is not shared across instances. For durable limiting, back this with a store
+// such as Upstash/Vercel KV.
+const RATE_LIMIT_MAX = 5;
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1_000; // 10 minutes
+const submissions = new Map<string, number[]>();
+
+const isRateLimited = (ip: string): boolean => {
+  const now = Date.now();
+  const recent = (submissions.get(ip) ?? []).filter(
+    (ts) => now - ts < RATE_LIMIT_WINDOW_MS,
+  );
+  recent.push(now);
+  submissions.set(ip, recent);
+  return recent.length > RATE_LIMIT_MAX;
+};
+
+// Strip control characters / newlines to keep user input on a single line when
+// interpolated into the e-mail subject.
+const sanitizeLine = (value: string): string =>
+  value.replace(/[\u0000-\u001F\u007F]+/g, " ").trim();
+
+export const POST: APIRoute = async ({ request, clientAddress }) => {
+  const ip =
+    clientAddress ||
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    "unknown";
+
+  if (isRateLimited(ip)) {
+    return Response.json(
+      { error: "Trop de tentatives. Merci de réessayer plus tard." },
+      { status: 429 },
+    );
+  }
+
   const formData = await request.formData();
   const name = String(formData.get("name") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim();
@@ -31,9 +67,10 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
-  const apiKey = import.meta.env.RESEND_API_KEY;
-  const from = import.meta.env.RESEND_FROM;
-  const recipient = import.meta.env.CONTACT_RECIPIENT;
+  // Read at runtime so the secret is never inlined into the build output.
+  const apiKey = getSecret("RESEND_API_KEY");
+  const from = getSecret("RESEND_FROM");
+  const recipient = getSecret("CONTACT_RECIPIENT");
 
   if (!apiKey || !from || !recipient) {
     console.error("Contact form is missing Resend environment variables.");
@@ -48,7 +85,7 @@ export const POST: APIRoute = async ({ request }) => {
     from,
     to: [recipient],
     replyTo: email,
-    subject: `Nouveau contact : ${name}`,
+    subject: `Nouveau contact : ${sanitizeLine(name)}`,
     text: `Nom : ${name}\nE-mail : ${email}\nEntreprise : ${company || "Non renseignée"}\nBesoin : ${projectType || "Non renseigné"}\nBudget : ${budget || "Non renseigné"}\n\nMessage :\n${message}`,
   });
 
