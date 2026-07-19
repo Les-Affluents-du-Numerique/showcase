@@ -45,165 +45,171 @@
           </ul>
         </div>
 
-        <div class="contact-panel relative rounded-2xl bg-white text-left shadow-2xl">
-        <form
-          class="contact-form p-5 sm:p-8"
-          action="/api/contact"
-          method="post"
+        <div
+          class="contact-panel relative rounded-2xl bg-white text-left shadow-2xl"
         >
-          <div class="grid gap-4 sm:grid-cols-2">
-            <label class="contact-field">
-              Votre nom
-              <input
-                name="name"
-                type="text"
-                required
-                autocomplete="name"
-                maxlength="100"
-                placeholder="Marie Dupont"
-              />
-            </label>
-            <label class="contact-field">
-              E-mail
-              <input
-                name="email"
-                type="email"
-                required
-                autocomplete="email"
-                maxlength="254"
-                placeholder="marie@entreprise.fr"
-              />
-            </label>
-            <label class="contact-field">
-              Entreprise <span class="font-normal text-on-surface-variant"
+          <form
+            class="contact-form p-5 sm:p-8"
+            action="/api/contact"
+            method="post"
+          >
+            <div class="grid gap-4 sm:grid-cols-2">
+              <label class="contact-field">
+                Votre nom
+                <input
+                  name="name"
+                  type="text"
+                  required
+                  autocomplete="name"
+                  maxlength="100"
+                  placeholder="Marie Dupont"
+                />
+              </label>
+              <label class="contact-field">
+                E-mail
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  autocomplete="email"
+                  maxlength="254"
+                  placeholder="marie@entreprise.fr"
+                />
+              </label>
+              <label class="contact-field">
+                Entreprise <span class="font-normal text-on-surface-variant"
+                  >(facultatif)</span
+                >
+                <input
+                  name="company"
+                  type="text"
+                  autocomplete="organization"
+                  maxlength="150"
+                  placeholder="Nom de votre structure"
+                />
+              </label>
+              <label class="contact-field">
+                Votre besoin
+                <select name="projectType">
+                  <option value="Créer un outil web">Créer un outil web</option>
+                  <option value="Refondre un site ou une application"
+                    >Refondre un site ou une application</option
+                  >
+                  <option value="Automatiser des processus"
+                    >Automatiser des processus</option
+                  >
+                  <option value="Conseil / autre besoin"
+                    >Conseil / autre besoin</option
+                  >
+                </select>
+              </label>
+            </div>
+            <label class="contact-field mt-4 block">
+              Budget envisagé <span class="font-normal text-on-surface-variant"
                 >(facultatif)</span
               >
-              <input
-                name="company"
-                type="text"
-                autocomplete="organization"
-                maxlength="150"
-                placeholder="Nom de votre structure"
-              />
-            </label>
-            <label class="contact-field">
-              Votre besoin
-              <select name="projectType">
-                <option value="Créer un outil web">Créer un outil web</option>
-                <option value="Refondre un site ou une application"
-                  >Refondre un site ou une application</option
+              <select name="budget">
+                <option value="Je ne sais pas encore"
+                  >Je ne sais pas encore</option
                 >
-                <option value="Automatiser des processus"
-                  >Automatiser des processus</option
+                <option value="Moins de 5 000 €">Moins de 5 000 €</option>
+                <option value="Entre 5 000 et 15 000 €"
+                  >Entre 5 000 et 15 000 €</option
                 >
-                <option value="Conseil / autre besoin"
-                  >Conseil / autre besoin</option
-                >
+                <option value="Plus de 15 000 €">Plus de 15 000 €</option>
               </select>
             </label>
-          </div>
-          <label class="contact-field mt-4 block">
-            Budget envisagé <span class="font-normal text-on-surface-variant"
-              >(facultatif)</span
-            >
-            <select name="budget">
-              <option value="Je ne sais pas encore"
-                >Je ne sais pas encore</option
-              >
-              <option value="Moins de 5 000 €">Moins de 5 000 €</option>
-              <option value="Entre 5 000 et 15 000 €"
-                >Entre 5 000 et 15 000 €</option
-              >
-              <option value="Plus de 15 000 €">Plus de 15 000 €</option>
-            </select>
-          </label>
-          <label class="contact-field mt-4 block">
-            Votre projet en quelques lignes
-            <textarea
-              name="message"
-              required
-              rows="4"
-              minlength="10"
-              maxlength="5000"
-              placeholder="Contexte, besoin, échéance…"></textarea>
-          </label>
+            <label class="contact-field mt-4 block">
+              Votre projet en quelques lignes
+              <textarea
+                name="message"
+                required
+                rows="4"
+                minlength="10"
+                maxlength="5000"
+                placeholder="Contexte, besoin, échéance…"></textarea>
+            </label>
 
-          <div class="absolute -left-[9999px]" aria-hidden="true">
-            <label for="contact-website">Site internet</label>
-            <input
-              id="contact-website"
-              name="website"
-              type="text"
-              tabindex="-1"
-              autocomplete="off"
-            />
-          </div>
-
-          <button
-            type="submit"
-            class="contact-submit mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-[#1686a8] px-6 py-4 font-bold text-white transition-colors hover:bg-[#0d7595] disabled:cursor-not-allowed disabled:opacity-80"
-          >
-            <span
-              class="contact-spinner hidden h-5 w-5 shrink-0 rounded-full border-2 border-white/40 border-t-white"
-              aria-hidden="true"
-            >
-            </span>
-            <span class="contact-submit-label">Envoyer</span>
-            <span
-              class="material-symbols-outlined contact-submit-arrow text-lg"
-              aria-hidden="true">arrow_forward</span
-            >
-          </button>
-          <p class="mt-4 text-center text-xs text-on-surface-variant">
-            Vos coordonnées servent uniquement à vous répondre.
-            <a class="underline underline-offset-2" href="/mentions-legales"
-              >En savoir plus.</a
-            >
-          </p>
-          <p
-            class="contact-form-status mt-3 hidden items-center justify-center gap-2 text-center text-sm font-semibold text-error"
-            role="alert"
-            aria-live="assertive"
-          >
-            <span
-              class="material-symbols-outlined text-lg"
-              aria-hidden="true">error</span
-            >
-            <span class="contact-form-status-text"></span>
-          </p>
-        </form>
-
-        <div
-          class="contact-success absolute inset-0 hidden flex-col items-center justify-center gap-1 rounded-2xl bg-white px-6 py-12 text-center"
-          role="status"
-          aria-live="polite"
-        >
-          <span class="contact-success-badge" aria-hidden="true">
-            <svg viewBox="0 0 52 52" class="contact-success-check">
-              <circle cx="26" cy="26" r="24" class="contact-success-ring" />
-              <path
-                d="M15 27 l7 7 l15 -16"
-                class="contact-success-tick"
-                fill="none"
+            <div class="absolute -left-[9999px]" aria-hidden="true">
+              <label for="contact-website">Site internet</label>
+              <input
+                id="contact-website"
+                name="website"
+                type="text"
+                tabindex="-1"
+                autocomplete="off"
               />
-            </svg>
-          </span>
-          <h3 class="mt-6 font-headline text-2xl font-extrabold text-on-surface">
-            Message bien reçu !
-          </h3>
-          <p class="contact-success-text mt-2 max-w-xs text-base leading-7 text-on-surface-variant">
-            Merci, nous revenons vers vous sous 24 h.
-          </p>
-          <button
-            type="button"
-            class="contact-reset mt-7 inline-flex items-center gap-1.5 rounded-lg border border-[#c8d3d9] px-5 py-2.5 text-sm font-bold text-[#1686a8] transition-colors hover:bg-[#f1f8fb]"
-          >
-            <span class="material-symbols-outlined text-base" aria-hidden="true"
-              >mail</span
+            </div>
+
+            <button
+              type="submit"
+              class="contact-submit mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-[#1686a8] px-6 py-4 font-bold text-white transition-colors hover:bg-[#0d7595] disabled:cursor-not-allowed disabled:opacity-80"
             >
-            Envoyer un autre message
-          </button>
-        </div>
+              <span
+                class="contact-spinner hidden h-5 w-5 shrink-0 rounded-full border-2 border-white/40 border-t-white"
+                aria-hidden="true"
+              >
+              </span>
+              <span class="contact-submit-label">Envoyer</span>
+              <span
+                class="material-symbols-outlined contact-submit-arrow text-lg"
+                aria-hidden="true">arrow_forward</span
+              >
+            </button>
+            <p class="mt-4 text-center text-xs text-on-surface-variant">
+              Vos coordonnées servent uniquement à vous répondre.
+              <a class="underline underline-offset-2" href="/mentions-legales"
+                >En savoir plus.</a
+              >
+            </p>
+            <p
+              class="contact-form-status mt-3 hidden items-center justify-center gap-2 text-center text-sm font-semibold text-error"
+              role="alert"
+              aria-live="assertive"
+            >
+              <span class="material-symbols-outlined text-lg" aria-hidden="true"
+                >error</span
+              >
+              <span class="contact-form-status-text"></span>
+            </p>
+          </form>
+
+          <div
+            class="contact-success absolute inset-0 hidden flex-col items-center justify-center gap-1 rounded-2xl bg-white px-6 py-12 text-center"
+            role="status"
+            aria-live="polite"
+          >
+            <span class="contact-success-badge" aria-hidden="true">
+              <svg viewBox="0 0 52 52" class="contact-success-check">
+                <circle cx="26" cy="26" r="24" class="contact-success-ring"
+                ></circle>
+                <path
+                  d="M15 27 l7 7 l15 -16"
+                  class="contact-success-tick"
+                  fill="none"></path>
+              </svg>
+            </span>
+            <h3
+              class="mt-6 font-headline text-2xl font-extrabold text-on-surface"
+            >
+              Message bien reçu !
+            </h3>
+            <p
+              class="contact-success-text mt-2 max-w-xs text-base leading-7 text-on-surface-variant"
+            >
+              Merci, nous revenons vers vous sous 24 h.
+            </p>
+            <button
+              type="button"
+              class="contact-reset mt-7 inline-flex items-center gap-1.5 rounded-lg border border-[#c8d3d9] px-5 py-2.5 text-sm font-bold text-[#1686a8] transition-colors hover:bg-[#f1f8fb]"
+            >
+              <span
+                class="material-symbols-outlined text-base"
+                aria-hidden="true">mail</span
+              >
+              Envoyer un autre message
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -347,7 +353,9 @@
   const submitLabel = form?.querySelector<HTMLElement>(".contact-submit-label");
   const submitArrow = form?.querySelector<HTMLElement>(".contact-submit-arrow");
   const success = panel?.querySelector<HTMLElement>(".contact-success");
-  const successText = panel?.querySelector<HTMLElement>(".contact-success-text");
+  const successText = panel?.querySelector<HTMLElement>(
+    ".contact-success-text",
+  );
   const resetButton = panel?.querySelector<HTMLButtonElement>(".contact-reset");
 
   const setSending = (sending: boolean) => {
