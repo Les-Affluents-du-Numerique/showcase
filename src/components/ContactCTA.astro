@@ -45,8 +45,9 @@
           </ul>
         </div>
 
+        <div class="contact-panel relative rounded-2xl bg-white text-left shadow-2xl">
         <form
-          class="contact-form rounded-2xl bg-white p-5 text-left shadow-2xl sm:p-8"
+          class="contact-form p-5 sm:p-8"
           action="/api/contact"
           method="post"
         >
@@ -140,11 +141,17 @@
 
           <button
             type="submit"
-            class="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-[#1686a8] px-6 py-4 font-bold text-white transition-colors hover:bg-[#0d7595] disabled:cursor-not-allowed disabled:opacity-70"
+            class="contact-submit mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-[#1686a8] px-6 py-4 font-bold text-white transition-colors hover:bg-[#0d7595] disabled:cursor-not-allowed disabled:opacity-80"
           >
-            Envoyer
-            <span class="material-symbols-outlined text-lg" aria-hidden="true"
-              >arrow_forward</span
+            <span
+              class="contact-spinner hidden h-5 w-5 shrink-0 rounded-full border-2 border-white/40 border-t-white"
+              aria-hidden="true"
+            >
+            </span>
+            <span class="contact-submit-label">Envoyer</span>
+            <span
+              class="material-symbols-outlined contact-submit-arrow text-lg"
+              aria-hidden="true">arrow_forward</span
             >
           </button>
           <p class="mt-4 text-center text-xs text-on-surface-variant">
@@ -154,11 +161,50 @@
             >
           </p>
           <p
-            class="contact-form-status mt-3 min-h-5 text-center text-sm font-semibold text-primary"
-            aria-live="polite"
+            class="contact-form-status mt-3 hidden items-center justify-center gap-2 text-center text-sm font-semibold text-error"
+            role="alert"
+            aria-live="assertive"
           >
+            <span
+              class="material-symbols-outlined text-lg"
+              aria-hidden="true">error</span
+            >
+            <span class="contact-form-status-text"></span>
           </p>
         </form>
+
+        <div
+          class="contact-success absolute inset-0 hidden flex-col items-center justify-center gap-1 rounded-2xl bg-white px-6 py-12 text-center"
+          role="status"
+          aria-live="polite"
+        >
+          <span class="contact-success-badge" aria-hidden="true">
+            <svg viewBox="0 0 52 52" class="contact-success-check">
+              <circle cx="26" cy="26" r="24" class="contact-success-ring" />
+              <path
+                d="M15 27 l7 7 l15 -16"
+                class="contact-success-tick"
+                fill="none"
+              />
+            </svg>
+          </span>
+          <h3 class="mt-6 font-headline text-2xl font-extrabold text-on-surface">
+            Message bien reçu !
+          </h3>
+          <p class="contact-success-text mt-2 max-w-xs text-base leading-7 text-on-surface-variant">
+            Merci, nous revenons vers vous sous 24 h.
+          </p>
+          <button
+            type="button"
+            class="contact-reset mt-7 inline-flex items-center gap-1.5 rounded-lg border border-[#c8d3d9] px-5 py-2.5 text-sm font-bold text-[#1686a8] transition-colors hover:bg-[#f1f8fb]"
+          >
+            <span class="material-symbols-outlined text-base" aria-hidden="true"
+              >mail</span
+            >
+            Envoyer un autre message
+          </button>
+        </div>
+        </div>
       </div>
     </div>
   </div>
@@ -208,21 +254,140 @@
     outline: 2px solid #a7deed;
     outline-offset: 1px;
   }
+
+  .contact-spinner {
+    animation: contact-spin 0.7s linear infinite;
+  }
+
+  @keyframes contact-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Success panel — reveal + animated check */
+  .contact-success.is-visible {
+    display: flex;
+    animation: contact-fade-in 0.35s ease both;
+  }
+
+  @keyframes contact-fade-in {
+    from {
+      opacity: 0;
+      transform: scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .contact-success-badge {
+    display: inline-flex;
+    height: 4.5rem;
+    width: 4.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background: #e4f6ec;
+  }
+
+  .contact-success-check {
+    height: 3rem;
+    width: 3rem;
+  }
+
+  .contact-success-ring {
+    fill: none;
+    stroke: #1c9e63;
+    stroke-width: 2.5;
+    stroke-dasharray: 151;
+    stroke-dashoffset: 151;
+    animation: contact-draw 0.5s ease-out 0.05s forwards;
+  }
+
+  .contact-success-tick {
+    stroke: #1c9e63;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 40;
+    stroke-dashoffset: 40;
+    animation: contact-draw 0.35s ease-out 0.4s forwards;
+  }
+
+  @keyframes contact-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-spinner,
+    .contact-success.is-visible,
+    .contact-success-ring,
+    .contact-success-tick {
+      animation-duration: 0.01ms;
+      animation-delay: 0ms;
+    }
+  }
 </style>
 
 <script>
-  const form = document.querySelector<HTMLFormElement>(".contact-form");
+  const panel = document.querySelector<HTMLElement>(".contact-panel");
+  const form = panel?.querySelector<HTMLFormElement>(".contact-form");
   const status = form?.querySelector<HTMLElement>(".contact-form-status");
+  const statusText = form?.querySelector<HTMLElement>(
+    ".contact-form-status-text",
+  );
   const submitButton = form?.querySelector<HTMLButtonElement>(
     'button[type="submit"]',
   );
+  const spinner = form?.querySelector<HTMLElement>(".contact-spinner");
+  const submitLabel = form?.querySelector<HTMLElement>(".contact-submit-label");
+  const submitArrow = form?.querySelector<HTMLElement>(".contact-submit-arrow");
+  const success = panel?.querySelector<HTMLElement>(".contact-success");
+  const successText = panel?.querySelector<HTMLElement>(".contact-success-text");
+  const resetButton = panel?.querySelector<HTMLButtonElement>(".contact-reset");
+
+  const setSending = (sending: boolean) => {
+    if (submitButton) submitButton.disabled = sending;
+    spinner?.classList.toggle("hidden", !sending);
+    submitArrow?.classList.toggle("hidden", sending);
+    if (submitLabel)
+      submitLabel.textContent = sending ? "Envoi en cours…" : "Envoyer";
+  };
+
+  const showError = (message: string) => {
+    if (statusText) statusText.textContent = message;
+    status?.classList.remove("hidden");
+    status?.classList.add("flex");
+  };
+
+  const clearError = () => {
+    status?.classList.add("hidden");
+    status?.classList.remove("flex");
+  };
+
+  const showSuccess = (name: string) => {
+    if (successText) {
+      const first = name.trim().split(/\s+/)[0];
+      successText.textContent = first
+        ? `Merci ${first}, nous revenons vers vous sous 24 h.`
+        : "Merci, nous revenons vers vous sous 24 h.";
+    }
+    form?.classList.add("invisible");
+    success?.classList.add("is-visible");
+    resetButton?.focus();
+  };
 
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (!form.reportValidity()) return;
 
-    if (status) status.textContent = "Envoi en cours…";
-    if (submitButton) submitButton.disabled = true;
+    clearError();
+    setSending(true);
+    const name = new FormData(form).get("name")?.toString() ?? "";
 
     try {
       const response = await fetch(form.action, {
@@ -234,14 +399,19 @@
       if (!response.ok) throw new Error(result.error);
 
       form.reset();
-      if (status)
-        status.textContent = "Merci, votre message a bien été envoyé.";
+      showSuccess(name);
     } catch {
-      if (status)
-        status.textContent =
-          "L’envoi a échoué. Vous pouvez nous écrire à contact@lesaffluentsdunumerique.fr.";
+      showError(
+        "L’envoi a échoué. Vous pouvez nous écrire à contact@lesaffluentsdunumerique.fr.",
+      );
     } finally {
-      if (submitButton) submitButton.disabled = false;
+      setSending(false);
     }
+  });
+
+  resetButton?.addEventListener("click", () => {
+    success?.classList.remove("is-visible");
+    form?.classList.remove("invisible");
+    form?.querySelector<HTMLInputElement>('input[name="name"]')?.focus();
   });
 </script>
