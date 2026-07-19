@@ -11,7 +11,6 @@
   </div>
 
   <div class="expertise-orbit__center" aria-hidden="true">
-    <span class="expertise-orbit__pulse"></span>
     <span class="material-symbols-outlined">waves</span>
   </div>
 
@@ -124,51 +123,31 @@
     font-size: 2.15rem;
   }
 
-  .expertise-orbit__pulse {
-    position: absolute;
-    inset: -1px;
-    border: 1px solid color-mix(in srgb, var(--color-primary) 28%, transparent);
-    border-radius: 1.5rem;
-    animation: center-pulse 3.5s ease-out infinite;
-  }
-
   .expertise-orbit__item {
     position: absolute;
-    width: 3.7rem;
-    height: 3.7rem;
+    width: 3.75rem;
+    height: 3.75rem;
     transform: translate(-50%, -50%);
-    animation: expertise-satellite-drift 5.5s ease-in-out infinite alternate;
   }
 
   .expertise-orbit__item--web {
-    --drift-x: 0.4rem;
-    --drift-y: -0.4rem;
     top: 24.5%;
     left: 24.5%;
   }
 
   .expertise-orbit__item--data {
-    --drift-x: 0.4rem;
-    --drift-y: 0.4rem;
     top: 24.5%;
     left: 75.5%;
-    animation-delay: -1.4s;
   }
 
   .expertise-orbit__item--security {
-    --drift-x: -0.4rem;
-    --drift-y: -0.4rem;
     top: 75.5%;
     left: 24.5%;
-    animation-delay: -2.8s;
   }
 
   .expertise-orbit__item--systems {
-    --drift-x: -0.4rem;
-    --drift-y: 0.4rem;
     top: 75.5%;
     left: 75.5%;
-    animation-delay: -4.2s;
   }
 
   .expertise-orbit__icon {
@@ -225,27 +204,6 @@
     border-radius: 0.7rem 0 0 0.7rem;
   }
 
-  @keyframes center-pulse {
-    0% {
-      opacity: 0.55;
-      transform: scale(1);
-    }
-    75%,
-    100% {
-      opacity: 0;
-      transform: scale(1.28);
-    }
-  }
-
-  @keyframes expertise-satellite-drift {
-    to {
-      transform: translate(
-        calc(-50% + var(--drift-x)),
-        calc(-50% + var(--drift-y))
-      );
-    }
-  }
-
   @media (max-width: 430px) {
     .expertise-orbit {
       aspect-ratio: 0.96;
@@ -285,11 +243,26 @@
       height: 3rem;
     }
 
-    .expertise-orbit__label {
-      max-width: 6.5rem;
-      padding: 0.45rem 0.55rem 0.45rem 0.8rem;
+    .expertise-orbit__label,
+    .expertise-orbit__item--web .expertise-orbit__label,
+    .expertise-orbit__item--security .expertise-orbit__label {
+      top: calc(100% + 0.35rem);
+      right: auto;
+      left: 50%;
+      max-width: 7rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: 0.7rem;
       font-size: 0.65rem;
+      text-align: center;
+      transform: translateX(-50%);
       white-space: normal;
+      width: max-content;
+    }
+
+    .expertise-orbit__item--web .expertise-orbit__label,
+    .expertise-orbit__item--data .expertise-orbit__label {
+      top: auto;
+      bottom: calc(100% + 0.35rem);
     }
   }
 </style>

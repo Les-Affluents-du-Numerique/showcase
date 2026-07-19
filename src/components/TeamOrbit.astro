@@ -24,7 +24,6 @@ const positions = ["top-left", "top-right", "bottom-left", "bottom-right"];
   <div class="team-orbit__path" aria-hidden="true"></div>
 
   <div class="team-orbit__center" aria-hidden="true">
-    <span class="team-orbit__pulse"></span>
     <span class="material-symbols-outlined">waves</span>
   </div>
 
@@ -121,18 +120,10 @@ const positions = ["top-left", "top-right", "bottom-left", "bottom-right"];
     font-size: 2.15rem;
   }
 
-  .team-orbit__pulse {
-    position: absolute;
-    inset: -1px;
-    border: 1px solid color-mix(in srgb, var(--color-primary) 28%, transparent);
-    border-radius: 1.5rem;
-    animation: team-center-pulse 3.5s ease-out infinite;
-  }
-
   .team-orbit__member {
     position: absolute;
-    width: 4.7rem;
-    height: 4.7rem;
+    width: 4.75rem;
+    height: 4.75rem;
     transform: translate(-50%, -50%);
   }
 
@@ -202,18 +193,6 @@ const positions = ["top-left", "top-right", "bottom-left", "bottom-right"];
     border-radius: 0.7rem 0 0 0.7rem;
   }
 
-  @keyframes team-center-pulse {
-    0% {
-      opacity: 0.55;
-      transform: scale(1);
-    }
-    75%,
-    100% {
-      opacity: 0;
-      transform: scale(1.28);
-    }
-  }
-
   @media (min-width: 1024px) {
     .team-orbit {
       left: -2.5rem;
@@ -255,11 +234,26 @@ const positions = ["top-left", "top-right", "bottom-left", "bottom-right"];
       left: 72%;
     }
 
-    .team-orbit figcaption {
-      max-width: 6rem;
-      padding: 0.45rem 0.55rem 0.45rem 0.75rem;
+    .team-orbit figcaption,
+    .team-orbit__member--top-left figcaption,
+    .team-orbit__member--bottom-left figcaption {
+      top: calc(100% + 0.35rem);
+      right: auto;
+      left: 50%;
+      max-width: 7rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: 0.7rem;
       font-size: 0.64rem;
+      text-align: center;
+      transform: translateX(-50%);
       white-space: normal;
+      width: max-content;
+    }
+
+    .team-orbit__member--top-left figcaption,
+    .team-orbit__member--top-right figcaption {
+      top: auto;
+      bottom: calc(100% + 0.35rem);
     }
   }
 </style>
