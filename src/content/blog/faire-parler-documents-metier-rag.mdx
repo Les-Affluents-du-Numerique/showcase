@@ -1,49 +1,36 @@
 ---
-title: "Faire parler ses documents métier"
+title: "Faire parler ses documents métier grâce au RAG"
 authors: ["daniel-cadeau"]
 tags: ["intelligence-artificielle", "developpement-web"]
-description: "Retour d'expérience sur la conception d'une plateforme qui transforme des documents non structurés en informations recherchables et exploitables grâce à une architecture RAG."
+description: "Retour de mission sur la conception d'une plateforme qui transforme des documents non structurés en données exploitables, grâce à une intégration raisonnée de l'IA au service du besoin métier."
 pubDate: "Jul 19 2026"
 ---
 
-Une entreprise peut avoir des années de connaissances dans ses dossiers, comptes rendus, pièces techniques et documents administratifs, sans pouvoir les retrouver au bon moment. Le problème n'est pas l'absence de données. C'est la difficulté à les rendre fiables, accessibles et utiles dans le quotidien des équipes.
+Une entreprise peut accumuler des années de connaissances dans ses dossiers, comptes rendus, pièces techniques et documents administratifs, sans jamais réussir à les retrouver au bon moment. Le problème n'est pas l'absence de données. C'est la difficulté à les rendre fiables, accessibles et utiles dans le quotidien des équipes.
 
-Dans le cadre d'une récente mission, j'ai participé à la réalisation d'une plateforme dédiée au traitement de documents non structurés. L'objectif était de pouvoir importer des sources métier hétérogènes, d'en extraire le contenu utile, puis de retrouver une information pertinente sans dépendre d'un classement manuel rigide.
+Dans le cadre d'une mission, j'ai développé une plateforme qui prend en entrée des documents non structurés et en extrait des données exploitables. L'objectif : importer des sources métier hétérogènes, en extraire le contenu utile, puis retrouver une information pertinente sans dépendre d'un classement manuel rigide.
 
-## Le besoin : retrouver le bon contenu, pas seulement des mots-clés
+## Partir du besoin réel, pas de la technique
 
-Une recherche classique fonctionne bien lorsqu'on connaît les termes exacts employés dans un document. En pratique, les utilisateurs posent des questions avec leur propre vocabulaire : ils cherchent une règle, un contexte, une échéance ou une procédure, même si les mots employés ne sont pas ceux du fichier d'origine.
+Une recherche classique fonctionne bien lorsqu'on connaît les termes exacts employés dans un document. En pratique, les utilisateurs posent des questions avec leur propre vocabulaire : ils cherchent une règle, un contexte, une échéance ou une procédure, même si leurs mots ne sont pas ceux du fichier d'origine. C'est là que la recherche par proximité de sens prend tout son intérêt.
 
-Le défi consistait donc à construire un parcours complet :
-
-- importer et suivre les documents ;
-- extraire puis structurer leur contenu ;
-- conserver les informations de contexte utiles ;
-- rechercher par proximité de sens ;
-- restituer une réponse appuyée sur les passages pertinents.
-
-L'enjeu n'était pas de brancher un modèle de langage sur un dossier de fichiers. Il fallait rendre les données métier suffisamment propres et traçables pour que les réponses puissent être vérifiées.
+L'un des principaux défis, c'est de s'imprégner du cadre et des contraintes du métier pour concevoir un flux automatisé sur mesure. Il ne s'agissait pas de brancher un modèle de langage sur un dossier de fichiers, mais de construire un parcours complet : importer et suivre les documents, structurer leur contenu, conserver le contexte utile, puis restituer une réponse appuyée sur les passages pertinents. Autrement dit, rendre les données métier suffisamment propres et traçables pour que chaque réponse puisse être vérifiée.
 
 ## L'ingestion est le vrai point de départ
 
-Un système RAG fiable commence avant la recherche sémantique. Chaque document doit passer par une chaîne de traitement claire : import, extraction de texte, normalisation, découpage et enrichissement par des métadonnées.
+Un système RAG fiable commence bien avant la recherche sémantique. Chaque document passe par une chaîne de traitement claire : import, extraction de texte, normalisation, découpage et enrichissement par des métadonnées.
 
-Le découpage est particulièrement important. Un document trop largement fragmenté perd son contexte. À l'inverse, des blocs trop longs rendent la recherche moins précise. Il faut trouver une granularité qui garde le sens du passage tout en facilitant la récupération des bonnes sources.
+Le découpage mérite une attention particulière. Un document trop fragmenté perd son contexte ; des blocs trop longs rendent la recherche moins précise. Il faut trouver la granularité qui préserve le sens du passage tout en facilitant la récupération des bonnes sources.
 
-Les métadonnées complètent ce travail : type de document, date, domaine métier, source ou droits d'accès. Elles permettent ensuite de filtrer une recherche et de donner aux équipes un résultat plus pertinent.
+Les métadonnées complètent ce travail : type de document, date, domaine métier, source, droits d'accès. Elles permettent ensuite de filtrer une recherche et de donner aux équipes un résultat réellement pertinent.
 
-## Une architecture pensée pour l'exploitation
+## Une architecture pensée pour durer
 
-La plateforme s'appuie sur une API FastAPI en Python et une interface React avec TypeScript. PostgreSQL, complété par pgvector, sert à stocker à la fois les données métier et les représentations vectorielles utilisées pour la recherche sémantique. L'ensemble est déployé dans des conteneurs Docker.
+La plateforme s'appuie sur une API FastAPI en Python et une interface React avec TypeScript. PostgreSQL, complété par pgvector, stocke à la fois les données métier et les représentations vectorielles utilisées pour la recherche sémantique. L'ensemble est déployé dans des conteneurs Docker.
 
-Cette architecture permet de séparer les responsabilités :
+Chaque brique a sa responsabilité : le front-end accompagne l'import et la consultation, l'API expose les flux de traitement et les règles métier, la base conserve les documents et leurs embeddings, le moteur de recherche retrouve les extraits les plus proches de la question posée. Lorsqu'une réponse augmentée par un LLM est nécessaire, le modèle reçoit uniquement les extraits sélectionnés et leur contexte. La qualité de la réponse dépend donc directement de la qualité de l'ingestion en amont.
 
-- le front-end accompagne l'import, le suivi et la consultation ;
-- l'API expose les flux de traitement et les règles métier ;
-- la base conserve les documents, leurs métadonnées et leurs embeddings ;
-- le moteur de recherche retrouve les extraits les plus proches de la question posée.
-
-Lorsqu'une réponse augmentée par un LLM est nécessaire, le modèle reçoit uniquement les extraits sélectionnés et leur contexte. La qualité de la réponse dépend alors directement de la qualité de l'ingestion et de la recherche en amont.
+L'enjeu se porte aussi sur l'infrastructure. Garantir l'intégration, la fiabilité et la maintenance du système, c'est ce qui apporte la stabilité nécessaire pour itérer et s'adapter aux futurs besoins qui ne manqueront pas d'émerger. C'est aussi ce qui évite le piège de la complexité accidentelle : chaque composant est là parce que le besoin le justifie, pas parce que la technologie le permet.
 
 ## Le RAG ne remplace pas la maîtrise des données
 
@@ -53,6 +40,4 @@ Cela implique de penser dès le début à la qualité des sources, aux droits d'
 
 ## Ce que cette mission confirme
 
-Pour beaucoup d'organisations, la valeur de l'IA ne réside pas dans une démonstration spectaculaire. Elle se trouve dans la capacité à exploiter plus simplement un patrimoine documentaire déjà existant.
-
-Le RAG devient alors une brique de produit : un moyen de raccourcir la recherche d'information, de mieux partager la connaissance et de construire des outils métier plus utiles. À condition de soigner l'ingestion, les sources et l'expérience de consultation, bien avant de parler de modèle de langage.
+Pour beaucoup d'organisations, la valeur de l'IA ne réside pas dans une démonstration spectaculaire. Elle se trouve dans la capacité à exploiter plus simplement un patrimoine documentaire déjà existant. Le RAG devient alors une brique de produit : un moyen de raccourcir la recherche d'information, de mieux partager la connaissance et de construire des outils métier plus utiles. À condition de soigner l'ingestion, les sources et l'expérience de consultation, bien avant de parler de modèle de langage.
