@@ -1,0 +1,42 @@
+---
+export const prerender = true;
+
+import Layout from "@layouts/Layout.astro";
+import Eyebrow from "@components/Eyebrow.astro";
+---
+
+<Layout
+  title="Les Affluents du Numérique - Page introuvable"
+  description="La page que vous cherchez n'existe pas ou a été déplacée."
+>
+  <main id="main-content" class="!pt-40 md:!pt-32 font-body text-on-background">
+    <section class="max-w-5xl mx-auto px-4 md:px-8 mb-24 md:mb-40 text-center">
+      <Eyebrow class="mb-6">Erreur 404</Eyebrow>
+      <h1
+        class="text-5xl md:text-7xl font-headline font-extrabold text-primary mb-8 leading-tight tracking-tight"
+      >
+        Page <span class="editorial-underline">introuvable</span>.
+      </h1>
+      <p
+        class="text-xl text-on-secondary-container leading-relaxed mb-12 max-w-2xl mx-auto"
+      >
+        La page que vous cherchez n'existe pas ou a été déplacée. Vous pouvez
+        reprendre votre visite depuis l'accueil.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-6 justify-center">
+        <a
+          href="/"
+          class="fluid-gradient text-on-primary px-10 py-4 rounded-lg font-bold hover:scale-105 active:scale-100 transition-transform shadow-xl inline-block text-center"
+        >
+          Retour à l'accueil
+        </a>
+        <a
+          href="/blog"
+          class="bg-transparent border border-outline-variant text-primary px-10 py-4 rounded-lg font-bold hover:bg-surface-container transition-colors inline-block text-center"
+        >
+          Explorer le blog
+        </a>
+      </div>
+    </section>
+  </main>
+</Layout>

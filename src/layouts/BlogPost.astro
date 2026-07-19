@@ -4,109 +4,79 @@ import type { CollectionEntry } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import FormattedDate from "@components/FormattedDate.astro";
 import AuthorList from "@components/AuthorList.astro";
+import { POST_TAGS_ENUM, type PostTagKey } from "../consts";
 
 type Props = CollectionEntry<"blog">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage, thumbnailAlt } =
-  Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  thumbnailAlt,
+  tags,
+  authors,
+  author,
+} = Astro.props;
 ---
 
 <Layout title={title} description={description}>
-  <style>
-    .hero-image {
-      width: 100%;
-    }
-    .hero-image img {
-      display: block;
-      margin: 0 auto;
-      border-radius: 12px;
-      box-shadow:
-        0 2px 6px rgba(0, 51, 88, 0.08),
-        0 8px 24px rgba(0, 51, 88, 0.1),
-        0 16px 32px rgba(0, 51, 88, 0.08);
-    }
-    .prose {
-      width: 720px;
-      max-width: calc(100% - 2em);
-      margin: auto;
-      padding: 1em;
-      color: var(--color-on-surface);
-    }
-    @media (max-width: 768px) {
-      .prose {
-        max-width: calc(100% - 1em);
-        padding: 0.5em;
-      }
-    }
-    .title {
-      margin-bottom: 1em;
-      padding: 1em 0;
-      text-align: center;
-      line-height: 1;
-    }
-    @media (max-width: 768px) {
-      .title {
-        padding: 0.5em 0;
-        margin-bottom: 0.5em;
-      }
-    }
-    .title h1 {
-      margin: 0 0 0.5em 0;
-      font-size: 2.25rem;
-      line-height: 1.05;
-      font-weight: 700;
-    }
-    @media (max-width: 768px) {
-      .title h1 {
-        font-size: 1.75rem;
-        margin: 0 0 0.25em 0;
-      }
-    }
-    .date {
-      margin-bottom: 0.5em;
-      color: var(--color-on-surface-variant);
-    }
-    .last-updated-on {
-      font-style: italic;
-    }
-  </style>
-  <main id="main-content" class="!pt-40 md:!pt-32">
+  <main id="main-content" class="!pt-36 md:!pt-40">
     <article>
-      <div class="hero-image">
+      <header class="mx-auto max-w-4xl px-4 pb-12 pt-8 md:px-8 md:pb-16">
         {
-          heroImage && (
-            <Image
-              width={1020}
-              height={510}
-              src={heroImage}
-              alt={thumbnailAlt ?? title}
-            />
+          tags?.length > 0 && (
+            <div class="mb-6 flex flex-wrap gap-3">
+              {tags.map((tag) => (
+                <span class="font-label text-[10px] font-bold uppercase tracking-widest text-primary">
+                  {POST_TAGS_ENUM[tag as PostTagKey] ?? tag}
+                </span>
+              ))}
+            </div>
           )
         }
-      </div>
-      <div class="prose">
-        <div class="title">
-          <div class="date">
-            <FormattedDate date={pubDate} />
-            <div class="my-3">
-              <AuthorList
-                authors={Astro.props.authors}
-                author={Astro.props.author}
-                size="md"
-                align="center"
-              />
-            </div>
+        <h1
+          class="max-w-3xl font-headline text-4xl font-extrabold leading-tight tracking-tight text-primary sm:text-5xl"
+        >
+          {title}
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-on-surface-variant">
+          {description}
+        </p>
+        <div
+          class="mt-8 flex flex-wrap items-center gap-4 text-sm text-on-surface-variant"
+        >
+          <AuthorList authors={authors} author={author} size="md" />
+          <p>
+            Publié le <FormattedDate date={pubDate} />
             {
               updatedDate && (
-                <div class="last-updated-on">
-                  Last updated on <FormattedDate date={updatedDate} />
-                </div>
+                <>
+                  <span aria-hidden="true"> · </span>
+                  Mis à jour le <FormattedDate date={updatedDate} />
+                </>
               )
             }
-          </div>
-          <h1>{title}</h1>
-          <hr />
+          </p>
         </div>
+      </header>
+
+      {
+        heroImage && (
+          <div class="mx-auto mb-12 max-w-5xl px-4 md:mb-16 md:px-8">
+            <Image
+              width={1200}
+              height={675}
+              src={heroImage}
+              alt={thumbnailAlt ?? title}
+              class="aspect-video w-full rounded-2xl object-cover shadow-xl"
+            />
+          </div>
+        )
+      }
+
+      <div class="prose mx-auto max-w-3xl px-4 pb-8 md:px-8">
         <slot />
       </div>
     </article>

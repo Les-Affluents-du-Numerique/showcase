@@ -4,7 +4,6 @@ import FormattedDate from "@components/FormattedDate.astro";
 import AuthorList from "@components/AuthorList.astro";
 import { Image } from "astro:assets";
 import { POST_TAGS_ENUM, type PostTagKey } from "../consts";
-import placeholderImage from "../assets/blog-placeholder-1.jpg";
 
 interface Props {
   post: CollectionEntry<"blog">;
@@ -13,29 +12,39 @@ const { post } = Astro.props;
 ---
 
 <article
-  class="group flex flex-col bg-surface-container-lowest rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/5"
+  class="group flex flex-col border border-outline-variant/30 bg-surface-container-lowest rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5"
 >
-  <a href={`/blog/posts/${post.id}`} class="block h-full">
-    <div class="aspect-4/3 overflow-hidden">
-      <Image
-        src={post.data.heroImage || placeholderImage}
-        alt={post.data.thumbnailAlt ||
-          post.data.title ||
-          "Miniature de l'article"}
-        width={800}
-        height={600}
-        format="webp"
-        quality={80}
-        loading="lazy"
-        decoding="async"
-        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-      />
-    </div>
-    <div class="p-8 flex flex-col grow">
-      <div class="flex justify-between items-center mb-4">
-        <div class="space-x-2"></div>
-        <span class="font-body text-[10px] text-on-surface-variant italic"
-          >{(<FormattedDate date={post.data.pubDate} />)}</span
+  <a href={`/blog/posts/${post.id}`} class="flex flex-col h-full">
+    {
+      post.data.heroImage && (
+        <div class="aspect-4/3 overflow-hidden">
+          <Image
+            src={post.data.heroImage}
+            alt={
+              post.data.thumbnailAlt ||
+              post.data.title ||
+              "Miniature de l'article"
+            }
+            width={800}
+            height={600}
+            format="webp"
+            quality={80}
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+        </div>
+      )
+    }
+    <div class="p-7 sm:p-8 flex flex-col grow">
+      <div class="flex justify-between items-center mb-5">
+        <span
+          class="font-label text-[10px] font-bold uppercase tracking-widest text-primary"
+        >
+          Article
+        </span>
+        <span class="font-body text-xs text-on-surface-variant"
+          ><FormattedDate date={post.data.pubDate} /></span
         >
       </div>
       <h3
@@ -47,7 +56,7 @@ const { post } = Astro.props;
         post.data.tags && post.data.tags.length > 0 && (
           <div class="mb-4 flex flex-wrap gap-2">
             {post.data.tags.map((t) => (
-              <span class="inline-flex items-center bg-surface-container border border-surface-container text-on-secondary-fixed-variant px-3 py-1 rounded-full font-bold text-[10px] uppercase tracking-widest">
+              <span class="inline-flex items-center bg-surface-container border border-surface-container text-on-secondary-fixed-variant px-3 py-1 rounded-md font-bold text-[10px] uppercase tracking-widest">
                 {POST_TAGS_ENUM[t as PostTagKey] ?? t}
               </span>
             ))}

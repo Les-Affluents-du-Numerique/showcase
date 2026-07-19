@@ -33,6 +33,8 @@ const getSiteUrl = () => {
 // https://astro.build/config
 export default defineConfig({
   site: getSiteUrl(),
+  // The contact route sends e-mails server-side and must run as a Vercel Function.
+  output: 'server',
   integrations: [mdx(), sitemap()],
 
   build: {
@@ -54,7 +56,7 @@ export default defineConfig({
       },
     },
   ],
-    
+
   vite: {
     plugins: [tailwindcss()]
   },

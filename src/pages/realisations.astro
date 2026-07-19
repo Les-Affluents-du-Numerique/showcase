@@ -1,11 +1,12 @@
 ---
+export const prerender = true;
+
 import Layout from "@layouts/Layout.astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
-import ContactCTA from "@components/ContactCTA.astro";
 import RealisationCard from "@components/RealisationCard.astro";
+import Eyebrow from "@components/Eyebrow.astro";
 import tissecoImage from "../assets/iphone-mockup-tisseco.webp";
-import realisationsImage from "../assets/realisations.webp";
 
 const rawProjects = await getCollection("realisations");
 
@@ -29,44 +30,30 @@ const projects = rawProjects
   <main id="main-content" class="!pt-40 md:!pt-32">
     <!-- Hero Section -->
     <section class="relative pb-32 px-4 md:px-8 overflow-hidden">
-      <div
-        class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
-      >
-        <div class="lg:col-span-7">
-          <span
-            class="font-label text-[0.75rem] uppercase tracking-[0.1em] text-primary mb-6 block font-bold"
-            >Nos réalisations</span
-          >
+      <div class="max-w-7xl mx-auto">
+        <div class="max-w-4xl">
+          <Eyebrow class="mb-6">Nos réalisations</Eyebrow>
           <h1
             class="font-headline text-5xl md:text-7xl font-extrabold text-primary leading-[1.1] mb-8 tracking-tighter"
           >
-            Nos courants de <span class="editorial-underline">succès</span>.
+            Des projets qui font leurs
+            <span class="editorial-underline">preuves</span>.
           </h1>
           <p
             class="font-body text-xl text-on-surface-variant max-w-2xl leading-relaxed"
           >
-            Chaque projet est un affluent qui rejoint le fleuve numérique de nos
-            clients. Nous concevons des solutions sur mesure qui allient haute
-            technicité et vision stratégique pour les TPE et PME ambitieuses.
+            Nous concevons des solutions sur mesure qui allient haute technicité
+            et vision stratégique pour les TPE et PME ambitieuses. Découvrez
+            comment nous accompagnons nos clients, du cadrage à la mise en
+            production.
           </p>
-        </div>
-        <div class="lg:col-span-5 relative hidden lg:block mt-8">
-          <div
-            class="aspect-square rounded-[2rem] bg-surface-container-high overflow-hidden shadow-xl transform rotate-3 scale-105"
-          >
-            <Image
-              alt="Un bureau avec plusieurs dossiers et rapports ouverts présentant des graphiques et des diagrammes circulaires, une tasse de café, des plantes vertes et des fournitures de bureau, avec en arrière-plan une vue sur la Tour Eiffel et un paysage urbain parisien au bord de la Seine."
-              class="w-full h-full object-cover aspect-square"
-              src={realisationsImage}
-            />
-          </div>
         </div>
       </div>
     </section>
 
     <!-- Featured Case Study (Tisseco) -->
     <section
-      class="py-20 md:py-32 px-4 md:px-8 overflow-hidden bg-primary text-on-primary"
+      class="py-24 md:py-36 px-4 md:px-8 overflow-hidden bg-primary text-on-primary"
     >
       <div class="max-w-7xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
@@ -78,15 +65,12 @@ const projects = rawProjects
             </div>
             <Image
               alt="Tisseco Solidaire — aperçu"
-              class="rounded-2xl shadow-2xl relative z-10 w-full object-cover aspect-[4/3]"
+              class="rounded-xl shadow-2xl relative z-10 w-full object-cover aspect-[4/3]"
               src={tissecoImage}
             />
           </div>
           <div>
-            <span
-              class="font-label text-[0.75rem] uppercase tracking-[0.2em] text-on-tertiary-container mb-6 block font-bold"
-              >Étude de cas</span
-            >
+            <Eyebrow tone="inverse" class="mb-6">Étude de cas</Eyebrow>
             <h2
               class="font-headline text-4xl md:text-5xl font-extrabold mb-8 leading-tight tracking-tight"
             >
@@ -121,7 +105,7 @@ const projects = rawProjects
               </div>
             </div>
             <a
-              class="mt-12 inline-block px-8 py-4 bg-surface-container-lowest text-primary rounded-full font-bold hover:scale-105 transition-all"
+              class="mt-12 inline-block px-8 py-4 bg-surface-container-lowest text-primary rounded-lg font-bold hover:scale-105 transition-all"
               href="/realisations/tisseco">Lire l'étude complète</a
             >
           </div>
@@ -154,8 +138,5 @@ const projects = rawProjects
         </div>
       </div>
     </section>
-
-    <!-- CTA Section -->
-    <ContactCTA />
   </main>
 </Layout>
