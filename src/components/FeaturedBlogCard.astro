@@ -1,7 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import AuthorList from "@components/AuthorList.astro";
-import FormattedDate from "@components/FormattedDate.astro";
+import FeaturedBlogMeta from "@components/blog/FeaturedBlogMeta.astro";
 import { Image } from "astro:assets";
 import { POST_TAGS_ENUM, type PostTagKey } from "../consts";
 
@@ -27,21 +26,7 @@ const { post } = Astro.props;
         class="group block p-7 sm:p-10 lg:p-12"
       >
         <div class="grid gap-8 lg:grid-cols-[10rem_1fr] lg:gap-10">
-          <div class="space-y-5">
-            <span
-              class="inline-flex rounded-md bg-primary px-3 py-1 font-label text-[10px] font-bold uppercase tracking-widest text-white"
-            >
-              À la une
-            </span>
-            <p class="text-sm text-on-surface-variant">
-              <FormattedDate date={post.data.pubDate} />
-            </p>
-            <AuthorList
-              authors={post.data.authors}
-              author={post.data.author}
-              size="sm"
-            />
-          </div>
+          <FeaturedBlogMeta post={post} />
           <div>
             {
               post.data.tags?.length > 0 && (

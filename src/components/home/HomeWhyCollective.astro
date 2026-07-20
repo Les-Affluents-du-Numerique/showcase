@@ -1,0 +1,50 @@
+---
+const reasons = [
+  {
+    number: "01",
+    title: "Proximité Réelle",
+    body: "Vous échangez directement avec les personnes qui conçoivent et réalisent votre solution, du premier rendez-vous à la livraison.",
+  },
+  {
+    number: "02",
+    title: "Compétences qui font avancer",
+    body: "On arrive avec des outils, des méthodes et des réflexes qui ont déjà fait leurs preuves sur le terrain : du concret, directement utile pour votre activité. Chaque membre apporte son savoir-faire, rodé sur des cas réels.",
+  },
+  {
+    number: "03",
+    title: "Des moyens bien placés",
+    body: "On investit dans l'essentiel : les relations, les bons outils, et surtout le temps passé à produire de la valeur pour vous. Une organisation simple, des échanges directs, et chaque euro orienté vers le résultat.",
+  },
+];
+---
+
+<section class="py-28 md:py-36 bg-surface">
+  <div class="max-w-7xl mx-auto px-4 md:px-8">
+    <div
+      class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-16"
+    >
+      <div class="max-w-2xl">
+        <h2
+          class="font-headline font-bold text-4xl md:text-5xl text-primary leading-tight"
+        >
+          Pourquoi choisir un collectif&nbsp;?
+        </h2>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
+      {
+        reasons.map((reason) => (
+          <div>
+            <div class="text-primary-container font-headline font-extrabold text-5xl opacity-30 mb-4">
+              {reason.number}
+            </div>
+            <h3 class="font-bold text-xl text-primary mb-3">{reason.title}</h3>
+            <p class="font-body text-on-surface-variant leading-relaxed">
+              {reason.body}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

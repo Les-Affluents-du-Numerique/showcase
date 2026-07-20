@@ -1,0 +1,60 @@
+/* Shared "orbit" diagram — a central node with four satellites on a ring, used
+   by both the hero expertise map and the team constellation. Per-variant
+   differences (satellite size, glow, label font) are exposed as CSS variables
+   set by the `.orbit--*` modifier. The background frame lives in
+   orbit-frame.css, node visuals in orbit-nodes.css, and the small-screen layout
+   in orbit-responsive.css. */
+
+.orbit {
+  position: relative;
+  width: 100%;
+  max-width: 35rem;
+  aspect-ratio: 1.04;
+  margin-inline: auto;
+  isolation: isolate;
+}
+
+.orbit--expertise {
+  --orbit-glow: 42%;
+  --orbit-node-size: 3.75rem;
+  --orbit-icon-size: 1.45rem;
+  --orbit-label-size: clamp(0.7rem, 1.4vw, 0.82rem);
+  --orbit-label-bg: 92%;
+}
+
+.orbit--team {
+  --orbit-glow: 44%;
+  --orbit-node-size: 4.75rem;
+  --orbit-label-size: 0.76rem;
+  --orbit-label-bg: 94%;
+}
+
+@media (min-width: 1024px) {
+  .orbit--team {
+    left: -2.5rem;
+  }
+}
+
+.orbit__node {
+  position: absolute;
+  width: var(--orbit-node-size);
+  height: var(--orbit-node-size);
+  transform: translate(-50%, -50%);
+}
+
+.orbit__node--top-left {
+  top: 24.5%;
+  left: 24.5%;
+}
+.orbit__node--top-right {
+  top: 24.5%;
+  left: 75.5%;
+}
+.orbit__node--bottom-left {
+  top: 75.5%;
+  left: 24.5%;
+}
+.orbit__node--bottom-right {
+  top: 75.5%;
+  left: 75.5%;
+}

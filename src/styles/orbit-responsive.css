@@ -1,0 +1,62 @@
+/* Small-screen layout for the orbit diagram: satellites tuck closer to the
+   centre and labels drop above/below their node instead of sitting beside it. */
+
+@media (max-width: 430px) {
+  .orbit {
+    aspect-ratio: 0.96;
+  }
+
+  .orbit--expertise {
+    --orbit-node-size: 3rem;
+    --orbit-icon-size: 1.2rem;
+    --orbit-label-size: 0.65rem;
+  }
+
+  .orbit--team {
+    --orbit-node-size: 3.8rem;
+    --orbit-label-size: 0.64rem;
+  }
+
+  .orbit__path {
+    width: 62%;
+    height: 62%;
+  }
+
+  .orbit__node--top-left,
+  .orbit__node--top-right {
+    top: 28%;
+  }
+  .orbit__node--bottom-left,
+  .orbit__node--bottom-right {
+    top: 72%;
+  }
+  .orbit__node--top-left,
+  .orbit__node--bottom-left {
+    left: 28%;
+  }
+  .orbit__node--top-right,
+  .orbit__node--bottom-right {
+    left: 72%;
+  }
+
+  .orbit__label,
+  .orbit__node--top-left .orbit__label,
+  .orbit__node--bottom-left .orbit__label {
+    top: calc(100% + 0.35rem);
+    right: auto;
+    left: 50%;
+    max-width: 7rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.7rem;
+    text-align: center;
+    transform: translateX(-50%);
+    white-space: normal;
+    width: max-content;
+  }
+
+  .orbit__node--top-left .orbit__label,
+  .orbit__node--top-right .orbit__label {
+    top: auto;
+    bottom: calc(100% + 0.35rem);
+  }
+}

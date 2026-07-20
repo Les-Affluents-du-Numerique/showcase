@@ -1,0 +1,82 @@
+/* ------------------------------------------------------------------ *
+ * Content styles for MDX prose (typography). Tables live in prose-tables.css
+ * ------------------------------------------------------------------ */
+
+/* Spacing around horizontal rules (separators) inside prose content */
+.prose hr {
+  margin: 2.5rem 0;
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* List rendering inside prose */
+.prose ul,
+.prose ol {
+  margin: 1rem 0 1rem 0;
+  padding-left: 1.25rem;
+}
+.prose li {
+  margin: 0.45rem 0;
+  line-height: 1.6;
+}
+.prose ul {
+  list-style-type: disc;
+}
+.prose ol {
+  list-style-type: decimal;
+}
+.prose ul ul,
+.prose ol ol,
+.prose ul ol,
+.prose ol ul {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  padding-left: 1rem;
+}
+
+/* Heading rendering inside prose (MDX content) */
+.prose h1 {
+  font-size: 2rem;
+  margin: 1.25rem 0 0.75rem;
+  line-height: 1.15;
+  font-weight: 700;
+}
+.prose h2 {
+  font-size: 1.5rem;
+  margin: 1rem 0 0.6rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+.prose h3 {
+  font-size: 1.25rem;
+  margin: 0.9rem 0 0.5rem;
+  line-height: 1.25;
+  font-weight: 700;
+}
+.prose h4 {
+  font-size: 1.1rem;
+  margin: 0.8rem 0 0.4rem;
+  font-weight: 600;
+}
+.prose h1 + p,
+.prose h2 + p {
+  margin-top: 0.25rem;
+}
+
+/* Links inside prose content and callouts */
+.prose a {
+  color: var(--color-primary, #0b2535);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+}
+.prose a:hover {
+  opacity: 0.9;
+}
+
+.callout a {
+  color: var(--color-primary, #0b2535);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 600;
+}

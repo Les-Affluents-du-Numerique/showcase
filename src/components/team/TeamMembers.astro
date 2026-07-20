@@ -1,0 +1,40 @@
+---
+import Eyebrow from "@components/Eyebrow.astro";
+import QuoteCard from "@components/QuoteCard.astro";
+import TeamMemberCard from "@components/TeamMemberCard.astro";
+import { team } from "@data/team";
+---
+
+<section id="membres" class="bg-surface-container-low py-24 md:py-32">
+  <div class="mx-auto max-w-7xl px-4 md:px-8">
+    <div
+      class="mb-14 flex flex-col justify-between gap-6 md:mb-20 md:flex-row md:items-end"
+    >
+      <div class="max-w-2xl">
+        <Eyebrow class="mb-5">Les membres</Eyebrow>
+        <h2
+          class="font-headline text-4xl font-extrabold leading-tight text-primary md:text-5xl"
+        >
+          Quatre développeurs, un relais en cas de besoin.
+        </h2>
+      </div>
+      <p class="max-w-md leading-7 text-on-surface-variant">
+        Chaque membre reste votre interlocuteur direct. En cas
+        d'indisponibilité, un autre membre peut reprendre le contexte et assurer
+        la continuité du projet.
+      </p>
+    </div>
+
+    <div class="grid items-stretch gap-8 md:grid-cols-12">
+      <TeamMemberCard {...team[0]} variant="wide" />
+      <TeamMemberCard {...team[1]} variant="tall" />
+
+      <div class="col-span-full">
+        <QuoteCard />
+      </div>
+
+      <TeamMemberCard {...team[2]} variant="tall" />
+      <TeamMemberCard {...team[3]} variant="wide" />
+    </div>
+  </div>
+</section>

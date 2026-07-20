@@ -1,0 +1,56 @@
+/* Contact form fields + submit spinner. Class names are unique to the contact
+   form, so these rules are safe to expose globally (previously scoped). */
+
+.contact-field {
+  color: var(--color-on-surface, #191c1e);
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.contact-field input,
+.contact-field select,
+.contact-field textarea {
+  appearance: none;
+  background: white;
+  border: 1px solid #c8d3d9;
+  border-radius: 0.625rem;
+  color: var(--color-on-surface, #191c1e);
+  font: inherit;
+  font-weight: 400;
+  margin-top: 0.375rem;
+  padding: 0.7rem 0.85rem;
+  width: 100%;
+}
+
+.contact-field select {
+  appearance: auto;
+}
+
+.contact-field textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+.contact-field input::placeholder,
+.contact-field textarea::placeholder {
+  color: #66757d;
+}
+
+.contact-field input:focus,
+.contact-field select:focus,
+.contact-field textarea:focus {
+  border-color: #1686a8;
+  outline: 2px solid #a7deed;
+  outline-offset: 1px;
+}
+
+.contact-spinner {
+  animation: contact-spin 0.7s linear infinite;
+}
+
+@keyframes contact-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
