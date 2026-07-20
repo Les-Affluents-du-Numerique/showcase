@@ -30,12 +30,12 @@ export const BLOG_CATEGORIES_DESCRIPTION = {
 } as const;
 
 export const SITE_DESCRIPTIONS = {
-  home: "Collectif de développeurs web indépendants en Île-de-France. Nous créons des solutions numériques sur mesure pour les TPE/PME de Paris et sa région.",
+  home: "Collectif de développeurs web indépendants en Île-de-France. Nous créons des solutions numériques sur mesure pour les entreprises de Paris et sa région.",
   team: "Découvrez notre équipe de développeurs web indépendants basés en Île-de-France. Passionnés et engagés pour vos projets numériques à Paris et en région parisienne.",
   blog: "Retrouvez nos articles sur le développement web.",
   blogCategory: BLOG_CATEGORIES_DESCRIPTION,
   blogAllCategory:
-    "Explorez nos réflexions sur l'architecture logicielle, les stratégies business et les courants technologiques qui façonnent l'avenir des PME. ",
+    "Explorez nos réflexions sur l'architecture logicielle, les stratégies business et les courants technologiques qui façonnent l'avenir des entreprises. ",
   legalNotices: "Retrouvez nos mentions légales",
   privacyPolicy: "Retrouvez notre politique de confidentialité",
 } as const;

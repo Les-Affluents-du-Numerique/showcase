@@ -6,7 +6,7 @@ Site vitrine du collectif Les Affluents du Numérique
 
 ### Qui sommes-nous ?
 
-**Les Affluents du Numérique** est un collectif d'experts indépendants en Île-de-France unis pour propulser les TPE et PME de Paris et sa région vers de nouveaux horizons technologiques.
+**Les Affluents du Numérique** est un collectif d'experts indépendants en Île-de-France unis pour propulser les entreprises de Paris et sa région — de la TPE aux structures plus établies — vers de nouveaux horizons technologiques.
 
 ### Notre Mission
 
@@ -18,7 +18,7 @@ Nous accompagnons les entreprises dans leur transformation numérique avec :
 
 ### Notre Approche
 
-Nous concevons des solutions sur mesure qui allient haute technicité et vision stratégique pour les TPE et PME ambitieuses. Chaque projet est un affluent qui rejoint le fleuve numérique de nos clients.
+Nous concevons des solutions sur mesure qui allient haute technicité et vision stratégique pour des entreprises ambitieuses de toutes tailles. Chaque projet est un affluent qui rejoint le fleuve numérique de nos clients.
 
 ### Nos Domaines d'Intervention
 
