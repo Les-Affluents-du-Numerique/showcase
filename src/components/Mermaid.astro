@@ -1,0 +1,35 @@
+---
+interface Props {
+  chart: string;
+  caption?: string;
+}
+
+const { chart, caption } = Astro.props;
+---
+
+<figure class="my-8">
+  <div
+    class="overflow-x-auto rounded-xl border border-outline-variant bg-surface-container-low p-4 md:p-6"
+  >
+    <pre class="mermaid">{chart}</pre>
+  </div>
+  {
+    caption && (
+      <figcaption class="mt-3 text-center text-sm text-on-surface-variant">
+        {caption}
+      </figcaption>
+    )
+  }
+</figure>
+
+<script>
+  import mermaid from "mermaid";
+
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: "neutral",
+    securityLevel: "strict",
+  });
+
+  mermaid.run({ querySelector: "pre.mermaid" });
+</script>
