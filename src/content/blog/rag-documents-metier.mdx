@@ -1,43 +1,70 @@
 ---
-title: "Faire parler ses documents métier grâce au RAG"
+title: "RAG en entreprise : transformer des documents métier en connaissance exploitable"
 authors: ["daniel-cadeau"]
 tags: ["intelligence-artificielle", "developpement-web"]
 description: "Retour de mission sur la conception d'une plateforme qui transforme des documents non structurés en données exploitables, grâce à une intégration raisonnée de l'IA au service du besoin métier."
 pubDate: "Jul 19 2026"
 ---
 
-Une entreprise peut accumuler des années de connaissances dans ses dossiers, comptes rendus, pièces techniques et documents administratifs, sans jamais réussir à les retrouver au bon moment. Le problème n'est pas l'absence de données. C'est la difficulté à les rendre fiables, accessibles et utiles dans le quotidien des équipes.
+import Mermaid from "../../components/Mermaid.astro";
 
-Dans le cadre d'une mission, j'ai développé une plateforme qui prend en entrée des documents non structurés et en extrait des données exploitables. L'objectif : importer des sources métier hétérogènes, en extraire le contenu utile, puis retrouver une information pertinente sans dépendre d'un classement manuel rigide.
+Une entreprise peut accumuler des années de connaissances dans ses dossiers, comptes rendus, pièces techniques et documents administratifs, sans jamais réussir à les retrouver au bon moment. Le problème n'est pas l'absence de données : c'est la difficulté à les rendre fiables, accessibles et utiles au quotidien des équipes.
+
+Dans le cadre d'une mission, j'ai conçu une plateforme qui transforme des documents non structurés en informations exploitables : importer des sources métier hétérogènes, en extraire le contenu utile, puis retrouver une réponse pertinente sans dépendre d'un classement manuel rigide.
 
 ## Partir du besoin réel, pas de la technique
 
-Une recherche classique fonctionne bien lorsqu'on connaît les termes exacts employés dans un document. En pratique, les utilisateurs posent des questions avec leur propre vocabulaire : ils cherchent une règle, un contexte, une échéance ou une procédure, même si leurs mots ne sont pas ceux du fichier d'origine. C'est là que la recherche par proximité de sens prend tout son intérêt.
+Une recherche classique fonctionne bien quand on connaît les mots exacts employés dans un document. En pratique, chacun cherche avec son propre vocabulaire : une règle, un contexte, une échéance, une procédure, même si ses mots ne sont pas ceux du fichier d'origine. C'est là que la recherche par proximité de sens (la recherche vectorielle) change la donne.
 
-L'un des principaux défis, c'est de s'imprégner du cadre et des contraintes du métier pour concevoir un flux automatisé sur mesure. Il ne s'agissait pas de brancher un modèle de langage sur un dossier de fichiers, mais de construire un parcours complet : importer et suivre les documents, structurer leur contenu, conserver le contexte utile, puis restituer une réponse appuyée sur les passages pertinents. Autrement dit, rendre les données métier suffisamment propres et traçables pour que chaque réponse puisse être vérifiée.
+Le vrai défi n'était pas de brancher un modèle de langage sur un dossier de fichiers, mais de construire un parcours complet : importer les documents, structurer leur contenu, conserver le contexte utile, puis appuyer chaque réponse sur les bons passages. Autrement dit, rendre les données métier assez propres et traçables pour que chaque réponse puisse être vérifiée.
 
 ## L'ingestion est le vrai point de départ
 
-Un système RAG fiable commence bien avant la recherche sémantique. Chaque document passe par une chaîne de traitement claire : import, extraction de texte, normalisation, découpage et enrichissement par des métadonnées.
+Un système RAG fiable se joue avant tout à l'ingestion : c'est elle qui détermine la qualité de tout ce qui suit.
 
-Le découpage mérite une attention particulière. Un document trop fragmenté perd son contexte ; des blocs trop longs rendent la recherche moins précise. Il faut trouver la granularité qui préserve le sens du passage tout en facilitant la récupération des bonnes sources.
+<Mermaid
+  chart={`flowchart TB
+    A[Documents bruts]
+    B[Nettoyage et structuration]
+    C[Découpage en passages]
+    D[Enrichissement métier]
+    E[Base de connaissance interrogeable]
+    A --> B --> C --> D --> E`}
+  caption="La chaîne d'ingestion, du document brut à la connaissance interrogeable"
+/>
 
-Les métadonnées complètent ce travail : type de document, date, domaine métier, source, droits d'accès. Elles permettent ensuite de filtrer une recherche et de donner aux équipes un résultat réellement pertinent.
+Le découpage doit préserver le sens de chaque passage, ni trop fragmenté ni trop long. Les métadonnées qui l'accompagnent (type de document, date, domaine métier, droits d'accès) permettent ensuite de filtrer une recherche et de donner aux équipes un résultat réellement pertinent.
 
 ## Une architecture pensée pour durer
 
-La plateforme s'appuie sur une API FastAPI en Python et une interface React avec TypeScript. PostgreSQL, complété par pgvector, stocke à la fois les données métier et les représentations vectorielles utilisées pour la recherche sémantique. L'ensemble est déployé dans des conteneurs Docker.
+Chaque brique a un rôle précis : une **interface** pour importer et consulter les documents, un **service** qui orchestre les traitements, une **base** qui conserve les documents et leurs représentations, un **moteur vectoriel** qui retrouve les passages les plus proches de la question posée. Quand une réponse rédigée par l'IA est nécessaire, elle s'appuie uniquement sur les extraits sélectionnés.
 
-Chaque brique a sa responsabilité : le front-end accompagne l'import et la consultation, l'API expose les flux de traitement et les règles métier, la base conserve les documents et leurs embeddings, le moteur de recherche retrouve les extraits les plus proches de la question posée. Lorsqu'une réponse augmentée par un LLM est nécessaire, le modèle reçoit uniquement les extraits sélectionnés et leur contexte. La qualité de la réponse dépend donc directement de la qualité de l'ingestion en amont.
+<Mermaid
+  chart={`flowchart TB
+    A[Question posée en langage naturel]
+    B[Recherche dans la base de connaissance]
+    C[Sélection des passages pertinents]
+    D[Réponse claire, appuyée sur les sources]
+    A --> B --> C --> D`}
+  caption="Le parcours d'une question, de la recherche à la réponse sourcée"
+/>
 
-L'enjeu se porte aussi sur l'infrastructure. Garantir l'intégration, la fiabilité et la maintenance du système, c'est ce qui apporte la stabilité nécessaire pour itérer et s'adapter aux futurs besoins qui ne manqueront pas d'émerger. C'est aussi ce qui évite le piège de la complexité accidentelle : chaque composant est là parce que le besoin le justifie, pas parce que la technologie le permet.
+Cette rigueur sur l'infrastructure n'est pas un détail : c'est elle qui apporte la stabilité nécessaire pour itérer et s'adapter aux besoins futurs, sans tomber dans le piège de la complexité accidentelle. Chaque brique est là parce que le besoin le justifie, pas parce que la technologie le permet.
+
+## Aller au-delà de la recherche de texte
+
+Un RAG classique retrouve des passages et laisse le modèle de langage rédiger une réponse. Mais certaines questions ne se répondent pas dans du texte : elles demandent d'interroger une base de gestion, de calculer un résultat, ou de croiser des séries de données pour en tirer une tendance.
+
+Sur ce type de plateforme, l'assistant peut aussi orchestrer d'autres outils selon la nature de la question : traduire une demande en requête SQL pour interroger directement une base de gestion, déléguer un calcul, ou faire appel à un module d'analyse statistique (en R, par exemple) pour dégager une tendance plutôt qu'un simple résumé. La recherche sémantique reste le point d'entrée, mais elle n'est plus la seule réponse possible.
+
+C'est cette capacité à orchestrer plusieurs outils, et pas seulement à interroger des documents, qui distingue une architecture pensée pour durer d'une simple démo de recherche augmentée.
 
 ## Le RAG ne remplace pas la maîtrise des données
 
-Une architecture RAG est utile lorsqu'elle reste au service d'un usage concret. Elle doit permettre à une personne de comprendre d'où vient une réponse, de retrouver le document source et, si besoin, de signaler un contenu incomplet ou obsolète.
+Une architecture RAG n'a de valeur que si elle reste au service d'un usage concret. Elle doit permettre à une personne de comprendre d'où vient une réponse, de retrouver le document source et, si besoin, de signaler un contenu incomplet ou obsolète.
 
-Cela implique de penser dès le début à la qualité des sources, aux droits d'accès, au cycle de vie des documents et à la conformité des flux de données. Dans cette mission, la documentation des traitements a fait partie intégrante du travail, notamment pour inscrire la plateforme dans une démarche compatible avec le RGPD.
+Cela suppose de penser, dès le départ, à la qualité des sources, aux droits d'accès, au cycle de vie des documents et à la conformité.
 
 ## Ce que cette mission confirme
 
-Pour beaucoup d'organisations, la valeur de l'IA ne réside pas dans une démonstration spectaculaire. Elle se trouve dans la capacité à exploiter plus simplement un patrimoine documentaire déjà existant. Le RAG devient alors une brique de produit : un moyen de raccourcir la recherche d'information, de mieux partager la connaissance et de construire des outils métier plus utiles. À condition de soigner l'ingestion, les sources et l'expérience de consultation, bien avant de parler de modèle de langage.
+Pour beaucoup d'organisations, la valeur de l'IA ne tient pas à une démonstration spectaculaire. Elle tient à la capacité d'exploiter enfin un patrimoine documentaire déjà là. Le RAG devient alors une brique de produit : un moyen de raccourcir la recherche d'information et de mieux partager la connaissance dans l'entreprise, à condition de soigner l'ingestion, les sources et l'expérience de consultation bien avant de parler de modèle de langage.
