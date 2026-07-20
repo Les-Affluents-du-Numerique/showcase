@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import RealisationCard from "@components/RealisationCard.astro";
+
+const rawProjects = await getCollection("realisations");
+
+const projects = rawProjects
+  .map((p) => ({
+    ...p,
+    _slug: p.id.split("/").pop() ?? p.id,
+  }))
+  // Sort descending (newest first)
+  .sort((a, b) => {
+    const aDate = a.data.startDate ? new Date(a.data.startDate).getTime() : 0;
+    const bDate = b.data.startDate ? new Date(b.data.startDate).getTime() : 0;
+    return bDate - aDate;
+  });
+---
+
+<!-- Project Gallery & Filters -->
+<section class="bg-surface-container-low py-24 px-4 md:px-8">
+  <div class="max-w-7xl mx-auto">
+    <div
+      class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8"
+    >
+      <div>
+        <h2
+          class="font-headline text-4xl font-bold text-primary mb-4 tracking-tight"
+        >
+          Galerie de projets
+        </h2>
+        <p class="text-on-surface-variant max-w-md">
+          Explorez nos dernières interventions techniques et créatives.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bento Project Grid (from content collection) -->
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {projects.map((p, idx) => <RealisationCard project={p} idx={idx} />)}
+    </div>
+  </div>
+</section>

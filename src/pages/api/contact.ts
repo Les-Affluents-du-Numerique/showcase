@@ -5,10 +5,9 @@ import { Resend } from "resend";
 const MAX_MESSAGE_LENGTH = 5_000;
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Best-effort, in-memory rate limiting. On a warm serverless instance this
-// blunts rapid automated floods from a single IP; it resets on cold starts and
-// is not shared across instances. For durable limiting, back this with a store
-// such as Upstash/Vercel KV.
+// Best-effort, in-memory rate limiting: on a warm serverless instance this
+// blunts rapid floods from a single IP. It resets on cold starts and isn't
+// shared across instances; back it with Upstash/Vercel KV for durable limits.
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1_000; // 10 minutes
 const submissions = new Map<string, number[]>();

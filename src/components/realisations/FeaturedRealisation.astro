@@ -1,0 +1,69 @@
+---
+import { Image } from "astro:assets";
+import Eyebrow from "@components/Eyebrow.astro";
+import tissecoImage from "../../assets/iphone-mockup-tisseco.webp";
+
+const stats = [
+  { value: "Depuis 2025", label: "Engagement continu" },
+  { value: "Optimisation", label: "Productivité terrain améliorée" },
+];
+---
+
+<!-- Featured Case Study (Tisseco) -->
+<section
+  class="py-24 md:py-36 px-4 md:px-8 overflow-hidden bg-primary text-on-primary"
+>
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      <div class="relative">
+        <div
+          class="absolute -top-10 -left-10 w-40 h-40 bg-surface-tint opacity-20 rounded-full blur-3xl"
+          aria-hidden="true"
+        >
+        </div>
+        <Image
+          alt="Tisseco Solidaire — aperçu"
+          class="rounded-xl shadow-2xl relative z-10 w-full object-cover aspect-[4/3]"
+          src={tissecoImage}
+        />
+      </div>
+      <div>
+        <Eyebrow tone="inverse" class="mb-6">Étude de cas</Eyebrow>
+        <h2
+          class="font-headline text-4xl md:text-5xl font-extrabold mb-8 leading-tight tracking-tight"
+        >
+          Tisseco Solidaire — Planification et suivi des tournées
+        </h2>
+        <div
+          class="space-y-6 text-on-primary/80 font-body text-lg leading-relaxed"
+        >
+          <p>
+            Création d'une solution métier pour la planification et le suivi des
+            tournées, avec une application mobile pour les chauffeurs et une
+            architecture résiliente hors-ligne.
+          </p>
+          <p>
+            Architecture PWA, gestion géospatiale via PostGIS, et
+            synchronisation différée pour les zones à faible couverture réseau.
+          </p>
+        </div>
+        <div
+          class="mt-10 grid lg:grid-cols-2 gap-8 py-8 border-y border-white/10"
+        >
+          {
+            stats.map((stat) => (
+              <div>
+                <p class="text-3xl font-bold mb-1">{stat.value}</p>
+                <p class="text-on-primary/70 text-sm">{stat.label}</p>
+              </div>
+            ))
+          }
+        </div>
+        <a
+          class="mt-12 inline-block px-8 py-4 bg-surface-container-lowest text-primary rounded-lg font-bold hover:scale-105 transition-all"
+          href="/realisations/tisseco">Lire l'étude complète</a
+        >
+      </div>
+    </div>
+  </div>
+</section>

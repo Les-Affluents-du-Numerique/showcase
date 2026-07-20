@@ -3,6 +3,8 @@ export const prerender = true;
 
 import Layout from "@layouts/Layout.astro";
 import { SITE_DESCRIPTIONS, SITE_TITLES } from "../consts";
+import LegalNotice from "@components/legal/LegalNotice.astro";
+import PrivacyPolicy from "@components/legal/PrivacyPolicy.astro";
 
 const siteTitle = SITE_TITLES.legalNotices;
 const siteDescription = SITE_DESCRIPTIONS.legalNotices;
@@ -13,145 +15,7 @@ const siteDescription = SITE_DESCRIPTIONS.legalNotices;
     id="main-content"
     class="!pt-40 md:!pt-32 px-6 md:px-8 max-w-4xl mx-auto"
   >
-    <h1 class="font-headline text-4xl font-extrabold mb-6">Mentions Légales</h1>
-
-    <p class="text-sm text-on-surface-variant mb-6">
-      Dernière mise à jour : Juillet 2026
-    </p>
-
-    <h2 class="font-bold text-xl mt-6">1. Éditeur du site</h2>
-    <p>Le présent site est édité par :</p>
-    <p class="mb-4">Les Affluents du Numérique — collectif d'indépendants</p>
-
-    <h2 class="font-bold text-xl mt-6">2. Responsable de publication</h2>
-    <p class="mb-4">
-      <a
-        class="text-primary font-medium"
-        href="mailto:contact@lesaffluentsdunumerique.fr"
-        >contact@lesaffluentsdunumerique.fr</a
-      >
-    </p>
-
-    <h2 class="font-bold text-xl mt-6">3. Hébergement</h2>
-    <p class="mb-4">
-      Le site est hébergé par Vercel, dont le siège social est situé à 340 S
-      Lemon Ave #4133 Walnut, CA 91789, États‑Unis).
-    </p>
-
-    <h2 class="font-bold text-xl mt-6">
-      4. Nom de domaine et services techniques
-    </h2>
-    <p class="mb-4">
-      Le nom de domaine est enregistré auprès de OVH, dont le siège social est
-      situé à 2 rue Kellermann, 59100 Roubaix, France.
-    </p>
-
-    <h2 class="font-bold text-xl mt-6">5. Prestataires techniques</h2>
-    <p class="mb-4">
-      Le site peut faire appel à des prestataires techniques pour son
-      fonctionnement, notamment l'hébergement applicatif (Vercel). Ces
-      prestataires peuvent, dans le cadre strict de leur mission, traiter
-      certaines données techniques nécessaires au fonctionnement du service.
-    </p>
-
-    <h2 class="font-bold text-xl mt-6">6. Propriété intellectuelle</h2>
-    <p class="mb-4">
-      L’ensemble du site (textes, code, design, éléments graphiques, structure)
-      est protégé par le droit de la propriété intellectuelle. Toute
-      reproduction, représentation, modification ou exploitation sans
-      autorisation préalable est interdite.
-    </p>
-    <h2 class="font-bold text-xl mt-6">7. Limitation de responsabilité</h2>
-    <p class="mb-4">
-      L’éditeur s’efforce de fournir des informations fiables, mais ne saurait
-      garantir l’exactitude, la complétude ou l’actualité des informations
-      diffusées.
-    </p>
-
-    <hr class="my-8" />
-
-    <h2 class="font-headline text-2xl font-extrabold mb-4">
-      POLITIQUE DE CONFIDENTIALITÉ (RGPD)
-    </h2>
-    <p class="mb-4">Responsables du traitement :</p>
-    <ul class="list-disc pl-6 mb-4">
-      <li>Daniel Cadeau EI</li>
-      <li>François Verin EI</li>
-      <li>Christopher Debray EI</li>
-      <li>Jordan Mombongo EI</li>
-    </ul>
-
-    <h3 class="font-bold text-lg mt-4">1. Données collectées</h3>
-    <p class="mb-4">
-      Dans le cadre de l’utilisation du site, aucune donnée n'est collectée
-      automatiquement. Le formulaire de contact recueille le nom, l'adresse
-      e-mail et le message que vous choisissez de nous transmettre.
-    </p>
-
-    <h3 class="font-bold text-lg mt-4">2. Finalité du traitement</h3>
-    <p class="mb-4">Les données sont collectées uniquement pour :</p>
-    <ul class="list-disc pl-6 mb-4">
-      <li>la gestion des demandes de contact</li>
-      <li>la communication liée aux prestations proposées</li>
-      <li>le suivi de la relation client</li>
-    </ul>
-
-    <h3 class="font-bold text-lg mt-4">3. Base légale</h3>
-    <p class="mb-4">
-      Le traitement repose sur l’intérêt légitime pour répondre aux demandes de
-      contact. Certains transferts peuvent être effectués hors UE via des
-      prestataires tiers et sont encadrés par des garanties appropriées.
-    </p>
-
-    <h3 class="font-bold text-lg mt-4">4. Prestataire d'envoi</h3>
-    <p class="mb-4">
-      Les messages du formulaire sont transmis par Resend, notre prestataire
-      d'envoi d'e-mails transactionnels. Ils sont utilisés uniquement pour
-      acheminer votre demande vers notre boîte de réception. Resend peut traiter
-      ces données en dehors de l'Union européenne, avec les garanties prévues
-      par sa documentation et les mécanismes applicables de protection des
-      données.
-    </p>
-
-    <h3 class="font-bold text-lg mt-4">5. Sécurité</h3>
-    <p class="mb-4">
-      Des mesures techniques et organisationnelles sont mises en place afin de
-      protéger les données personnelles contre toute perte, accès non autorisé
-      ou divulgation.
-    </p>
-
-    <h3 class="font-bold text-lg mt-4">6. Droits des utilisateurs</h3>
-    <p class="mb-4">
-      Conformément au RGPD, vous disposez des droits d’accès, rectification,
-      suppression, limitation et opposition. Vous pouvez exercer ces droits à
-      l'adresse suivante : <a
-        class="text-primary font-medium"
-        href="mailto:contact@lesaffluentsdunumerique.fr"
-        >contact@lesaffluentsdunumerique.fr</a
-      >
-    </p>
-
-    <h3 class="font-bold text-lg mt-4">7. Cookies</h3>
-    <p class="mb-4">
-      Le site peut utiliser des cookies strictement nécessaires à son
-      fonctionnement (sécurité, gestion de session). Aucun cookie publicitaire
-      ou de suivi n'est utilisé.
-    </p>
-
-    <h3 class="font-bold text-lg mt-4">8. Contact</h3>
-    <p class="mb-8">
-      Pour toute question concernant la protection des données : <a
-        class="text-primary font-medium"
-        href="mailto:contact@lesaffluentsdunumerique.fr"
-        >contact@lesaffluentsdunumerique.fr</a
-      >
-    </p>
-
-    <p class="text-sm text-on-surface-variant">
-      Vous disposez également du droit d’introduire une réclamation auprès de la
-      CNIL : <a href="https://www.cnil.fr" class="text-primary"
-        >https://www.cnil.fr</a
-      >
-    </p>
+    <LegalNotice />
+    <PrivacyPolicy />
   </main>
 </Layout>

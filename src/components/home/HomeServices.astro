@@ -1,0 +1,30 @@
+---
+import ServiceWebDev from "@components/home/ServiceWebDev.astro";
+import ServiceBusiness from "@components/home/ServiceBusiness.astro";
+import ServiceBlog from "@components/home/ServiceBlog.astro";
+import ServiceFlexibility from "@components/home/ServiceFlexibility.astro";
+---
+
+<section class="py-28 md:py-36 bg-surface-container-low">
+  <div class="max-w-7xl mx-auto px-4 md:px-8">
+    <div class="mb-16">
+      <h2 class="font-headline font-bold text-4xl text-primary mb-4">
+        Nos expertises convergentes
+      </h2>
+      <p class="font-body text-on-surface-variant max-w-2xl text-lg">
+        Nous accompagnons les entreprises d'Île-de-France dans l'ensemble du
+        cycle de vie de leurs produits numériques avec une approche rigoureuse.
+      </p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+      <!-- Web Dev -->
+      <ServiceWebDev />
+      <!-- Business First -->
+      <ServiceBusiness />
+      <!-- Blog -->
+      <ServiceBlog />
+      <!-- Flexibility -->
+      <ServiceFlexibility />
+    </div>
+  </div>
+</section>

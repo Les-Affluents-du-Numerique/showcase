@@ -1,0 +1,30 @@
+/* Tables inside prose content (MDX) */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.prose th,
+.prose td {
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 0.75rem 0.9rem;
+  vertical-align: top;
+  text-align: left;
+}
+.prose thead th {
+  background: rgba(0, 51, 88, 0.06);
+  font-weight: 700;
+}
+.prose tbody tr:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.01);
+}
+.prose tbody tr:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+.prose table code {
+  background: transparent;
+  padding: 0;
+}

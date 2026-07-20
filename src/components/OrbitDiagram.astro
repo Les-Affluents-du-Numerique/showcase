@@ -1,0 +1,57 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import "../styles/orbit.css";
+import "../styles/orbit-frame.css";
+import "../styles/orbit-nodes.css";
+import "../styles/orbit-responsive.css";
+
+export interface OrbitNode {
+  /** Text shown in the chip beside the node (expertise name or member name). */
+  label: string;
+  /** Material Symbols glyph for the `expertise` variant. */
+  icon?: string;
+  /** Portrait for the `team` variant. */
+  image?: ImageMetadata;
+}
+
+interface Props {
+  variant: "expertise" | "team";
+  ariaLabel: string;
+  nodes: OrbitNode[];
+}
+
+const { variant, ariaLabel, nodes } = Astro.props;
+const positions = ["top-left", "top-right", "bottom-left", "bottom-right"];
+---
+
+<div class={`orbit orbit--${variant}`} role="img" aria-label={ariaLabel}>
+  <div class="orbit__texture" aria-hidden="true"></div>
+  <div class="orbit__path" aria-hidden="true"></div>
+
+  <div class="orbit__center" aria-hidden="true">
+    <span class="material-symbols-outlined">waves</span>
+  </div>
+
+  {
+    nodes.map((node, index) => (
+      <div class={`orbit__node orbit__node--${positions[index]}`}>
+        {node.image ? (
+          <div class="orbit__portrait">
+            <Image
+              src={node.image}
+              alt={`Portrait de ${node.label}`}
+              class="h-full w-full object-cover object-top"
+              widths={[160, 240]}
+              sizes="80px"
+            />
+          </div>
+        ) : (
+          // prettier-ignore
+          <span class="orbit__icon material-symbols-outlined" aria-hidden="true">{node.icon}</span>
+        )}
+        <span class="orbit__label">{node.label}</span>
+      </div>
+    ))
+  }
+</div>

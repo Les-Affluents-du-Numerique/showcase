@@ -1,0 +1,93 @@
+---
+import ContactSubmit from "@components/contact/ContactSubmit.astro";
+
+const projectTypes = [
+  "Créer un outil web",
+  "Refondre un site ou une application",
+  "Automatiser des processus",
+  "Conseil / autre besoin",
+];
+
+const budgets = [
+  "Je ne sais pas encore",
+  "Moins de 5 000 €",
+  "Entre 5 000 et 15 000 €",
+  "Plus de 15 000 €",
+];
+---
+
+<form class="contact-form p-5 sm:p-8" action="/api/contact" method="post">
+  <div class="grid gap-4 sm:grid-cols-2">
+    <label class="contact-field">
+      Votre nom
+      <input
+        name="name"
+        type="text"
+        required
+        autocomplete="name"
+        maxlength="100"
+        placeholder="Marie Dupont"
+      />
+    </label>
+    <label class="contact-field">
+      E-mail
+      <input
+        name="email"
+        type="email"
+        required
+        autocomplete="email"
+        maxlength="254"
+        placeholder="marie@entreprise.fr"
+      />
+    </label>
+    <label class="contact-field">
+      Entreprise <span class="font-normal text-on-surface-variant"
+        >(facultatif)</span
+      >
+      <input
+        name="company"
+        type="text"
+        autocomplete="organization"
+        maxlength="150"
+        placeholder="Nom de votre structure"
+      />
+    </label>
+    <label class="contact-field">
+      Votre besoin
+      <select name="projectType">
+        {projectTypes.map((type) => <option value={type}>{type}</option>)}
+      </select>
+    </label>
+  </div>
+  <label class="contact-field mt-4 block">
+    Budget envisagé <span class="font-normal text-on-surface-variant"
+      >(facultatif)</span
+    >
+    <select name="budget">
+      {budgets.map((budget) => <option value={budget}>{budget}</option>)}
+    </select>
+  </label>
+  <label class="contact-field mt-4 block">
+    Votre projet en quelques lignes
+    <textarea
+      name="message"
+      required
+      rows="4"
+      minlength="10"
+      maxlength="5000"
+      placeholder="Contexte, besoin, échéance…"></textarea>
+  </label>
+
+  <div class="absolute -left-[9999px]" aria-hidden="true">
+    <label for="contact-website">Site internet</label>
+    <input
+      id="contact-website"
+      name="website"
+      type="text"
+      tabindex="-1"
+      autocomplete="off"
+    />
+  </div>
+
+  <ContactSubmit />
+</form>

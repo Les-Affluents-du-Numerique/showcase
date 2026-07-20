@@ -1,0 +1,65 @@
+/* Background frame of the orbit diagram: the hatched texture, the soft glow,
+   the ring the satellites sit on, and the central "waves" badge. */
+
+.orbit__texture {
+  position: absolute;
+  inset: 2%;
+  z-index: -2;
+  background-image: repeating-linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--color-primary) 5%, transparent) 0,
+    color-mix(in srgb, var(--color-primary) 5%, transparent) 1px,
+    transparent 1px,
+    transparent 8px
+  );
+  mask-image: radial-gradient(ellipse at center, black 12%, transparent 72%);
+}
+
+.orbit::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: var(--orbit-glow);
+  height: var(--orbit-glow);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-primary-fixed) 58%, transparent);
+  filter: blur(2.8rem);
+  content: "";
+}
+
+.orbit__path {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: 72%;
+  height: 72%;
+  transform: translate(-50%, -50%);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 17%, transparent);
+  border-radius: 50%;
+}
+
+.orbit__center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: clamp(5.8rem, 19%, 6.8rem);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 24%, transparent);
+  border-radius: 1.4rem;
+  background: var(--color-surface-container-lowest);
+  color: var(--color-primary);
+  box-shadow:
+    0 1.2rem 2.8rem color-mix(in srgb, var(--color-primary) 12%, transparent),
+    0 0 2.5rem
+      color-mix(in srgb, var(--color-primary-fixed-dim) 42%, transparent);
+}
+
+.orbit__center > .material-symbols-outlined {
+  font-size: 2.15rem;
+}

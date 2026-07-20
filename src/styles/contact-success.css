@@ -1,0 +1,67 @@
+/* Contact success panel — reveal + animated check mark. */
+
+.contact-success.is-visible {
+  display: flex;
+  animation: contact-fade-in 0.35s ease both;
+}
+
+@keyframes contact-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.contact-success-badge {
+  display: inline-flex;
+  height: 4.5rem;
+  width: 4.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #e4f6ec;
+}
+
+.contact-success-check {
+  height: 3rem;
+  width: 3rem;
+}
+
+.contact-success-ring {
+  fill: none;
+  stroke: #1c9e63;
+  stroke-width: 2.5;
+  stroke-dasharray: 151;
+  stroke-dashoffset: 151;
+  animation: contact-draw 0.5s ease-out 0.05s forwards;
+}
+
+.contact-success-tick {
+  stroke: #1c9e63;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  animation: contact-draw 0.35s ease-out 0.4s forwards;
+}
+
+@keyframes contact-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-spinner,
+  .contact-success.is-visible,
+  .contact-success-ring,
+  .contact-success-tick {
+    animation-duration: 0.01ms;
+    animation-delay: 0ms;
+  }
+}
