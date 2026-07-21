@@ -1,0 +1,169 @@
+---
+title: "Plateforme d'extraction documentaire"
+authors: ["daniel-cadeau"]
+description: "Création d'une plateforme d'extraction et d'anonymisation de documents, propulsée par l'OCR et les LLM."
+startDate: 2026-06-01
+endDate: 2026-08-01
+hero: "../../assets/hero-mockup-extraction-documentaire.webp"
+heroAlt: "Mockups de la plateforme : tableau de bord, import de documents et assistant conversationnel"
+tech:
+  - FastAPI
+  - PostgreSQL
+  - React
+  - LLM
+  - RAG
+  - OCR
+  - Docker
+---
+
+## **CONTEXTE ET ENJEUX**
+
+<br />
+### **Le projet**
+
+Un acteur du secteur de la santé souhaitait valoriser le contenu de ses comptes rendus médicaux (PDF, scans, tableurs) pour constituer des bases de données structurées, exploitables à des fins d'analyse et de recherche. Le produit, actuellement en phase d'incubation, transforme des documents hétérogènes en données médicales prêtes à l'emploi, avec la confidentialité au cœur de la conception.
+
+<br />
+
+### **Les défis initiaux**
+
+- L'extraction des variables médicales se faisait à la main, document par document, avec un risque d'erreur élevé et un coût humain important.
+- Des documents sensibles, qui imposent d'intégrer la protection des données au cœur du produit plutôt que de la traiter après coup.
+- Sur des données médicales, chaque valeur extraite par l'IA doit pouvoir être vérifiée et validée par un humain avant d'intégrer la base.
+
+---
+
+## **Solution mise en œuvre**
+
+<br />
+### **1. Un pipeline d'extraction automatisé**
+
+<br />
+**Problématique :**
+
+Transformer des documents bruts et hétérogènes en variables médicales structurées.
+
+<br />
+**Solutions clés :**
+
+- Prise en charge des PDF, scans et tableurs.
+- L'OCR et les LLM en extraient automatiquement les variables attendues, selon les besoins définis par chaque structure.
+
+<br />
+**Résultats :**
+
+- Le document importé ressort en variables structurées, sans ressaisie.
+- Chaque structure définit ses propres types de documents et variables à extraire.
+
+---
+
+### **2. Anonymisation intégrée au flux**
+
+<br />
+**Problématique :**
+
+Concilier IA générative et données personnelles.
+
+<br />
+**Solutions clés :**
+
+- L'anonymisation fait partie intégrante du flux de traitement, pas d'une étape optionnelle.
+
+<br />
+**Résultats :**
+
+- Le meilleur des deux mondes : la puissance de l'IA générative, la maîtrise des données personnelles.
+- Un choix d'architecture qui prépare le terrain pour les démarches réglementaires du produit.
+
+---
+
+### **3. Validation humaine assistée**
+
+<br />
+**Problématique :**
+
+Garantir la qualité des données extraites par l'IA avant leur intégration dans les bases d'analyse.
+
+<br />
+**Solutions clés :**
+
+- Chaque extraction passe par un reviewer humain, qui valide ou corrige.
+- L'outil concentre son attention là où elle compte.
+
+<br />
+**Résultats :**
+
+- Aucune valeur n'intègre la base sans validation humaine.
+- Le reviewer contrôle au lieu de tout saisir.
+
+---
+
+### **4. Interroger ses documents en langage naturel**
+
+<br />
+**Problématique :**
+
+Retrouver une information dans des centaines de documents, sans en connaître les termes exacts.
+
+<br />
+**Solutions clés :**
+
+- Les contenus anonymisés sont vectorisés pour permettre une recherche par proximité de sens.
+- Un assistant conversationnel, en beta, s'appuie sur cette base pour répondre aux questions posées en langage courant (RAG).
+
+<br />
+**Résultats :**
+
+- Une brique qui s'affine au fil de l'incubation, nourrie par les retours des premiers utilisateurs.
+- Une approche explorée plus largement dans notre article [Faire parler ses documents métier grâce au RAG](/blog/posts/rag-documents-metier).
+
+---
+
+## **STACK TECHNIQUE**
+
+<br />
+- **Backend :** FastAPI, PostgreSQL
+- **Frontend :** React, TypeScript, Tailwind CSS
+- **IA :** LLM, RAG, recherche vectorielle, NER, OCR
+- **Sécurité :** Chiffrement, 2FA, RBAC, journal d'audit
+- **Infrastructure :** Docker
+- **Tests :** Pytest, CI/CD
+
+---
+
+## **MÉTHODOLOGIE**
+
+<br />
+**Approche produit :**
+
+- Séparation stricte entre règles métier, cas d'usage et infrastructure, pour un produit qui grandit sereinement dès l'incubation.
+- Livraisons itératives : déploiement progressif par modules, tests automatisés systématiques.
+- Un accompagnement pensé sur la durée : chaque brique se consolide avec les retours du terrain, au rythme du cycle de vie du produit.
+
+---
+
+## **IMPACT ATTENDU**
+
+<br />
+Le produit est en phase d'incubation : dans ce secteur, la mise en service
+prend le temps qu'elle mérite. Les bénéfices visés :
+
+<br />
+**Pour les utilisateurs :**
+
+- Une revue guidée des extractions qui remplacerait des heures de saisie manuelle.
+- Import, extraction, revue et export réunis dans une interface unique.
+  <br />
+
+**Pour la structure :**
+
+- Des comptes rendus dormants qui deviendraient des bases structurées et exploitables.
+- Une plateforme dimensionnée pour absorber des volumes croissants de documents.
+  <br />
+
+**Pour l'équipe technique :**
+
+- Architecture documentée et couverte par les tests.
+- Une stack IA moderne au service d'un cas d'usage médical concret.
+
+---
