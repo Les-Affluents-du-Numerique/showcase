@@ -1,12 +1,14 @@
-/* Material Symbols Outlined - optimized with font-display: swap */
+/* Material Symbols Outlined — subset limité aux 20 icônes du site (4,4 Ko au lieu de 483 Ko).
+   Régénérer avec fonttools si de nouvelles icônes sont ajoutées (voir README).
+   Fichier en public/fonts/ pour une URL stable, préchargée dans BaseHead. */
 @font-face {
   font-family: "Material Symbols Outlined";
   font-style: normal;
   font-weight: 400;
-  /* `block` avoids briefly flashing the ligature text (e.g. "arrow_forward")
-     before the icon font loads, now that it is no longer preloaded. */
+  /* `block` évite le flash du texte de ligature (ex. "arrow_forward") ;
+     le subset préchargé arrive avant la fin du délai de blocage. */
   font-display: block;
-  src: url("../assets/fonts/material-symbols-outlined.woff2") format("woff2");
+  src: url("/fonts/material-symbols-subset.woff2") format("woff2");
 }
 
 .material-symbols-outlined {

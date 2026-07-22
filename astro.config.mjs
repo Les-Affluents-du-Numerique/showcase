@@ -38,7 +38,9 @@ export default defineConfig({
   integrations: [mdx(), sitemap()],
 
   build: {
-    inlineStylesheets: 'auto',
+    // 'always' : tout le CSS est inliné dans le HTML — supprime les requêtes
+    // CSS bloquantes signalées par PageSpeed (~2,7 s économisées sur mobile).
+    inlineStylesheets: 'always',
   },
 
   compressHTML: true,

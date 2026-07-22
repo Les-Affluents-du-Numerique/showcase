@@ -139,3 +139,16 @@ Pour toute question ou problème, contactez-nous à [contact@lesaffluentsdunumer
 ---
 
 © 2026 Les Affluents du Numérique. Tous droits réservés.
+
+## Police d'icônes (Material Symbols)
+
+`public/fonts/material-symbols-subset.woff2` est un subset (~4 Ko) de
+`src/assets/fonts/material-symbols-outlined.woff2` (483 Ko), limité aux icônes
+réellement utilisées. **Si vous ajoutez une nouvelle icône**, régénérez le subset :
+
+```bash
+pip install fonttools brotli uharfbuzz
+python3 scripts/subset-icons.py
+```
+
+Le script détecte automatiquement les icônes utilisées dans `src/`.

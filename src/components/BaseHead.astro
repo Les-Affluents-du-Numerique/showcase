@@ -32,8 +32,15 @@ const { title, description, image = FallbackImage } = Astro.props;
 />
 <meta name="generator" content={Astro.generator} />
 
-<!-- Canonical URL -->
-<Font cssVariable="--font-atkinson" />
+<!-- Fonts: préchargement pour éviter le délai de rendu du texte et des icônes -->
+<Font cssVariable="--font-atkinson" preload />
+<link
+  rel="preload"
+  href="/fonts/material-symbols-subset.woff2"
+  as="font"
+  type="font/woff2"
+  crossorigin
+/>
 
 <link rel="canonical" href={canonicalURL} />
 
