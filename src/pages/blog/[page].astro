@@ -20,7 +20,9 @@ export const getStaticPaths = (async ({ paginate }) => {
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
   );
 
-  return paginate(postsSorted, { pageSize: 4 });
+  // `/blog/` is the canonical first page. Only generate page 2 and above here
+  // so `/blog/1/` cannot become a duplicate URL or leak into the sitemap.
+  return paginate(postsSorted, { pageSize: 4 }).slice(1);
 }) satisfies GetStaticPaths;
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;

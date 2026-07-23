@@ -20,12 +20,14 @@ export const getStaticPaths = (async ({ paginate }) => {
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
   );
 
-  // Paginate per-tag to generate /blog/<tag>/1, /blog/<tag>/2, etc.
+  // The tag index route is the canonical first page. Only generate page 2 and
+  // above here; slicing also prevents empty tags from producing a phantom
+  // `/blog/<tag>/1/` route that would otherwise leak into the sitemap.
   return (Object.keys(POST_TAGS_ENUM) as PostTagKey[]).flatMap((tag) => {
     const filtered = postsSorted.filter((p) =>
       (p.data.tags ?? []).includes(tag),
     );
-    return paginate(filtered, { pageSize: 4, params: { tag } });
+    return paginate(filtered, { pageSize: 4, params: { tag } }).slice(1);
   });
 }) satisfies GetStaticPaths;
 
