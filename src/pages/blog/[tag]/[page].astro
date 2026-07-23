@@ -2,12 +2,12 @@
 export const prerender = true;
 
 import { getCollection } from "astro:content";
-import { type GetStaticPaths, type InferGetStaticPropsType } from "astro";
+import { type GetStaticPaths } from "astro";
 
 import BlogListLayout from "@layouts/BlogListLayout.astro";
+import { getIndexableBlogCategories } from "@lib/blog";
 
 import {
-  POST_TAGS_ENUM,
   type PostTagKey,
   SITE_DESCRIPTIONS,
   SITE_TITLES,
@@ -23,7 +23,7 @@ export const getStaticPaths = (async ({ paginate }) => {
   // The tag index route is the canonical first page. Only generate page 2 and
   // above here; slicing also prevents empty tags from producing a phantom
   // `/blog/<tag>/1/` route that would otherwise leak into the sitemap.
-  return (Object.keys(POST_TAGS_ENUM) as PostTagKey[]).flatMap((tag) => {
+  return getIndexableBlogCategories(posts).flatMap(([tag]) => {
     const filtered = postsSorted.filter((p) =>
       (p.data.tags ?? []).includes(tag),
     );
@@ -31,14 +31,11 @@ export const getStaticPaths = (async ({ paginate }) => {
   });
 }) satisfies GetStaticPaths;
 
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { page } = Astro.props;
 const tag = Astro.params.tag as PostTagKey;
 
 const allPosts = await getCollection("blog");
-const availableTagEntries = Object.entries(POST_TAGS_ENUM).filter(([key]) =>
-  allPosts.some((post) => (post.data.tags ?? []).includes(key as PostTagKey)),
-);
+const availableTagEntries = getIndexableBlogCategories(allPosts);
 ---
 
 <BlogListLayout

@@ -25,6 +25,12 @@ const { Content } = await render(project);
 <Layout
   title={`Les Affluents du Numérique - ${project.data.title}`}
   description={project.data.description}
+  image={project.data.hero}
+  imageAlt={project.data.heroAlt ?? project.data.title}
+  pageType="case-study"
+  contentTitle={project.data.title}
+  publishedDate={project.data.startDate}
+  authors={project.data.authors}
 >
   <main id="main-content" class="!pt-40 md:!pt-32">
     <section class="max-w-4xl mx-auto px-4 md:px-8 mb-16">

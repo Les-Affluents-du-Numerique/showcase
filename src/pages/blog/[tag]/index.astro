@@ -4,9 +4,9 @@ export const prerender = true;
 import { getCollection } from "astro:content";
 
 import BlogListLayout from "@layouts/BlogListLayout.astro";
+import { getIndexableBlogCategories } from "@lib/blog";
 
 import {
-  POST_TAGS_ENUM,
   type PostTagKey,
   SITE_DESCRIPTIONS,
   SITE_TITLES,
@@ -14,9 +14,7 @@ import {
 
 export const getStaticPaths = async () => {
   const posts = await getCollection("blog");
-  const tags = (Object.keys(POST_TAGS_ENUM) as PostTagKey[]).filter((tag) =>
-    posts.some((p) => (p.data.tags ?? []).includes(tag)),
-  );
+  const tags = getIndexableBlogCategories(posts).map(([tag]) => tag);
   return tags.map((tag) => ({ params: { tag } }));
 };
 
@@ -27,9 +25,7 @@ const postsSorted = allPosts.sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
-const availableTagEntries = Object.entries(POST_TAGS_ENUM).filter(([key]) =>
-  allPosts.some((post) => (post.data.tags ?? []).includes(key as PostTagKey)),
-);
+const availableTagEntries = getIndexableBlogCategories(allPosts);
 
 const PAGE_SIZE = 4;
 const filtered = postsSorted.filter((p) => (p.data.tags ?? []).includes(tag));

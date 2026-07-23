@@ -2,16 +2,12 @@
 export const prerender = true;
 
 import { getCollection } from "astro:content";
-import { type GetStaticPaths, type InferGetStaticPropsType } from "astro";
+import { type GetStaticPaths } from "astro";
 
 import BlogListLayout from "@layouts/BlogListLayout.astro";
+import { getIndexableBlogCategories } from "@lib/blog";
 
-import {
-  POST_TAGS_ENUM,
-  type PostTagKey,
-  SITE_DESCRIPTIONS,
-  SITE_TITLES,
-} from "../../consts";
+import { SITE_DESCRIPTIONS, SITE_TITLES } from "../../consts";
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = await getCollection("blog");
@@ -25,13 +21,10 @@ export const getStaticPaths = (async ({ paginate }) => {
   return paginate(postsSorted, { pageSize: 4 }).slice(1);
 }) satisfies GetStaticPaths;
 
-type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { page } = Astro.props;
 
 const allPosts = await getCollection("blog");
-const availableTagEntries = Object.entries(POST_TAGS_ENUM).filter(([key]) =>
-  allPosts.some((post) => (post.data.tags ?? []).includes(key as PostTagKey)),
-);
+const availableTagEntries = getIndexableBlogCategories(allPosts);
 ---
 
 <BlogListLayout

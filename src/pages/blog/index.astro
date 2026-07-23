@@ -3,13 +3,9 @@ export const prerender = true;
 
 import { getCollection } from "astro:content";
 import BlogListLayout from "@layouts/BlogListLayout.astro";
+import { getIndexableBlogCategories } from "@lib/blog";
 
-import {
-  POST_TAGS_ENUM,
-  type PostTagKey,
-  SITE_DESCRIPTIONS,
-  SITE_TITLES,
-} from "../../consts";
+import { SITE_DESCRIPTIONS, SITE_TITLES } from "../../consts";
 
 const siteTitle = SITE_TITLES.blog;
 const siteDescription = SITE_DESCRIPTIONS.blogAllCategory;
@@ -19,9 +15,7 @@ const postsSorted = allPosts.sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
-const availableTagEntries = Object.entries(POST_TAGS_ENUM).filter(([key]) =>
-  allPosts.some((post) => (post.data.tags ?? []).includes(key as PostTagKey)),
-);
+const availableTagEntries = getIndexableBlogCategories(allPosts);
 
 const PAGE_SIZE = 4;
 const pageCurrent = 1;
