@@ -19,12 +19,14 @@ const navLinks = [
       class="text-lg lg:text-xl font-bold tracking-tighter text-primary font-headline flex flex-row items-center gap-2"
       aria-label="Accueil"
     >
+      <!-- La glyphe Material Symbols est dessinée sous la ligne de base :
+           `items-center` centre la boîte, pas le dessin. D'où le décalage optique. -->
       <span
-        class="material-symbols-outlined text-3xl lg:text-4xl text-primary-container"
+        class="material-symbols-outlined text-3xl lg:text-4xl text-primary-container -translate-y-[0.06em]"
         data-icon="waves"
         aria-hidden="true">waves</span
       >
-      <span>{SITE_TITLE}</span>
+      <span class="leading-none">{SITE_TITLE}</span>
     </a>
     <div class="hidden lg:flex items-center gap-8">
       {
