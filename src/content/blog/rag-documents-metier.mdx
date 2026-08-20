@@ -2,25 +2,25 @@
 title: "RAG en entreprise : transformer des documents métier en connaissance exploitable"
 authors: ["daniel-cadeau"]
 tags: ["intelligence-artificielle", "developpement-web"]
-description: "Retour de mission sur la conception d'une plateforme qui transforme des documents non structurés en données exploitables, grâce à une intégration raisonnée de l'IA au service du besoin métier."
+description: "Fonctionnement d'une plateforme RAG pour exploiter des documents non structurés : ingestion, vectorisation, recherche sémantique, génération de réponses sourcées."
 pubDate: "Jul 19 2026"
 ---
 
 import Mermaid from "../../components/Mermaid.astro";
 
-Une entreprise peut accumuler des années de connaissances dans ses dossiers, comptes rendus, pièces techniques et documents administratifs, sans jamais réussir à les retrouver au bon moment. Le problème n'est pas l'absence de données : c'est la difficulté à les rendre fiables, accessibles et utiles au quotidien des équipes.
+Dans beaucoup d'entreprises, les documents non structurés s'accumulent : notes, comptes rendus, documents administratifs. Une recherche plein texte ne trouve que les mots exacts. Si la question n'emploie pas le même vocabulaire que le document, on passe à côté.
 
-Dans le cadre d'une mission, j'ai conçu une plateforme qui transforme des documents non structurés en informations exploitables : importer des sources métier hétérogènes, en extraire le contenu utile, puis retrouver une réponse pertinente sans dépendre d'un classement manuel rigide.
+Le RAG (Retrieval-Augmented Generation) combine deux choses : retrouver des passages pertinents dans une base documentaire, puis demander à un modèle de langage de rédiger une réponse à partir de ces extraits. Le modèle ne répond pas de mémoire, il s'appuie sur des sources identifiées.
 
-## Partir du besoin réel, pas de la technique
+## Recherche sémantique
 
-Une recherche classique fonctionne bien quand on connaît les mots exacts employés dans un document. En pratique, chacun cherche avec son propre vocabulaire : une règle, un contexte, une échéance, une procédure, même si ses mots ne sont pas ceux du fichier d'origine. C'est là que la recherche par proximité de sens (la recherche vectorielle) change la donne.
+La recherche vectorielle convertit chaque texte en une liste de nombres (un embedding) qui capture son sens. Deux textes proches en sens ont des vecteurs proches, même s'ils ne partagent aucun mot. Cette approche permet de retrouver des passages dont le sens correspond à la question.
 
-Le vrai défi n'était pas de brancher un modèle de langage sur un dossier de fichiers, mais de construire un parcours complet : importer les documents, structurer leur contenu, conserver le contexte utile, puis appuyer chaque réponse sur les bons passages. Autrement dit, rendre les données métier assez propres et traçables pour que chaque réponse puisse être vérifiée.
+Mais un RAG ne se résume pas à générer des réponses. Il faut aussi une chaîne de traitement fiable en amont.
 
-## L'ingestion est le vrai point de départ
+## Ingestion des documents
 
-Un système RAG fiable se joue avant tout à l'ingestion : c'est elle qui détermine la qualité de tout ce qui suit.
+L'ingestion part des documents bruts. On nettoie le contenu, on le découpe en passages qui ont du sens, on ajoute des métadonnées (type, date, domaine, droits d'accès).
 
 <Mermaid
   chart={`flowchart TB
@@ -30,14 +30,21 @@ Un système RAG fiable se joue avant tout à l'ingestion : c'est elle qui déter
     D[Enrichissement métier]
     E[Base de connaissance interrogeable]
     A --> B --> C --> D --> E`}
-  caption="La chaîne d'ingestion, du document brut à la connaissance interrogeable"
+  caption="Chaîne d'ingestion : du document brut à la base de connaissance"
 />
 
-Le découpage doit préserver le sens de chaque passage, ni trop fragmenté ni trop long. Les métadonnées qui l'accompagnent (type de document, date, domaine métier, droits d'accès) permettent ensuite de filtrer une recherche et de donner aux équipes un résultat réellement pertinent.
+Le découpage doit préserver le sens des passages. Des segments trop courts perdent le contexte ; trop longs, ils diluent la pertinence. Les métadonnées servent ensuite de filtres pour la recherche et l'accès.
 
-## Une architecture pensée pour durer
+## Architecture
 
-Chaque brique a un rôle précis : une **interface** pour importer et consulter les documents, un **service** qui orchestre les traitements, une **base** qui conserve les documents et leurs représentations, un **moteur vectoriel** qui retrouve les passages les plus proches de la question posée. Quand une réponse rédigée par l'IA est nécessaire, elle s'appuie uniquement sur les extraits sélectionnés.
+La plateforme comprend plusieurs composants :
+
+- une interface d'import et de consultation des documents ;
+- un service d'orchestration des traitements ;
+- une base de données pour les documents et leurs représentations vectorielles ;
+- un moteur de recherche vectorielle pour retrouver les passages les plus proches de la question.
+
+Lorsqu'une réponse rédigée par IA est nécessaire, le modèle reçoit les extraits sélectionnés comme contexte.
 
 <Mermaid
   chart={`flowchart TB
@@ -46,25 +53,32 @@ Chaque brique a un rôle précis : une **interface** pour importer et consulter 
     C[Sélection des passages pertinents]
     D[Réponse claire, appuyée sur les sources]
     A --> B --> C --> D`}
-  caption="Le parcours d'une question, de la recherche à la réponse sourcée"
+  caption="Parcours d'une question : de la recherche à la réponse sourcée"
 />
 
-Cette rigueur sur l'infrastructure n'est pas un détail : c'est elle qui apporte la stabilité nécessaire pour itérer et s'adapter aux besoins futurs, sans tomber dans le piège de la complexité accidentelle. Chaque brique est là parce que le besoin le justifie, pas parce que la technologie le permet.
+Chaque composant a un rôle précis. Cette séparation permet d'itérer sans ajouter de complexité.
 
-## Aller au-delà de la recherche de texte
+## Au-delà de la recherche textuelle
 
-Un RAG classique retrouve des passages et laisse le modèle de langage rédiger une réponse. Mais certaines questions ne se répondent pas dans du texte : elles demandent d'interroger une base de gestion, de calculer un résultat, ou de croiser des séries de données pour en tirer une tendance.
+Un RAG classique récupère des passages textuels et laisse le modèle générer une réponse. Certaines questions nécessitent d'interroger des bases de données structurées, d'effectuer des calculs ou des analyses statistiques.
 
-Sur ce type de plateforme, l'assistant peut aussi orchestrer d'autres outils selon la nature de la question : traduire une demande en requête SQL pour interroger directement une base de gestion, déléguer un calcul, ou faire appel à un module d'analyse statistique (en R, par exemple) pour dégager une tendance plutôt qu'un simple résumé. La recherche sémantique reste le point d'entrée, mais elle n'est plus la seule réponse possible.
+La plateforme peut orchestrer d'autres outils :
 
-C'est cette capacité à orchestrer plusieurs outils, et pas seulement à interroger des documents, qui distingue une architecture pensée pour durer d'une simple démo de recherche augmentée.
+- traduction d'une question en requête SQL pour interroger une base de gestion ;
+- délégation de calculs ;
+- appel à un module d'analyse statistique (par exemple en R) pour produire une tendance.
 
-## Le RAG ne remplace pas la maîtrise des données
+La recherche sémantique reste le point d'entrée, mais le système peut enchaîner plusieurs actions pour répondre.
 
-Une architecture RAG n'a de valeur que si elle reste au service d'un usage concret. Elle doit permettre à une personne de comprendre d'où vient une réponse, de retrouver le document source et, si besoin, de signaler un contenu incomplet ou obsolète.
+## Limites et points d'attention
 
-Cela suppose de penser, dès le départ, à la qualité des sources, aux droits d'accès, au cycle de vie des documents et à la conformité.
+Un RAG ne vaut que si les sources sont fiables et les droits d'accès respectés. La qualité des réponses dépend directement de la qualité de l'ingestion et des métadonnées associées. Il faut prévoir :
 
-## Ce que cette mission confirme
+- la traçabilité des sources ;
+- la gestion des droits d'accès aux documents ;
+- le cycle de vie des contenus (obsolescence, archivage) ;
+- la conformité réglementaire.
 
-Pour beaucoup d'organisations, la valeur de l'IA ne tient pas à une démonstration spectaculaire. Elle tient à la capacité d'exploiter enfin un patrimoine documentaire déjà là. Le RAG devient alors une brique de produit : un moyen de raccourcir la recherche d'information et de mieux partager la connaissance dans l'entreprise, à condition de soigner l'ingestion, les sources et l'expérience de consultation bien avant de parler de modèle de langage.
+## Conclusion
+
+Le RAG sert à retrouver une information dans des documents non structurés et à produire une réponse sourcée. Sa mise en œuvre demande une ingestion soignée et une recherche vectorielle efficace. L'architecture modulaire permet d'étendre le système au-delà de la simple recherche documentaire, par exemple vers SQL ou l'analyse statistique.
