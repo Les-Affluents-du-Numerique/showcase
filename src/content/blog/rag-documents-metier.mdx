@@ -2,47 +2,47 @@
 title: "RAG en entreprise : transformer des documents métier en connaissance exploitable"
 authors: ["daniel-cadeau"]
 tags: ["intelligence-artificielle", "developpement-web"]
-description: "Fonctionnement d'une plateforme RAG pour exploiter des documents non structurés : ingestion, vectorisation, recherche sémantique, génération de réponses sourcées."
+description: "Fonctionnement d'une plateforme RAG pour exploiter des documents non structurés: ingestion, vectorisation, recherche sémantique, génération de réponses sourcées."
 pubDate: "Jul 19 2026"
 ---
 
 import Mermaid from "../../components/Mermaid.astro";
 
-Dans beaucoup d'entreprises, les documents non structurés s'accumulent : notes, comptes rendus, documents administratifs. Une recherche plein texte ne trouve que les mots exacts. Si la question n'emploie pas le même vocabulaire que le document, on passe à côté.
+Dans beaucoup de contextes métier les documents non structurés s'accumulent, cela peut prendre la forme de notes, de comptes rendus, de documents administratifs, etc. Une recherche classique ne se base que sur des mots-clés exacts (éventuellement cela peut-être améliorée avec l'utilisation de dictionnaire de synonymes). Si la question n'emploie pas le même vocabulaire que le document : celui-ci ne ressortira pas.
 
-Le RAG (Retrieval-Augmented Generation) combine deux choses : retrouver des passages pertinents dans une base documentaire, puis demander à un modèle de langage de rédiger une réponse à partir de ces extraits. Le modèle ne répond pas de mémoire, il s'appuie sur des sources identifiées.
+Le RAG (pour Retrieval Augmented Generation) combine deux choses : pouvoir retrouver des passages pertinents dans une base documentaire dans un premier temps, puis demander à un modèle de langage de rédiger une réponse à partir de ces extraits dans un second temps. Le modèle s'appuie ainsi sur des sources identifiables.
 
 ## Recherche sémantique
 
-La recherche vectorielle convertit chaque texte en une liste de nombres (un embedding) qui capture son sens. Deux textes proches en sens ont des vecteurs proches, même s'ils ne partagent aucun mot. Cette approche permet de retrouver des passages dont le sens correspond à la question.
+La recherche vectorielle convertit chaque texte en une liste de nombres (= un embedding) qui capture son sens. Ainsi deux textes au sens proches ont aussi des vecteurs proches, même s'ils ne partagent aucun mot directement. Cette approche permet donc de retrouver des passages dont le sens correspond à la requête formulée.
 
-Mais un RAG ne se résume pas à générer des réponses. Il faut aussi une chaîne de traitement fiable en amont.
+Pour fonctionner un RAG repose donc sur une chaîne de traitement de données en amont de toute génération de réponse.
 
 ## Ingestion des documents
 
-L'ingestion part des documents bruts. On nettoie le contenu, on le découpe en passages qui ont du sens, on ajoute des métadonnées (type, date, domaine, droits d'accès).
+L'ingestion part des documents bruts. On en nettoie le contenu, on le découpe en passages, on ajoute des métadonnées (type, date, domaine).
 
 <Mermaid
   chart={`flowchart TB
-    A[Documents bruts]
-    B[Nettoyage et structuration]
-    C[Découpage en passages]
-    D[Enrichissement métier]
-    E[Base de connaissance interrogeable]
-    A --> B --> C --> D --> E`}
+    A[Fichiers bruts] --> B[Extraction du texte]
+    B --> C[Découpage en passages]
+    C --> D[Génération des embeddings]
+    D --> E[Stockage vectoriel]
+    C --> F[Métadonnées]
+    F --> E`}
   caption="Chaîne d'ingestion : du document brut à la base de connaissance"
 />
 
-Le découpage doit préserver le sens des passages. Des segments trop courts perdent le contexte ; trop longs, ils diluent la pertinence. Les métadonnées servent ensuite de filtres pour la recherche et l'accès.
+Le découpage doit préserver le sens car des segments trop courts perdent le contexte et de trop longs diluent la pertinence. Les métadonnées servent ensuite de filtres.
 
 ## Architecture
 
-La plateforme comprend plusieurs composants :
+La plateforme doit à-minima comprendre les composants suivants :
 
-- une interface d'import et de consultation des documents ;
-- un service d'orchestration des traitements ;
-- une base de données pour les documents et leurs représentations vectorielles ;
-- un moteur de recherche vectorielle pour retrouver les passages les plus proches de la question.
+- une interface d'import et de consultation des documents 
+- un service d'orchestration des traitements 
+- une base de données (par exemple PostgreSQL) et la représentation vectorielle des données (via par exemple le plugin pgvector)
+- un moteur de recherche vectorielle pour retrouver les passages les plus proches de la question
 
 Lorsqu'une réponse rédigée par IA est nécessaire, le modèle reçoit les extraits sélectionnés comme contexte.
 
@@ -51,12 +51,12 @@ Lorsqu'une réponse rédigée par IA est nécessaire, le modèle reçoit les ext
     A[Question posée en langage naturel]
     B[Recherche dans la base de connaissance]
     C[Sélection des passages pertinents]
-    D[Réponse claire, appuyée sur les sources]
+    D[Réponse appuyée sur des sources]
     A --> B --> C --> D`}
   caption="Parcours d'une question : de la recherche à la réponse sourcée"
 />
 
-Chaque composant a un rôle précis. Cette séparation permet d'itérer sans ajouter de complexité.
+Chaque composant a un rôle précis. Cette séparation permet d'itérer.
 
 ## Au-delà de la recherche textuelle
 
@@ -64,21 +64,21 @@ Un RAG classique récupère des passages textuels et laisse le modèle générer
 
 La plateforme peut orchestrer d'autres outils :
 
-- traduction d'une question en requête SQL pour interroger une base de gestion ;
-- délégation de calculs ;
-- appel à un module d'analyse statistique (par exemple en R) pour produire une tendance.
+- traduction d'une question en requête SQL pour interroger une base de gestion
+- délégation de calculs
+- appel à un module d'analyse statistique (par exemple en R) pour produire une tendance
 
-La recherche sémantique reste le point d'entrée, mais le système peut enchaîner plusieurs actions pour répondre.
+La recherche sémantique reste le point d'entrée, mais le système peut enchaîner plusieurs actions pour produire une réponse.
 
 ## Limites et points d'attention
 
 Un RAG ne vaut que si les sources sont fiables et les droits d'accès respectés. La qualité des réponses dépend directement de la qualité de l'ingestion et des métadonnées associées. Il faut prévoir :
 
-- la traçabilité des sources ;
-- la gestion des droits d'accès aux documents ;
-- le cycle de vie des contenus (obsolescence, archivage) ;
-- la conformité réglementaire.
+- la traçabilité des sources 
+- la gestion des droits d'accès aux documents
+- le cycle de vie des contenus (obsolescence, archivage)
+- la conformité réglementaire
 
 ## Conclusion
 
-Le RAG sert à retrouver une information dans des documents non structurés et à produire une réponse sourcée. Sa mise en œuvre demande une ingestion soignée et une recherche vectorielle efficace. L'architecture modulaire permet d'étendre le système au-delà de la simple recherche documentaire, par exemple vers SQL ou l'analyse statistique.
+Le RAG sert entre autre à retrouver une information dans des documents non structurés et à produire une réponse sourcée. Sa mise en œuvre demande une phase d'ingestion soignée et une recherche vectorielle efficace. L'architecture modulaire rend la solution résiliente et permet d'étendre le système au-delà de la simple recherche documentaire et de s'adapter aux différentes évolutions.
