@@ -1,6 +1,5 @@
 ---
 import Eyebrow from "@components/Eyebrow.astro";
-import QuoteCard from "@components/QuoteCard.astro";
 import TeamMemberCard from "@components/TeamMemberCard.astro";
 import { team } from "@data/team";
 ---
@@ -15,7 +14,7 @@ import { team } from "@data/team";
         <h2
           class="font-headline text-4xl font-extrabold leading-tight text-primary md:text-5xl"
         >
-          Quatre développeurs, un relais en cas de besoin.
+          Trois développeurs, un relais en cas de besoin.
         </h2>
       </div>
       <p class="max-w-md leading-7 text-on-surface-variant">
@@ -25,16 +24,8 @@ import { team } from "@data/team";
       </p>
     </div>
 
-    <div class="grid items-stretch gap-8 md:grid-cols-12">
-      <TeamMemberCard {...team[0]} variant="wide" />
-      <TeamMemberCard {...team[1]} variant="tall" />
-
-      <div class="col-span-full">
-        <QuoteCard />
-      </div>
-
-      <TeamMemberCard {...team[2]} variant="tall" />
-      <TeamMemberCard {...team[3]} variant="wide" />
+    <div class="grid items-stretch gap-8 md:grid-cols-3">
+      {team.map((member) => <TeamMemberCard {...member} />)}
     </div>
   </div>
 </section>

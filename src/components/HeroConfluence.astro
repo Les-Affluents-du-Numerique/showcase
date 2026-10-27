@@ -1,0 +1,419 @@
+---
+import { Image } from "astro:assets";
+import { team } from "@data/team";
+
+// Trois affluents — un par membre — qui se rejoignent en un seul cours.
+// Tout est dessiné dans un repère W × H : le SVG trace l'eau, les portraits et
+// libellés sont des éléments HTML placés en pourcentage de ce même repère.
+const W = 520;
+const H = 530;
+
+type Point = [number, number];
+type Curve = [Point, Point, Point, Point];
+
+const cubic = (c: Curve, t: number): Point => {
+  const u = 1 - t;
+  const a = u * u * u;
+  const b = 3 * u * u * t;
+  const d = 3 * u * t * t;
+  const e = t * t * t;
+  return [
+    a * c[0][0] + b * c[1][0] + d * c[2][0] + e * c[3][0],
+    a * c[0][1] + b * c[1][1] + d * c[2][1] + e * c[3][1],
+  ];
+};
+
+const tangent = (c: Curve, t: number): Point => {
+  const u = 1 - t;
+  const a = 3 * u * u;
+  const b = 6 * u * t;
+  const d = 3 * t * t;
+  return [
+    a * (c[1][0] - c[0][0]) + b * (c[2][0] - c[1][0]) + d * (c[3][0] - c[2][0]),
+    a * (c[1][1] - c[0][1]) + b * (c[2][1] - c[1][1]) + d * (c[3][1] - c[2][1]),
+  ];
+};
+
+/**
+ * Contour plein d'un cours d'eau le long d'une courbe de Bézier, dont la
+ * largeur passe de `from` à `to` (un trait SVG garde une épaisseur constante,
+ * alors qu'un cours d'eau s'élargit vers l'aval).
+ */
+const river = (c: Curve, from: number, to: number, steps = 48): string => {
+  const left: Point[] = [];
+  const right: Point[] = [];
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    const [x, y] = cubic(c, t);
+    const [dx, dy] = tangent(c, t);
+    const length = Math.hypot(dx, dy) || 1;
+    const half = (from + (to - from) * Math.pow(t, 1.3)) / 2;
+    const nx = (-dy / length) * half;
+    const ny = (dx / length) * half;
+    left.push([x + nx, y + ny]);
+    right.push([x - nx, y - ny]);
+  }
+  const points = [...left, ...right.reverse()]
+    .map(([x, y]) => `${x.toFixed(1)} ${y.toFixed(1)}`)
+    .join(" L ");
+  return `M ${points} Z`;
+};
+
+const CONFLUENCE_X = 334;
+const CONFLUENCE_Y = 245;
+const MOUTH: Point = [452, CONFLUENCE_Y];
+
+// Les trois affluents arrivent côte à côte (écart de 9) pour recouvrir
+// exactement le départ du cours principal.
+const sources: { at: Point; curve: Curve }[] = [
+  {
+    at: [64, 80],
+    curve: [
+      [64, 80],
+      [180, 80],
+      [236, CONFLUENCE_Y - 12],
+      [CONFLUENCE_X, CONFLUENCE_Y - 9],
+    ],
+  },
+  {
+    at: [40, CONFLUENCE_Y],
+    curve: [
+      [40, CONFLUENCE_Y],
+      [140, CONFLUENCE_Y + 14],
+      [228, CONFLUENCE_Y - 6],
+      [CONFLUENCE_X, CONFLUENCE_Y],
+    ],
+  },
+  {
+    at: [64, 410],
+    curve: [
+      [64, 410],
+      [180, 410],
+      [236, CONFLUENCE_Y + 12],
+      [CONFLUENCE_X, CONFLUENCE_Y + 9],
+    ],
+  },
+];
+
+const streams = team.slice(0, sources.length).map((member, index) => ({
+  ...sources[index],
+  path: river(sources[index].curve, 3, 11),
+  firstName: member.name.split(" ")[0],
+  focus: member.focus,
+  image: member.image,
+}));
+
+// Le cours principal se jette dans le badge « Votre projet ».
+const mainRiver = river(
+  [
+    [CONFLUENCE_X - 8, CONFLUENCE_Y],
+    [380, CONFLUENCE_Y],
+    [420, CONFLUENCE_Y - 4],
+    MOUTH,
+  ],
+  28,
+  34,
+);
+
+const place = ([x, y]: Point) =>
+  `left: ${((x / W) * 100).toFixed(2)}%; top: ${((y / H) * 100).toFixed(2)}%`;
+
+// ── Fond « carte » : courbes de niveau et carroyage ─────────────────────
+/**
+ * Courbes de niveau d'une colline : ellipses concentriques déformées par deux
+ * harmoniques, pour un tracé irrégulier mais reproductible d'un build à l'autre.
+ */
+const hill = (
+  [cx, cy]: Point,
+  levels: number,
+  step: number,
+  stretch: number,
+  phase: number,
+): { d: string; index: boolean }[] =>
+  Array.from({ length: levels }, (_, level) => {
+    const radius = step * (level + 1);
+    const points: string[] = [];
+    for (let i = 0; i < 72; i++) {
+      const angle = (i / 72) * Math.PI * 2;
+      const wobble =
+        1 +
+        0.13 * Math.sin(3 * angle + phase + level * 0.35) +
+        0.07 * Math.sin(5 * angle - phase * 1.7 + level * 0.2);
+      const x = cx + Math.cos(angle) * radius * stretch * wobble;
+      const y = cy + Math.sin(angle) * radius * wobble;
+      points.push(`${x.toFixed(1)} ${y.toFixed(1)}`);
+    }
+    return { d: `M ${points.join(" L ")} Z`, index: (level + 1) % 4 === 0 };
+  });
+
+// Les collines occupent les interfluves, comme sur une vraie carte.
+const contours = [
+  ...hill([178, 160], 6, 11, 1.5, 0.4),
+  ...hill([186, 330], 6, 11, 1.45, 2.1),
+  ...hill([430, 92], 9, 13, 1.25, 1.2),
+  ...hill([440, 430], 8, 13, 1.3, 3.4),
+];
+
+// Carroyage façon atlas, avec des coordonnées autour de Paris.
+const meridians = [104, 208, 312, 416].map((x, i) => ({
+  x,
+  label: `2°${19 + i}′E`,
+}));
+// Pas de libellé sur le parallèle qui passe par l'embouchure : il serait
+// masqué par l'étiquette « Votre projet ».
+const parallels = [60, 160, 260, 360, 460].map((y, i) => ({
+  y,
+  label: Math.abs(y - CONFLUENCE_Y) < 40 ? null : `48°${54 - i}′N`,
+}));
+
+const ariaLabel = `Trois affluents se rejoignent en un seul cours, votre projet : ${streams
+  .map((stream) => `${stream.firstName} (${stream.focus})`)
+  .join(", ")}.`;
+---
+
+<div class="confluence" role="img" aria-label={ariaLabel}>
+  <svg viewBox={`0 0 ${W} ${H}`} class="confluence__water" aria-hidden="true">
+    <defs>
+      <radialGradient id="confluence-fade-gradient" cx="50%" cy="50%" r="60%">
+        <stop offset="0.55" stop-color="#fff"></stop>
+        <stop offset="1" stop-color="#000"></stop>
+      </radialGradient>
+      <mask id="confluence-fade">
+        <rect width={W} height={H} fill="url(#confluence-fade-gradient)"></rect>
+      </mask>
+      <linearGradient
+        id="confluence-water"
+        gradientUnits="userSpaceOnUse"
+        x1="0"
+        y1="0"
+        x2={W}
+        y2="0"
+      >
+        <stop offset="0" style="stop-color: var(--color-primary-fixed-dim)"
+        ></stop>
+        <stop offset="0.6" style="stop-color: var(--color-surface-tint)"></stop>
+        <stop offset="1" style="stop-color: var(--color-primary)"></stop>
+      </linearGradient>
+    </defs>
+    <g class="confluence__map" mask="url(#confluence-fade)">
+      <g class="confluence__grid">
+        {meridians.map(({ x }) => <line x1={x} y1="0" x2={x} y2={H} />)}
+        {parallels.map(({ y }) => <line x1="0" y1={y} x2={W} y2={y} />)}
+      </g>
+      <g class="confluence__contours">
+        {
+          contours.map((contour) => (
+            <path
+              d={contour.d}
+              class:list={[contour.index && "confluence__contour--index"]}
+            />
+          ))
+        }
+      </g>
+    </g>
+
+    <g class="confluence__coords">
+      {
+        meridians.map(({ x, label }) => (
+          <text x={x + 4} y="14">
+            {label}
+          </text>
+        ))
+      }
+      {
+        parallels.map(
+          ({ y, label }) =>
+            label && (
+              <text x={W - 4} y={y - 4} text-anchor="end">
+                {label}
+              </text>
+            ),
+        )
+      }
+    </g>
+
+    <g fill="url(#confluence-water)" class="confluence__rivers">
+      {streams.map((stream) => <path d={stream.path} />)}
+      <path d={mainRiver}></path>
+    </g>
+
+    <!-- Rose des vents -->
+    <g class="confluence__compass" transform={`translate(${W - 34} ${H - 24})`}>
+      <path d="M 0 -16 L 5 0 L 0 16 L -5 0 Z" class="confluence__compass-body"
+      ></path>
+      <path d="M 0 -16 L 5 0 L -5 0 Z" class="confluence__compass-north"></path>
+      <text y="-21" text-anchor="middle">N</text>
+    </g>
+  </svg>
+
+  {
+    streams.map((stream) => (
+      <div class="confluence__node" style={place(stream.at)} aria-hidden="true">
+        <div class="confluence__portrait">
+          <Image
+            src={stream.image}
+            alt=""
+            class="confluence__image object-cover object-top"
+            widths={[120, 200]}
+            sizes="56px"
+          />
+        </div>
+        <div class="confluence__chip confluence__chip--below">
+          <span class="confluence__name">{stream.firstName}</span>
+          <span class="confluence__focus">{stream.focus}</span>
+        </div>
+      </div>
+    ))
+  }
+
+  <div class="confluence__node" style={place(MOUTH)} aria-hidden="true">
+    <div class="confluence__mouth">
+      <span class="material-symbols-outlined">code</span>
+    </div>
+    <div
+      class="confluence__chip confluence__chip--below confluence__chip--center"
+    >
+      <span class="confluence__name">Votre projet</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .confluence {
+    position: relative;
+    width: 100%;
+    max-width: 34rem;
+    aspect-ratio: 520 / 530;
+    margin-inline: auto;
+    isolation: isolate;
+  }
+
+  .confluence__contours {
+    fill: none;
+    stroke: color-mix(in srgb, var(--color-primary) 10%, transparent);
+    stroke-width: 0.8;
+  }
+  .confluence__contour--index {
+    stroke-width: 1.4;
+  }
+
+  .confluence__grid {
+    stroke: color-mix(in srgb, var(--color-primary) 14%, transparent);
+    stroke-width: 0.8;
+    stroke-dasharray: 2 4;
+  }
+
+  .confluence__coords {
+    fill: color-mix(in srgb, var(--color-primary) 45%, transparent);
+    font-family: var(--font-label);
+    font-size: 9px;
+    letter-spacing: 0.06em;
+  }
+
+  /* Berges : un liseré plus soutenu, comme le tracé d'un cours d'eau. */
+  .confluence__rivers {
+    stroke: color-mix(in srgb, var(--color-surface-tint) 55%, transparent);
+    stroke-width: 0.8;
+  }
+
+  .confluence__compass-body {
+    fill: var(--color-surface-container-lowest);
+    stroke: var(--color-primary);
+    stroke-width: 1;
+  }
+  .confluence__compass-north {
+    fill: var(--color-primary);
+  }
+  .confluence__compass text {
+    fill: var(--color-primary);
+    font-family: var(--font-label);
+    font-size: 9px;
+    font-weight: 700;
+  }
+
+  .confluence__node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+
+  .confluence__portrait {
+    width: clamp(2.75rem, 11vw, 3.5rem);
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 3px solid var(--color-surface-container-lowest);
+    border-radius: 50%;
+    background: var(--color-surface-container);
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--color-primary) 18%, transparent),
+      0 0.75rem 1.3rem color-mix(in srgb, var(--color-primary) 12%, transparent);
+  }
+
+  /* `img { height: auto; border-radius }` (base.css) prime sur les
+     utilitaires : on le neutralise ici. */
+  .confluence__image {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .confluence__mouth {
+    display: grid;
+    width: clamp(3rem, 12vw, 3.75rem);
+    aspect-ratio: 1;
+    place-items: center;
+    border: 1px solid color-mix(in srgb, var(--color-primary) 24%, transparent);
+    border-radius: 1rem;
+    background: var(--color-surface-container-lowest);
+    color: var(--color-primary);
+    box-shadow:
+      0 1.2rem 2.8rem color-mix(in srgb, var(--color-primary) 12%, transparent),
+      0 0 2.5rem
+        color-mix(in srgb, var(--color-primary-fixed-dim) 42%, transparent);
+  }
+
+  .confluence__mouth > .material-symbols-outlined {
+    font-size: 1.8rem;
+  }
+
+  .confluence__chip {
+    position: absolute;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 0.4rem 0.65rem;
+    border: 1px solid
+      color-mix(in srgb, var(--color-outline-variant) 42%, transparent);
+    border-radius: 0.6rem;
+    background: color-mix(
+      in srgb,
+      var(--color-surface-container-lowest) 94%,
+      transparent
+    );
+    white-space: nowrap;
+    box-shadow: 0 0.55rem 1.2rem
+      color-mix(in srgb, var(--color-primary) 8%, transparent);
+  }
+
+  .confluence__chip--below {
+    top: calc(100% + 0.5rem);
+  }
+  .confluence__chip--center {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .confluence__name {
+    color: var(--color-primary);
+    font-family: var(--font-headline);
+    font-size: clamp(0.72rem, 1.4vw, 0.85rem);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .confluence__focus {
+    color: var(--color-on-surface-variant);
+    font-size: clamp(0.64rem, 1.2vw, 0.74rem);
+    line-height: 1.2;
+  }
+</style>
