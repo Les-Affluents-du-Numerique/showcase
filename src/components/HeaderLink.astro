@@ -13,7 +13,7 @@ const isActive = href === pathname || href === section;
 
 <a
   href={href}
-  class={`font-label font-semibold text-sm tracking-wide hover:scale-105 transition-all duration-300 ${isActive ? "text-primary border-b-2 border-primary pb-1" : "text-primary/70"}`}
+  class={`font-label font-semibold text-sm tracking-wide hover:text-primary transition-colors duration-300 ${isActive ? "text-primary border-b-2 border-primary pb-1" : "text-primary/70"}`}
   {...props}
 >
   <slot />
