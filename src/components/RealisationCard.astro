@@ -17,7 +17,7 @@ const { project, idx } = Astro.props;
   >
     {
       project.data.hero ? (
-        <a href={`/realisations/${project._slug}`} class="block">
+        <a href={`/realisations/${project._slug}/`} class="block">
           <div
             class={
               idx === 0
@@ -45,7 +45,7 @@ const { project, idx } = Astro.props;
     }
     <div class="p-8">
       <a
-        href={`/realisations/${project._slug}`}
+        href={`/realisations/${project._slug}/`}
         class="inline-block no-underline"
       >
         <h3 class="font-headline text-2xl font-bold text-primary mb-4">
@@ -82,7 +82,7 @@ const { project, idx } = Astro.props;
       }
       <a
         class="inline-flex items-center gap-2 text-primary font-bold text-sm hover:gap-4 transition-all"
-        href={`/realisations/${project._slug}`}
+        href={`/realisations/${project._slug}/`}
       >
         Voir le projet <span
           class="material-symbols-outlined text-sm"

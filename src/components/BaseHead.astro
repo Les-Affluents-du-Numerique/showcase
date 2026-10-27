@@ -58,6 +58,13 @@ const structuredData = buildStructuredData({
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- GitHub Pages ne permet pas de définir d'en-têtes HTTP : la CSP et la
+     politique de referrer sont donc déclarées ici. -->
+<meta
+  http-equiv="Content-Security-Policy"
+  content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https: blob:; connect-src 'self'; base-uri 'self'; form-action 'self';"
+/>
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" href="/favicon.ico" />
 <link rel="sitemap" href="/sitemap-index.xml" />
