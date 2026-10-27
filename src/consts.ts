@@ -6,6 +6,7 @@ import jordanImage from "./assets/jordan_mombongo_profile_picture.webp";
 
 export const SITE_TITLE = "Les Affluents du Numérique";
 export const SITE_LANG = "fr";
+export const CONTACT_EMAIL = "contact@lesaffluentsdunumerique.fr";
 export const POST_TAGS = [
   "Design UI/UX",
   "Développement web",

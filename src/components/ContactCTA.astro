@@ -1,8 +1,9 @@
 ---
-import ContactForm from "@components/contact/ContactForm.astro";
-import ContactSuccess from "@components/contact/ContactSuccess.astro";
-import "../styles/contact-form.css";
-import "../styles/contact-success.css";
+import { CONTACT_EMAIL } from "../consts";
+
+const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+  "Prise de contact via le site",
+)}`;
 
 const benefits = [
   { icon: "schedule", text: "Réponse sous 24h" },
@@ -23,7 +24,9 @@ const benefits = [
         aria-hidden="true"
       >
       </div>
-      <div class="relative grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
+      <div
+        class="relative grid items-center gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16"
+      >
         <div class="max-w-md pt-2">
           <h2
             class="font-headline text-4xl font-extrabold tracking-tight text-white md:text-5xl"
@@ -52,16 +55,31 @@ const benefits = [
         </div>
 
         <div
-          class="contact-panel relative rounded-2xl bg-white text-left shadow-2xl"
+          class="rounded-2xl bg-white p-6 text-left shadow-2xl sm:p-10 lg:p-12"
         >
-          <ContactForm />
-          <ContactSuccess />
+          <p
+            class="font-label text-xs font-bold uppercase tracking-[0.14em] text-on-surface-variant"
+          >
+            Écrivez-nous
+          </p>
+          <a
+            href={mailto}
+            class="mt-3 block font-headline text-lg font-bold text-primary [overflow-wrap:anywhere] hover:text-[#0d7595] sm:text-2xl"
+          >
+            {CONTACT_EMAIL}
+          </a>
+          <a
+            href={mailto}
+            class="mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-[#0d7595] px-6 py-4 font-bold text-white transition-colors hover:bg-[#0a6383]"
+          >
+            Envoyer un e-mail
+            {/* prettier-ignore */}
+            <span class="material-symbols-outlined text-lg" aria-hidden="true"
+              >arrow_forward</span
+            >
+          </a>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<script>
-  import "../scripts/contact-form.ts";
-</script>
