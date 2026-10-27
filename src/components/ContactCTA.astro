@@ -50,22 +50,25 @@ const benefits = [
         </div>
 
         <div
-          class="rounded-2xl bg-white p-6 text-left shadow-2xl sm:p-10 lg:p-12"
+          class="text-left sm:rounded-2xl sm:bg-white sm:p-10 sm:shadow-2xl lg:p-12"
         >
-          <p
-            class="font-label text-xs font-bold uppercase tracking-[0.14em] text-on-surface-variant"
-          >
-            Écrivez-nous
-          </p>
+          <!-- L'adresse ne tient pas sur une ligne en mobile : le bouton suffit. -->
+          <div class="mb-8 hidden sm:block">
+            <p
+              class="font-label text-xs font-bold uppercase tracking-[0.14em] text-on-surface-variant"
+            >
+              Écrivez-nous
+            </p>
+            <a
+              href={mailto}
+              class="mt-3 block font-headline text-2xl font-bold text-primary hover:text-[#0d7595]"
+            >
+              {CONTACT_EMAIL}
+            </a>
+          </div>
           <a
             href={mailto}
-            class="mt-3 block font-headline text-lg font-bold text-primary [overflow-wrap:anywhere] hover:text-[#0d7595] sm:text-2xl"
-          >
-            {CONTACT_EMAIL}
-          </a>
-          <a
-            href={mailto}
-            class="mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-[#0d7595] px-6 py-4 font-bold text-white transition-colors hover:bg-[#0a6383]"
+            class="flex w-full items-center justify-center gap-2 rounded-lg bg-[#0d7595] px-6 py-4 font-bold text-white transition-colors hover:bg-[#0a6383]"
           >
             Envoyer un e-mail
             {/* prettier-ignore */}
