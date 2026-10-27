@@ -1,7 +1,6 @@
 ---
 import Eyebrow from "@components/Eyebrow.astro";
-import TeamOrbit from "@components/TeamOrbit.astro";
-import { team } from "@data/team";
+import TeamTrio from "@components/team/TeamTrio.astro";
 ---
 
 <section class="pb-24 pt-40 md:pb-32 md:pt-44">
@@ -27,7 +26,7 @@ import { team } from "@data/team";
     </div>
 
     <div class="lg:col-span-5">
-      <TeamOrbit members={team.map(({ name, image }) => ({ name, image }))} />
+      <TeamTrio />
     </div>
   </div>
 </section>

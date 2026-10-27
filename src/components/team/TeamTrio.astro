@@ -1,0 +1,63 @@
+---
+import { Image } from "astro:assets";
+import { team } from "@data/team";
+
+// Décalage vertical du portrait central : lecture « photo de groupe » plutôt
+// que grille de vignettes.
+const offsets = ["", "sm:translate-y-10", ""];
+---
+
+<ul
+  class="mx-auto grid max-w-md grid-cols-3 gap-4 sm:gap-6"
+  aria-label="Les membres du collectif"
+>
+  {
+    team.map((member, index) => (
+      <li
+        class:list={[
+          "flex flex-col items-center gap-3 text-center",
+          offsets[index],
+        ]}
+      >
+        <div class="trio__portrait aspect-square w-full max-w-36">
+          <Image
+            src={member.image}
+            alt={`Portrait de ${member.name}`}
+            class="trio__image object-cover object-top"
+            widths={[200, 400]}
+            sizes="(min-width: 640px) 144px, 30vw"
+          />
+        </div>
+        <div>
+          <p class="font-headline text-sm font-bold text-primary sm:text-base">
+            {member.name.split(" ")[0]}
+          </p>
+          <p class="text-xs text-on-surface-variant sm:text-sm">
+            {member.focus}
+          </p>
+        </div>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  /* Même traitement que les anciens portraits de l'orbite : disque blanc
+     cerclé, ombre douce. */
+  .trio__portrait {
+    overflow: hidden;
+    border: 3px solid var(--color-surface-container-lowest);
+    border-radius: 50%;
+    background: var(--color-surface-container);
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--color-primary) 18%, transparent),
+      0 0.75rem 1.3rem color-mix(in srgb, var(--color-primary) 12%, transparent);
+  }
+  /* La règle globale `img { height: auto; border-radius: 8px }` (base.css)
+     prime sur les utilitaires : on la neutralise ici. */
+  .trio__image {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+</style>
