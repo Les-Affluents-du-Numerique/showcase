@@ -106,8 +106,9 @@ pnpm preview
 ```
 
 Le site est entièrement statique. Il est déployé sur GitHub Pages par le workflow
-`.github/workflows/deploy.yml` à chaque push sur `main` (domaine personnalisé
-déclaré dans `public/CNAME`).
+`.github/workflows/deploy.yml` à chaque push sur `main`. Le domaine personnalisé
+se configure dans *Settings → Pages* : avec un déploiement par GitHub Actions,
+GitHub ne lit pas le fichier `public/CNAME`.
 
 ### Sitemap et SEO
 
