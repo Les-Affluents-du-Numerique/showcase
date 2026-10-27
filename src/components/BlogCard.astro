@@ -14,7 +14,7 @@ const { post } = Astro.props;
 <article
   class="group flex flex-col border border-outline-variant/30 bg-surface-container-lowest rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5"
 >
-  <a href={`/blog/posts/${post.id}`} class="flex flex-col h-full">
+  <a href={`/blog/posts/${post.id}/`} class="flex flex-col h-full">
     {
       post.data.heroImage && (
         <div class="aspect-4/3 overflow-hidden">

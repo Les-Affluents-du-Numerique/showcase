@@ -49,7 +49,7 @@ Ce site vitrine est construit avec :
 - **[Astro](https://astro.build/)** 6.1.7 - Framework web moderne et performant
 - **[Tailwind CSS](https://tailwindcss.com/)** 4.2.2 - Framework CSS utilitaire
 - **[MDX](https://mdxjs.com/)** - Markdown enrichi pour le contenu
-- **[Vercel](https://vercel.com/)** - Plateforme de déploiement
+- **[GitHub Pages](https://pages.github.com/)** - Hébergement statique
 - **Material Symbols** - Icônes
 - **Sharp** - Optimisation d'images
 
@@ -105,7 +105,9 @@ pnpm build
 pnpm preview
 ```
 
-Le déploiement sur Vercel se fait automatiquement via GitHub Actions lors d'un push sur la branche principale.
+Le site est entièrement statique. Il est déployé sur GitHub Pages par le workflow
+`.github/workflows/deploy.yml` à chaque push sur `main` (domaine personnalisé
+déclaré dans `public/CNAME`).
 
 ### Sitemap et SEO
 
@@ -114,7 +116,8 @@ Le site génère automatiquement :
 - Un flux RSS pour le blog
 - Un fichier `robots.txt` dynamique
 
-La configuration du sitemap se fait via la variable d'environnement automatiquement via `VERCEL_URL` lors des déploiements Vercel.
+L'URL du site vaut `https://www.lesaffluentsdunumerique.fr` par défaut ; la variable
+d'environnement `SITE_URL` permet de la surcharger.
 
 ### Gestion du Contenu
 

@@ -6,35 +6,16 @@ import { defineConfig, fontProviders } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 
-import vercel from '@astrojs/vercel';
+const PRODUCTION_URL = 'https://www.lesaffluentsdunumerique.fr';
 
-// Determine the site URL based on the environment
-// Priority: SITE_URL env var > VERCEL_PROJECT_PRODUCTION_URL (production) > VERCEL_URL (preview) > fallback
-const getSiteUrl = () => {
-  // Custom environment variable for explicit site URL (can be set in Vercel dashboard)
-  if (process.env.SITE_URL) {
-    // Normalize: remove trailing slash for consistency
-    return process.env.SITE_URL.replace(/\/$/, '');
-  }
-  // For production Vercel deployments, use the stable canonical production URL
-  // VERCEL_PROJECT_PRODUCTION_URL is the custom domain configured in Vercel (e.g. www.lesaffluentsdunumerique.fr)
-  // VERCEL_URL is deployment-specific and changes on every build — not suitable for the sitemap
-  if (process.env.VERCEL_ENV === 'production' && process.env.VERCEL_PROJECT_PRODUCTION_URL) {
-    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
-  }
-  // For Vercel preview deployments, use the deployment-specific URL
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
-  }
-  // Fallback for local development
-  return 'http://localhost:4321';
-};
+// Le site est servi en statique par GitHub Pages sur le domaine personnalisé
+// (voir public/CNAME). SITE_URL permet de surcharger l'URL si besoin.
+const siteUrl = (process.env.SITE_URL || PRODUCTION_URL).replace(/\/$/, '');
 
 // https://astro.build/config
 export default defineConfig({
-  site: getSiteUrl(),
-  // The contact route sends e-mails server-side and must run as a Vercel Function.
-  output: 'server',
+  site: siteUrl,
+  output: 'static',
   integrations: [mdx(), sitemap()],
 
   build: {
@@ -62,6 +43,4 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
-
-  adapter: vercel()
 });
