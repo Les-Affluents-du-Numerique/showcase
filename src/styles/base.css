@@ -32,6 +32,10 @@
 /* Primary brand gradient (CTA buttons and panels) */
 .fluid-gradient {
   background: #0b2535;
+  transition: background-color 300ms ease;
+}
+.fluid-gradient:hover {
+  background: var(--color-surface-tint);
 }
 
 /* Base elements used by MDX content */
